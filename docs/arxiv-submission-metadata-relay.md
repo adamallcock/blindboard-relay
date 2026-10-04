@@ -45,4 +45,8 @@ Submission-specific decisions still required:
 - Confirm final title and abstract exactly match the reviewed manuscript.
 - Record the pinned benchkit version in the reproducibility statement.
 
-The abstract is synchronized with the manuscript. Repository, archive, category, licence and submitter confirmations remain pending publication decisions. No Relay DOI has been issued.
+The title and abstract are synchronized with the reviewed manuscript. The
+public repository, [paper preprint](https://doi.org/10.5281/zenodo.23142984)
+and [code/evidence archive](https://doi.org/10.5281/zenodo.23142771) are
+published and verified. The arXiv category, licence, submitter account and
+endorsement confirmations remain specific to a future arXiv submission.

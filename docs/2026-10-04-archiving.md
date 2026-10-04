@@ -2,7 +2,7 @@
 title: Archiving Blindboard Relay
 date: 2026-10-04
 type: runbook
-status: code-archive-published
+status: published
 ---
 
 # Archiving Blindboard Relay
@@ -13,9 +13,13 @@ The repository includes the code, recorded evidence and paper. The
 [concept DOI](https://doi.org/10.5281/zenodo.23142770) covers all versions.
 Every archived file was verified against the release's checksum inventory.
 The current paper and citation files add the DOI assigned at publication;
-the archived release remains fixed. A separate paper deposit has prepared
-metadata and has not been published. Relay's records are separate from the
-released Blindboard base benchmark.
+the archived release remains fixed.
+
+The [paper preprint](https://doi.org/10.5281/zenodo.23142984), version 1,
+contains the final 26-page PDF with the code/evidence DOI. Its
+[concept DOI](https://doi.org/10.5281/zenodo.23142983) covers future paper
+versions. The paper and code/evidence records link to each other. Relay's
+records are separate from the released Blindboard base benchmark.
 
 ## GitHub integration
 
@@ -33,7 +37,8 @@ The `zenodo/` directory contains API request bodies with the required
 - `zenodo/paper-v1.json` describes the preprint and accompanies `paper/relay.pdf`.
 
 The root `.zenodo.json` and `paper-zenodo.json` contain the corresponding
-unwrapped metadata. These files do not create or publish a deposit.
+unwrapped metadata. These describe the published v1 records; do not create
+duplicate deposits from them. Prepare new versions when files change.
 
 ## After the records are published
 

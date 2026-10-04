@@ -15,7 +15,8 @@ This repository contains the paper, benchmark code and recorded evidence.
 
 ## Paper and evidence
 
-Read the [paper](paper/relay.pdf). Raw recorded episodes, notes, images,
+Read the [Zenodo preprint](https://doi.org/10.5281/zenodo.23142984)
+or the [PDF](paper/relay.pdf). Raw recorded episodes, notes, images,
 summaries and calibrations are under [results/relay/](results/relay/).
 [`BUNDLE.json`](BUNDLE.json) pins the
 source revision and evidence-manifest hash. `SHA256SUMS` hashes every shipped
@@ -77,9 +78,10 @@ base release. See [LICENSE](LICENSE) and
 
 ## Citation and archiving
 
-Use [CITATION.cff](CITATION.cff) to cite this repository. The paper is
+Use [CITATION.cff](CITATION.cff) to cite the paper or repository. The paper is
 *Blindboard Relay: Measuring Model-Written Memory Across Amnesiac Turns*,
-by Adam Allcock (2026).
+by Adam Allcock (2026), published as a
+[Zenodo preprint](https://doi.org/10.5281/zenodo.23142984).
 
 The [v1.0.0 code and evidence archive](https://doi.org/10.5281/zenodo.23142771)
 preserves commit `14161572d8bc7016663b670b1b2f1afdcfc17157`, including the paper.
@@ -87,6 +89,6 @@ The [all-versions DOI](https://doi.org/10.5281/zenodo.23142770) follows the
 archive across releases. The current paper and citation files include the
 DOI assigned after that archive was published.
 
-[Archiving instructions](docs/2026-10-04-archiving.md) describe future releases
-and the prepared metadata for a separate paper deposit. The Relay archive
-is separate from the base benchmark.
+[Archiving instructions](docs/2026-10-04-archiving.md) record both publications
+and describe future releases. The paper and code/evidence records link to
+each other and are separate from the base benchmark.
