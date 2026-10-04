@@ -13,7 +13,7 @@ secondary_categories:
 license: "TODO(confirm arXiv license selection)"
 comments: "26 pages, 6 figures, 9 tables; benchkit house layout; counts checked October 4, 2026"
 repository_url: "https://github.com/adamallcock/blindboard-relay"
-dataset_url: "https://github.com/adamallcock/blindboard-relay/tree/main/results/relay"
+dataset_url: "https://doi.org/10.5281/zenodo.23142771"
 ai_tool_disclosure: "AI coding and writing tools were used in building the environment and harness and in drafting this manuscript; the instrument audit and all data-collection decisions were made under human direction. The author reviewed all content and takes responsibility for it."
 submitter_registered_author: false
 endorsement_checked: false

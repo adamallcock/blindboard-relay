@@ -81,6 +81,12 @@ Use [CITATION.cff](CITATION.cff) to cite this repository. The paper is
 *Blindboard Relay: Measuring Model-Written Memory Across Amnesiac Turns*,
 by Adam Allcock (2026).
 
-Relay's Zenodo archive is pending. [Archiving instructions](docs/2026-10-04-archiving.md)
-describe the GitHub integration and the prepared code/evidence and paper
-metadata. Relay has separate archival records from the base benchmark.
+The [v1.0.0 code and evidence archive](https://doi.org/10.5281/zenodo.23142771)
+preserves commit `14161572d8bc7016663b670b1b2f1afdcfc17157`, including the paper.
+The [all-versions DOI](https://doi.org/10.5281/zenodo.23142770) follows the
+archive across releases. The current paper and citation files include the
+DOI assigned after that archive was published.
+
+[Archiving instructions](docs/2026-10-04-archiving.md) describe future releases
+and the prepared metadata for a separate paper deposit. The Relay archive
+is separate from the base benchmark.

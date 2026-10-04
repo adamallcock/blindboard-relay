@@ -2,13 +2,20 @@
 title: Archiving Blindboard Relay
 date: 2026-10-04
 type: runbook
-status: prepared
+status: code-archive-published
 ---
 
 # Archiving Blindboard Relay
 
-The repository includes the code, recorded evidence and paper. Its Zenodo
-records will be separate from the released Blindboard base benchmark.
+The repository includes the code, recorded evidence and paper. The
+[v1.0.0 archive](https://doi.org/10.5281/zenodo.23142771) preserves commit
+`14161572d8bc7016663b670b1b2f1afdcfc17157`; its
+[concept DOI](https://doi.org/10.5281/zenodo.23142770) covers all versions.
+Every archived file was verified against the release's checksum inventory.
+The current paper and citation files add the DOI assigned at publication;
+the archived release remains fixed. A separate paper deposit has prepared
+metadata and has not been published. Relay's records are separate from the
+released Blindboard base benchmark.
 
 ## GitHub integration
 
