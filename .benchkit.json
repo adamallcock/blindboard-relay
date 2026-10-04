@@ -1,0 +1,198 @@
+{
+  "benchkit_version": "0.3.10",
+  "kit": "../benchmark-kit",
+  "files": [
+    {
+      "source": "benchkit/client/pricing.py",
+      "target": "blindboard/pricing.py"
+    },
+    {
+      "source": "benchkit/client/responses.py",
+      "target": "blindboard/client.py",
+      "import_map": {
+        "benchkit.client.pricing": "blindboard.pricing"
+      }
+    },
+    {
+      "source": "benchkit/client/vision.py",
+      "target": "blindboard/vision.py",
+      "import_map": {
+        "benchkit.client.responses": "blindboard.client",
+        "benchkit.client.pricing": "blindboard.pricing"
+      }
+    },
+    {
+      "source": "benchkit/client/responses_stateful.py",
+      "target": "blindboard/responses_stateful.py",
+      "import_map": {
+        "benchkit.client.pricing": "blindboard.pricing",
+        "benchkit.client.responses": "blindboard.client",
+        "benchkit.client.vision": "blindboard.vision"
+      }
+    },
+    {
+      "source": "benchkit/client/native_session.py",
+      "target": "blindboard/native_session.py",
+      "import_map": {
+        "benchkit.client.pricing": "blindboard.pricing"
+      }
+    },
+    {
+      "source": "benchkit/client/responses_native.py",
+      "target": "blindboard/responses_native.py",
+      "import_map": {
+        "benchkit.client.native_session": "blindboard.native_session",
+        "benchkit.client.responses_stateful": "blindboard.responses_stateful",
+        "benchkit.client.responses": "blindboard.client"
+      }
+    },
+    {
+      "source": "benchkit/client/anthropic_native.py",
+      "target": "blindboard/anthropic_native.py",
+      "import_map": {
+        "benchkit.client.native_session": "blindboard.native_session",
+        "benchkit.client.responses": "blindboard.client"
+      }
+    },
+    {
+      "source": "benchkit/client/openrouter_native.py",
+      "target": "blindboard/openrouter_native.py",
+      "import_map": {
+        "benchkit.client.native_session": "blindboard.native_session",
+        "benchkit.client.openrouter_chat": "blindboard.openrouter_client",
+        "benchkit.client.responses": "blindboard.client"
+      }
+    },
+    {
+      "source": "benchkit/client/gemini_native.py",
+      "target": "blindboard/gemini_native.py",
+      "import_map": {
+        "benchkit.client.gemini_generate": "blindboard.gemini_client",
+        "benchkit.client.native_session": "blindboard.native_session",
+        "benchkit.client.responses": "blindboard.client"
+      }
+    },
+    {
+      "source": "benchkit/client/anthropic_messages.py",
+      "target": "blindboard/anthropic_client.py",
+      "import_map": {
+        "benchkit.client.pricing": "blindboard.pricing",
+        "benchkit.client.responses": "blindboard.client",
+        "benchkit.client.gemini_generate": "blindboard.gemini_client",
+        "benchkit.client.openrouter_chat": "blindboard.openrouter_client"
+      }
+    },
+    {
+      "source": "benchkit/client/gemini_generate.py",
+      "target": "blindboard/gemini_client.py",
+      "import_map": {
+        "benchkit.client.pricing": "blindboard.pricing",
+        "benchkit.client.responses": "blindboard.client"
+      }
+    },
+    {
+      "source": "benchkit/client/openrouter_chat.py",
+      "target": "blindboard/openrouter_client.py",
+      "import_map": {
+        "benchkit.client.pricing": "blindboard.pricing",
+        "benchkit.client.responses": "blindboard.client"
+      }
+    },
+    {
+      "source": "benchkit/client/vision.py",
+      "target": "relay/vision.py",
+      "import_map": {
+        "benchkit.client.responses": "blindboard.client"
+      }
+    },
+    {
+      "source": "benchkit/viz.py",
+      "target": "blindboard/viz.py"
+    },
+    {
+      "source": "benchkit/paper/verify_bib.py",
+      "target": "scripts/verify_bib.py"
+    },
+    {
+      "source": "benchkit/paper/gates.py",
+      "target": "scripts/gates_kit.py"
+    },
+    {
+      "source": "benchkit/paper/vendorcheck.py",
+      "target": "scripts/check_vendored.py"
+    },
+    {
+      "source": "benchkit/paper/benchkit.sty",
+      "target": "paper/benchkit.sty"
+    },
+    {
+      "source": "benchkit/paper/audits/claims.py",
+      "target": "scripts/claims_kit.py"
+    },
+    {
+      "source": "benchkit/paper/audits/source_audit.py",
+      "target": "scripts/source_audit_kit.py"
+    },
+    {
+      "source": "benchkit/paper/audits/pdf_audit.py",
+      "target": "scripts/pdf_audit_kit.py",
+      "import_map": {
+        "benchkit.paper.audits.source_audit": "source_audit_kit"
+      }
+    },
+    {
+      "source": "benchkit/paper/audits/arxiv_bundle.py",
+      "target": "scripts/arxiv_bundle_kit.py"
+    },
+    {
+      "source": "benchkit/paper/audits/arxiv_metadata.py",
+      "target": "scripts/arxiv_metadata_kit.py"
+    },
+    {
+      "source": "benchkit/paper/audits/preflight.py",
+      "target": "scripts/preflight_kit.py",
+      "import_map": {
+        "benchkit.paper.audits.arxiv_bundle": "arxiv_bundle_kit",
+        "benchkit.paper.audits.arxiv_metadata": "arxiv_metadata_kit",
+        "benchkit.paper.audits.claims": "claims_kit",
+        "benchkit.paper.gates": "gates_kit"
+      }
+    },
+    {
+      "source": "benchkit/paper/audits/cost_integrity.py",
+      "target": "scripts/cost_integrity_kit.py"
+    },
+    {
+      "source": "benchkit/paper/tables.py",
+      "target": "blindboard/paper_tables.py"
+    }
+  ],
+  "hashes": {
+    "blindboard/pricing.py": "3c24a1df4f56a75bbe2b463e4b247a02d241603bd29b421e08c64a510e424916",
+    "blindboard/client.py": "5764a70faab35bd9f3226250af462f418f30422ac00c369f51b368374139ce32",
+    "blindboard/vision.py": "588138cd57ab383a4d38b2099eea89a8869b700c2fc4f948a24b2384e7f0f1fc",
+    "blindboard/responses_stateful.py": "e246b20b56c8cad8c08d04cbd5b6d5725c129a30a5ab3260cca76829d3f01b4b",
+    "blindboard/native_session.py": "5b2058d0a866f75c9e28f7fffe9c8bf4ceae6b372558dd55f944800c5709ff03",
+    "blindboard/responses_native.py": "ea9a8efa919de5d5f2cd4ff85ac7405817a54c228052937038d5bd05db097812",
+    "blindboard/anthropic_native.py": "9b2ca94dfbcced27837723d6a18bf2d3115d154c26d837125458c960731d0664",
+    "blindboard/openrouter_native.py": "5d90cd983df967541abc777024bb0b69028c2440f6ca76f3f4a68f8dedf3ea3a",
+    "blindboard/gemini_native.py": "fdd5cc7bc15ad6825064b580108dadb97feccb2276adfe487cd9b67a433e6a25",
+    "blindboard/anthropic_client.py": "0c72b6220de01be6ef78fd6fa29844098a090d4295c54dbe3e7f9056406ce700",
+    "blindboard/gemini_client.py": "1b70e5f8a3ddea44cbf041b546618314e59ffa5320f86ea23d0916649b40b81e",
+    "blindboard/openrouter_client.py": "a78487f44519702727bf1c2df56e36cb9302e5b066ef6a0eb156b4856e89f7dd",
+    "relay/vision.py": "588138cd57ab383a4d38b2099eea89a8869b700c2fc4f948a24b2384e7f0f1fc",
+    "blindboard/viz.py": "cb59196ad80f772b101f16a4c13813cb041ef19bc67403c56890295d458e1571",
+    "scripts/verify_bib.py": "76a9461a0ee28304d329ef20f15693c2288fa1a0be07eb312286d3783c7009ce",
+    "scripts/gates_kit.py": "08dbc6f223ef281898ca44a499bb79790fa7c7af3dfa305a97e85d3a52de06ea",
+    "scripts/check_vendored.py": "c6b1a5a61a5f23d0036129e3c61b78f8c14f324b8505dac2046530420e0cb0ef",
+    "paper/benchkit.sty": "dade37ec20472d4cc3cd78d95a10d401c7997db82b0ff90a35ee24d675f34fbc",
+    "scripts/claims_kit.py": "a083b0de166850929f447b438e3dc7bd6a844caf9efa33156ab0e81791645ebd",
+    "scripts/source_audit_kit.py": "1466b7572f27cead73a41dddca7a0c0b19ebc0c89d790c19b6f70133b71688d9",
+    "scripts/pdf_audit_kit.py": "f7fa75ce235852e223b21c37cf3af53b765ca73e25ab4bc1a63f9b10b4a42a6b",
+    "scripts/arxiv_bundle_kit.py": "6ce876d2e6b1246178c350870bc6103e108fdb01634e375dffb7132e08ffad01",
+    "scripts/arxiv_metadata_kit.py": "4d2828666c69b37dd99f80dbe222b5ad66a2c82746be4e97cd37bf0affbba635",
+    "scripts/preflight_kit.py": "f72cfafb94f23bbaf40b0188a1fc1b08a0b5907aecc0e4f77aab51b045aca7b3",
+    "scripts/cost_integrity_kit.py": "c13ce66f15f91638b50faf8f2dddba669f8e36523a7b8dbe5506bf9f29907baa",
+    "blindboard/paper_tables.py": "3e5988c7cf405217c825d9efabb816f947b384b7214af3fa634ebfd98d16b342"
+  }
+}

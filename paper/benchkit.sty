@@ -1,0 +1,116 @@
+% Vendored from benchkit@0.3.10 (sha256:dade37ec20472d4c). Do not hand-edit; run 'benchkit sync' to update.
+% benchkit.sty — shared benchmark-paper macros and house style (canonical
+% source: benchkit). Consumers receive this file by `benchkit sync` into
+% paper/ and load it with \usepackage{benchkit}. It replaces the per-paper
+% macro block; the house style is opt-in (see "House style" below).
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{benchkit}[2026/09/25 v0.3.7 shared benchmark paper macros and house style]
+\RequirePackage{xcolor}
+
+% ---- House style (opt-in) ---------------------------------------------------
+% The released papers' typographic settings, one option each; `housestyle`
+% turns on all of them. With no option the package only defines the macros
+% below, so a paper that has not opted in renders exactly as before.
+%   captions     caption package: small, bold label, colon; table captions
+%                above the table (write \caption before the tabular),
+%                figure captions below the figure
+%   xref         cleveref [capitalise,nameinlink,noabbrev]: \Cref{label}
+%                prints "Table 3", "Section 5", "Appendix B" with the whole
+%                phrase as the link. Needs hyperref loaded BEFORE benchkit.
+%   compactbib   natbib reference list in small type with tight entry
+%                spacing; pair it with \bibliographystyle{abbrvnat}
+%   floats       float fractions that keep tables near the text citing them
+%                instead of on float-only pages
+%   linebreaks   \emergencystretch, so unbreakable text (monospace, paths)
+%                leaves a line short rather than overrunning the margin
+%   raggedquote  quote environments set ragged-right (verbatim prompts in
+%                monospace can neither stretch nor hyphenate)
+%   tablenotes   threeparttable, for notes set to a table's own width
+\newif\ifbenchkit@captions
+\newif\ifbenchkit@xref
+\newif\ifbenchkit@compactbib
+\newif\ifbenchkit@floats
+\newif\ifbenchkit@linebreaks
+\newif\ifbenchkit@raggedquote
+\newif\ifbenchkit@tablenotes
+\DeclareOption{captions}{\benchkit@captionstrue}
+\DeclareOption{xref}{\benchkit@xreftrue}
+\DeclareOption{compactbib}{\benchkit@compactbibtrue}
+\DeclareOption{floats}{\benchkit@floatstrue}
+\DeclareOption{linebreaks}{\benchkit@linebreakstrue}
+\DeclareOption{raggedquote}{\benchkit@raggedquotetrue}
+\DeclareOption{tablenotes}{\benchkit@tablenotestrue}
+\DeclareOption{housestyle}{%
+  \benchkit@captionstrue\benchkit@xreftrue\benchkit@compactbibtrue
+  \benchkit@floatstrue\benchkit@linebreakstrue\benchkit@raggedquotetrue
+  \benchkit@tablenotestrue}
+\DeclareOption*{\PackageError{benchkit}{Unknown option `\CurrentOption'}%
+  {Options: captions, xref, compactbib, floats, linebreaks, raggedquote,
+   tablenotes, housestyle.}}
+\ProcessOptions\relax
+
+\ifbenchkit@captions
+  \@ifpackageloaded{caption}{}{\RequirePackage{caption}}
+  \captionsetup{font=small,labelfont=bf,labelsep=colon}
+  \captionsetup[table]{position=top,skip=5pt}
+\fi
+
+\ifbenchkit@xref
+  \@ifpackageloaded{hyperref}{}{%
+    \PackageError{benchkit}{Option `xref' needs hyperref loaded before benchkit}%
+      {cleveref must load after hyperref: load hyperref first, then benchkit.}}
+  \@ifpackageloaded{cleveref}{}{\RequirePackage[capitalise,nameinlink,noabbrev]{cleveref}}
+\fi
+
+\ifbenchkit@compactbib
+  \@ifpackageloaded{natbib}{%
+    \providecommand{\bibfont}{}%
+    \renewcommand{\bibfont}{\small}%
+    \setlength{\bibsep}{1.5pt plus 1pt}%
+  }{\PackageWarning{benchkit}{Option `compactbib' needs natbib loaded before
+    benchkit; ignored}}
+\fi
+
+\ifbenchkit@floats
+  \renewcommand{\topfraction}{0.9}
+  \renewcommand{\bottomfraction}{0.8}
+  \renewcommand{\textfraction}{0.07}
+  \renewcommand{\floatpagefraction}{0.75}
+  \setcounter{topnumber}{3}
+  \setcounter{bottomnumber}{2}
+  \setcounter{totalnumber}{5}
+\fi
+
+\ifbenchkit@linebreaks
+  \setlength{\emergencystretch}{2em}
+\fi
+
+\ifbenchkit@raggedquote
+  \ifdefined\AddToHook
+    \AddToHook{env/quote/begin}{\raggedright}
+  \else
+    \PackageWarning{benchkit}{Option `raggedquote' needs a LaTeX format with
+      hooks (2020-10 or later); ignored}
+  \fi
+\fi
+
+\ifbenchkit@tablenotes
+  \RequirePackage{threeparttable}
+\fi
+
+% ---- Macros -------------------------------------------------------------------
+% Benchmark-name styling: papers define their names once, e.g.
+%   \newcommand{\blindboard}{\benchmarkname{Blindboard}}
+\newcommand{\benchmarkname}[1]{\textsc{#1}}
+
+% Claim-discipline markers (obviousbench convention). The claim-blocker
+% audit and readiness gates FAIL while any of these remain in TeX sources:
+% a claim is either backed by a frozen artifact or visibly blocked.
+\newcommand{\obtodo}[1]{\textcolor{red}{\textbf{TODO:} #1}}
+\newcommand{\claimblocked}[1]{\textcolor{purple}{\textbf{Claim blocked:} #1}}
+
+% Snapshot macros: campaign-level numbers (\snapshotname, \snapshotepisodes,
+% \snapshotcalls, \snapshotcostlist, ...) are GENERATED into a tex file by
+% the consumer's asset builder so the paper can never disagree with the
+% frozen artifacts. Load them with \benchkitsnapshot{tables/snapshot_macros}.
+\newcommand{\benchkitsnapshot}[1]{\input{#1}}

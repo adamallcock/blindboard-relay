@@ -1,0 +1,16 @@
+[project]
+name = "blindboard-relay"
+version = "1.0.0"
+description = "Model-written memory across amnesiac turns"
+requires-python = ">=3.11"
+dependencies = []
+
+[project.optional-dependencies]
+test = ["pytest"]
+figures = ["matplotlib"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[tool.setuptools.packages.find]
+include = ["blindboard*", "relay*"]

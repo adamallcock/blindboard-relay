@@ -1,0 +1,1221 @@
+{
+ "records": [
+  {
+   "locks_accepted": {},
+   "meta": {
+    "retries": 0
+   },
+   "press_positions": [
+    0,
+    3,
+    6,
+    9
+   ],
+   "presses": [
+    "L-pinky-top",
+    "L-ring-top",
+    "L-middle-top",
+    "L-index-top"
+   ],
+   "relabel": null,
+   "results": [
+    "I",
+    "M",
+    "U",
+    "X"
+   ],
+   "rotation": {
+    "addresses": [
+     "L-index-home-in",
+     "L-pinky-home",
+     "R-ring-top"
+    ],
+    "mode": "announced",
+    "permutation": {
+     "1": 23,
+     "13": 1,
+     "23": 13
+    },
+    "positions": [
+     1,
+     13,
+     23
+    ]
+   },
+   "turn": 1
+  },
+  {
+   "locks_accepted": {},
+   "meta": {
+    "retries": 0
+   },
+   "press_positions": [
+    0,
+    3,
+    6,
+    12
+   ],
+   "presses": [
+    "L-pinky-top",
+    "L-ring-top",
+    "L-middle-top",
+    "L-index-top-in"
+   ],
+   "relabel": null,
+   "results": [
+    "I",
+    "P",
+    "U",
+    "X"
+   ],
+   "rotation": {
+    "addresses": [
+     "L-middle-home",
+     "R-middle-top",
+     "R-pinky-top"
+    ],
+    "mode": "announced",
+    "permutation": {
+     "21": 25,
+     "25": 7,
+     "7": 21
+    },
+    "positions": [
+     7,
+     21,
+     25
+    ]
+   },
+   "turn": 2
+  },
+  {
+   "locks_accepted": {
+    "L-index-top-in": "P"
+   },
+   "meta": {
+    "retries": 0
+   },
+   "press_positions": [
+    0,
+    1,
+    4,
+    10
+   ],
+   "presses": [
+    "L-pinky-top",
+    "L-pinky-home",
+    "L-ring-home",
+    "L-index-home"
+   ],
+   "relabel": null,
+   "results": [
+    "B",
+    "D",
+    "U",
+    "W"
+   ],
+   "rotation": {
+    "addresses": [
+     "L-middle-top",
+     "L-ring-top",
+     "R-ring-home"
+    ],
+    "mode": "announced",
+    "permutation": {
+     "24": 6,
+     "3": 24,
+     "6": 3
+    },
+    "positions": [
+     3,
+     6,
+     24
+    ]
+   },
+   "turn": 3
+  },
+  {
+   "locks_accepted": {
+    "L-pinky-top": "U"
+   },
+   "meta": {
+    "retries": 0
+   },
+   "press_positions": [
+    3,
+    1,
+    8,
+    11
+   ],
+   "presses": [
+    "L-ring-top",
+    "L-pinky-home",
+    "L-middle-bottom",
+    "L-index-bottom"
+   ],
+   "relabel": null,
+   "results": [
+    "B",
+    "E",
+    "X",
+    "Y"
+   ],
+   "rotation": {
+    "addresses": [
+     "L-index-top",
+     "L-pinky-bottom",
+     "R-index-bottom-in"
+    ],
+    "mode": "announced",
+    "permutation": {
+     "17": 2,
+     "2": 9,
+     "9": 17
+    },
+    "positions": [
+     2,
+     9,
+     17
+    ]
+   },
+   "turn": 4
+  },
+  {
+   "locks_accepted": {},
+   "meta": {
+    "retries": 0
+   },
+   "press_positions": [
+    1,
+    3,
+    4,
+    7
+   ],
+   "presses": [
+    "L-pinky-home",
+    "L-ring-top",
+    "L-ring-home",
+    "L-middle-home"
+   ],
+   "relabel": null,
+   "results": [
+    "B",
+    "D",
+    "L",
+    "X"
+   ],
+   "rotation": {
+    "addresses": [
+     "L-middle-top",
+     "R-index-top-in"
+    ],
+    "mode": "announced",
+    "permutation": {
+     "15": 6,
+     "6": 15
+    },
+    "positions": [
+     6,
+     15
+    ]
+   },
+   "turn": 5
+  },
+  {
+   "locks_accepted": {},
+   "meta": {
+    "retries": 0
+   },
+   "press_positions": [
+    1,
+    4,
+    8,
+    13
+   ],
+   "presses": [
+    "L-pinky-home",
+    "L-ring-home",
+    "L-middle-bottom",
+    "L-index-home-in"
+   ],
+   "relabel": null,
+   "results": [
+    "B",
+    "D",
+    "E",
+    "J"
+   ],
+   "rotation": {
+    "addresses": [
+     "L-middle-home",
+     "R-ring-home"
+    ],
+    "mode": "announced",
+    "permutation": {
+     "24": 7,
+     "7": 24
+    },
+    "positions": [
+     7,
+     24
+    ]
+   },
+   "turn": 6
+  },
+  {
+   "locks_accepted": {
+    "L-index-bottom": "Y",
+    "L-index-home-in": "J",
+    "L-middle-bottom": "E",
+    "L-pinky-home": "B",
+    "L-ring-home": "D",
+    "L-ring-top": "X"
+   },
+   "meta": {
+    "retries": 0
+   },
+   "press_positions": [
+    6,
+    9,
+    10,
+    16
+   ],
+   "presses": [
+    "L-middle-top",
+    "L-index-top",
+    "L-index-home",
+    "R-index-home-in"
+   ],
+   "relabel": null,
+   "results": [
+    "K",
+    "N",
+    "R",
+    "W"
+   ],
+   "rotation": {
+    "addresses": [
+     "L-index-bottom",
+     "L-pinky-top"
+    ],
+    "mode": "announced",
+    "permutation": {
+     "0": 11,
+     "11": 0
+    },
+    "positions": [
+     0,
+     11
+    ]
+   },
+   "turn": 7
+  },
+  {
+   "locks_accepted": {},
+   "meta": {
+    "retries": 0
+   },
+   "press_positions": [
+    6,
+    10,
+    2,
+    5
+   ],
+   "presses": [
+    "L-middle-top",
+    "L-index-home",
+    "L-pinky-bottom",
+    "L-ring-bottom"
+   ],
+   "relabel": null,
+   "results": [
+    "C",
+    "G",
+    "N",
+    "W"
+   ],
+   "rotation": {
+    "addresses": [
+     "R-index-bottom",
+     "R-pinky-top"
+    ],
+    "mode": "announced",
+    "permutation": {
+     "20": 25,
+     "25": 20
+    },
+    "positions": [
+     20,
+     25
+    ]
+   },
+   "turn": 8
+  },
+  {
+   "locks_accepted": {},
+   "meta": {
+    "retries": 0
+   },
+   "press_positions": [
+    6,
+    9,
+    2,
+    18
+   ],
+   "presses": [
+    "L-middle-top",
+    "L-index-top",
+    "L-pinky-bottom",
+    "R-index-top"
+   ],
+   "relabel": null,
+   "results": [
+    "C",
+    "H",
+    "K",
+    "N"
+   ],
+   "rotation": {
+    "mode": "announced",
+    "permutation": {},
+    "positions": []
+   },
+   "turn": 9
+  },
+  {
+   "locks_accepted": {},
+   "meta": {
+    "retries": 0
+   },
+   "press_positions": [
+    7,
+    19,
+    14,
+    17
+   ],
+   "presses": [
+    "L-middle-home",
+    "R-index-home",
+    "L-index-bottom-in",
+    "R-index-bottom-in"
+   ],
+   "relabel": null,
+   "results": [
+    "I",
+    "M",
+    "S",
+    "T"
+   ],
+   "rotation": {
+    "mode": "announced",
+    "permutation": {},
+    "positions": []
+   },
+   "turn": 10
+  },
+  {
+   "locks_accepted": {},
+   "meta": {
+    "retries": 0
+   },
+   "press_positions": [
+    7,
+    15,
+    21,
+    23
+   ],
+   "presses": [
+    "L-middle-home",
+    "R-index-top-in",
+    "R-middle-top",
+    "R-ring-top"
+   ],
+   "relabel": null,
+   "results": [
+    "A",
+    "F",
+    "I",
+    "Z"
+   ],
+   "rotation": {
+    "mode": "announced",
+    "permutation": {},
+    "positions": []
+   },
+   "turn": 11
+  },
+  {
+   "locks_accepted": {
+    "L-middle-home": "I"
+   },
+   "meta": {
+    "retries": 0
+   },
+   "press_positions": [
+    15,
+    19,
+    22,
+    25
+   ],
+   "presses": [
+    "R-index-top-in",
+    "R-index-home",
+    "R-middle-home",
+    "R-pinky-top"
+   ],
+   "relabel": null,
+   "results": [
+    "A",
+    "O",
+    "T",
+    "V"
+   ],
+   "rotation": {
+    "mode": "announced",
+    "permutation": {},
+    "positions": []
+   },
+   "turn": 12
+  },
+  {
+   "locks_accepted": {},
+   "meta": {
+    "retries": 0
+   },
+   "press_positions": [
+    15,
+    25,
+    21,
+    14
+   ],
+   "presses": [
+    "R-index-top-in",
+    "R-pinky-top",
+    "R-middle-top",
+    "L-index-bottom-in"
+   ],
+   "relabel": null,
+   "results": [
+    "A",
+    "F",
+    "S",
+    "V"
+   ],
+   "rotation": {
+    "mode": "announced",
+    "permutation": {},
+    "positions": []
+   },
+   "turn": 13
+  },
+  {
+   "locks_accepted": {},
+   "meta": {
+    "retries": 0
+   },
+   "press_positions": [
+    23,
+    19,
+    22,
+    24
+   ],
+   "presses": [
+    "R-ring-top",
+    "R-index-home",
+    "R-middle-home",
+    "R-ring-home"
+   ],
+   "relabel": null,
+   "results": [
+    "L",
+    "O",
+    "T",
+    "Z"
+   ],
+   "rotation": {
+    "mode": "announced",
+    "permutation": {},
+    "positions": []
+   },
+   "turn": 14
+  }
+ ],
+ "result": {
+  "api_calls": 15,
+  "batons": [
+   {
+    "baton": "pos=qwerty. Plan: replace 1 key/turn to isolate.",
+    "kept_len": 48,
+    "note_len": 48,
+    "truncated": false,
+    "turn": 1
+   },
+   {
+    "baton": "pos=qwerty QWER=IMUX. drop=R add=T",
+    "kept_len": 34,
+    "note_len": 34,
+    "truncated": false,
+    "turn": 2
+   },
+   {
+    "baton": "T=P R=M? QWE=IUX; Q,ASF pressed; next W,A,C,V",
+    "kept_len": 45,
+    "note_len": 45,
+    "truncated": false,
+    "turn": 3
+   },
+   {
+    "baton": "Q=U lock. T=P R=M? SF={BDW}-A EWLrot; prsd AWCV",
+    "kept_len": 47,
+    "note_len": 47,
+    "truncated": false,
+    "turn": 4
+   },
+   {
+    "baton": "Q=U lck. T=P. AWCV={BEXY}. SF+A={BDW}. RZN rot",
+    "kept_len": 46,
+    "note_len": 46,
+    "truncated": false,
+    "turn": 5
+   },
+   {
+    "baton": "Q=U(lk) T=P AW:BX SD:DL CV:EY rot:EY,RZN",
+    "kept_len": 40,
+    "note_len": 40,
+    "truncated": false,
+    "turn": 6
+   },
+   {
+    "baton": "UX..P.....BD..J......EY... ERFH",
+    "kept_len": 31,
+    "note_len": 31,
+    "truncated": false,
+    "turn": 7
+   },
+   {
+    "baton": "YX..P.....BD..J......EU... ERFH:KNRW P:EFZX",
+    "kept_len": 43,
+    "note_len": 43,
+    "truncated": false,
+    "turn": 8
+   },
+   {
+    "baton": "YX..P.....BD..J......EU... EF:NW RH:KR ZX:CG",
+    "kept_len": 44,
+    "note_len": 44,
+    "truncated": false,
+    "turn": 9
+   },
+   {
+    "baton": "YXNKP.H...BD.WJR...CGEU... nxt:DJ,KM",
+    "kept_len": 36,
+    "note_len": 36,
+    "truncated": false,
+    "turn": 10
+   },
+   {
+    "baton": "YXNKP.H...BD.WJR...CGEU... DJBN=IMST",
+    "kept_len": 36,
+    "note_len": 36,
+    "truncated": false,
+    "turn": 11
+   },
+   {
+    "baton": "YXNKP.H...BDIWJR...CGEU... IO:AFZ BN:MST PK:LOQV",
+    "kept_len": 48,
+    "note_len": 48,
+    "truncated": false,
+    "turn": 12
+   },
+   {
+    "baton": "YXNKP.H...BDIWJR...CGEU... YAT POV IFZ BMS LM:LQ",
+    "kept_len": 48,
+    "note_len": 48,
+    "truncated": false,
+    "turn": 13
+   },
+   {
+    "baton": "QWERTY:YXNKPAHF.VBDIWJR...CGEUSM. O:O J:T K:Z L?",
+    "kept_len": 48,
+    "note_len": 48,
+    "truncated": false,
+    "turn": 14
+   },
+   {
+    "baton": "",
+    "kept_len": 0,
+    "note_len": 0,
+    "truncated": false,
+    "turn": 15
+   }
+  ],
+  "board_accuracy": 0.9230769230769231,
+  "board_n": 26,
+  "budget_chars": 50,
+  "budget_schedule": null,
+  "condition": "freeform",
+  "config": {
+   "board": "qwerty26",
+   "chord_size": 4,
+   "dual": false,
+   "horizon": 20,
+   "layout_kind": "random",
+   "lock_bonus": 1,
+   "lock_penalty": -3,
+   "min_guess_turn": 1,
+   "near_qwerty_swaps": 6,
+   "relabel_every": 0,
+   "rotation_mode": "announced",
+   "rotation_schedule": [
+    3,
+    3,
+    3,
+    3,
+    2,
+    2,
+    2,
+    2
+   ],
+   "rotor_size": 4
+  },
+  "constitution": null,
+  "correct": 24,
+  "diagnostics": {
+   "deduced_correct_in_guess": 24,
+   "deducible_at_guess": 26,
+   "known_presses": 16,
+   "total_presses": 56,
+   "tracker_truth_matches": 26,
+   "zero_info_chords": 1
+  },
+  "effort": "medium",
+  "final_layout": {
+   "L-index-bottom": "U",
+   "L-index-bottom-in": "S",
+   "L-index-home": "W",
+   "L-index-home-in": "J",
+   "L-index-top": "K",
+   "L-index-top-in": "P",
+   "L-middle-bottom": "E",
+   "L-middle-home": "I",
+   "L-middle-top": "N",
+   "L-pinky-bottom": "C",
+   "L-pinky-home": "B",
+   "L-pinky-top": "Y",
+   "L-ring-bottom": "G",
+   "L-ring-home": "D",
+   "L-ring-top": "X",
+   "R-index-bottom": "Q",
+   "R-index-bottom-in": "M",
+   "R-index-home": "T",
+   "R-index-home-in": "R",
+   "R-index-top": "H",
+   "R-index-top-in": "A",
+   "R-middle-home": "O",
+   "R-middle-top": "F",
+   "R-pinky-top": "V",
+   "R-ring-home": "L",
+   "R-ring-top": "Z"
+  },
+  "forced_guess": false,
+  "form_dropped_entries": 0,
+  "form_invalid_entries": 0,
+  "form_overflow_entries": 0,
+  "guess": {
+   "L-index-bottom": "U",
+   "L-index-bottom-in": "S",
+   "L-index-home": "W",
+   "L-index-home-in": "J",
+   "L-index-top": "K",
+   "L-index-top-in": "P",
+   "L-middle-bottom": "E",
+   "L-middle-home": "I",
+   "L-middle-top": "N",
+   "L-pinky-bottom": "C",
+   "L-pinky-home": "B",
+   "L-pinky-top": "Y",
+   "L-ring-bottom": "G",
+   "L-ring-home": "D",
+   "L-ring-top": "X",
+   "R-index-bottom": "Q",
+   "R-index-bottom-in": "M",
+   "R-index-home": "T",
+   "R-index-home-in": "R",
+   "R-index-top": "H",
+   "R-index-top-in": "A",
+   "R-middle-home": "Z",
+   "R-middle-top": "F",
+   "R-pinky-top": "V",
+   "R-ring-home": "L",
+   "R-ring-top": "O"
+  },
+  "guess_turn": 15,
+  "lock_correct": 9,
+  "lock_score": 9,
+  "lock_wrong": 0,
+  "locks": {
+   "L-index-bottom": "Y",
+   "L-index-home-in": "J",
+   "L-index-top-in": "P",
+   "L-middle-bottom": "E",
+   "L-middle-home": "I",
+   "L-pinky-home": "B",
+   "L-pinky-top": "U",
+   "L-ring-home": "D",
+   "L-ring-top": "X"
+  },
+  "meta": {
+   "retries": 0
+  },
+  "model": "gemini-3.8-flash",
+  "no_note_turns": 1,
+  "prompt_version": "relay-v2",
+  "seed": 11,
+  "total_retries": 0,
+  "truncated_turns": 0,
+  "usage": {
+   "input_tokens": 17549,
+   "output_tokens": 126028,
+   "thinking_tokens": 124554,
+   "total_tokens": 143577
+  },
+  "violations": []
+ },
+ "turns": [
+  {
+   "baton_in": "",
+   "baton_out": "pos=qwerty. Plan: replace 1 key/turn to isolate.",
+   "phase": "press",
+   "replies": [
+    {
+     "conversation_state": {
+      "legacy_opt_in": false,
+      "lossless": true,
+      "mode": "single_inference"
+     },
+     "provenance": {
+      "model_version": "gemini-3.8-flash",
+      "response_id": "7BK3aozoFpXUjMcPobnz0QY"
+     },
+     "reasoning": [],
+     "stop_reason": "STOP",
+     "text": "```json\n{\n  \"presses\": [\n    \"L-pinky-top\",\n    \"L-ring-top\",\n    \"L-middle-top\",\n    \"L-index-top\"\n  ],\n  \"note\": \"pos=qwerty. Plan: replace 1 key/turn to isolate.\"\n}\n```",
+     "usage": {
+      "input_tokens": 1088,
+      "output_tokens": 1847,
+      "thinking_tokens": 1770,
+      "total_tokens": 2935
+     }
+    }
+   ],
+   "turn": 1,
+   "user": "YOUR NOTE FROM LAST TURN: (none — you left no note)\n\nTURN 1 of 20.\nReply with your action JSON.\nInclude your note for next turn: \"note\" (max 50 characters this turn)."
+  },
+  {
+   "baton_in": "pos=qwerty. Plan: replace 1 key/turn to isolate.",
+   "baton_out": "pos=qwerty QWER=IMUX. drop=R add=T",
+   "phase": "press",
+   "replies": [
+    {
+     "conversation_state": {
+      "legacy_opt_in": false,
+      "lossless": true,
+      "mode": "single_inference"
+     },
+     "provenance": {
+      "model_version": "gemini-3.8-flash",
+      "response_id": "8xK3au7NIda__uMPkMLssQs"
+     },
+     "reasoning": [],
+     "stop_reason": "STOP",
+     "text": "```json\n{\n  \"presses\": [\n    \"L-pinky-top\",\n    \"L-ring-top\",\n    \"L-middle-top\",\n    \"L-index-top-in\"\n  ],\n  \"note\": \"pos=qwerty QWER=IMUX. drop=R add=T\"\n}\n```",
+     "usage": {
+      "input_tokens": 1180,
+      "output_tokens": 2522,
+      "thinking_tokens": 2442,
+      "total_tokens": 3702
+     }
+    }
+   ],
+   "turn": 2,
+   "user": "YOUR NOTE FROM LAST TURN:\n<<<pos=qwerty. Plan: replace 1 key/turn to isolate.>>>\n\nTURN 2 of 20.\nLast turn you pressed: L-pinky-top, L-ring-top, L-middle-top, L-index-top.\nTheir symbols (canonical order, unordered): I, M, U, X.\nRotation notice: these keys were rotated after your presses: L-index-home-in, L-pinky-home, R-ring-top.\nReply with your action JSON.\nInclude your note for next turn: \"note\" (max 50 characters this turn)."
+  },
+  {
+   "baton_in": "pos=qwerty QWER=IMUX. drop=R add=T",
+   "baton_out": "T=P R=M? QWE=IUX; Q,ASF pressed; next W,A,C,V",
+   "phase": "press",
+   "replies": [
+    {
+     "conversation_state": {
+      "legacy_opt_in": false,
+      "lossless": true,
+      "mode": "single_inference"
+     },
+     "provenance": {
+      "model_version": "gemini-3.8-flash",
+      "response_id": "_RK3ap7AGaOcjrEPtMWkqQ0"
+     },
+     "reasoning": [],
+     "stop_reason": "STOP",
+     "text": "```json\n{\n  \"presses\": [\n    \"L-pinky-top\",\n    \"L-pinky-home\",\n    \"L-ring-home\",\n    \"L-index-home\"\n  ],\n  \"locks\": {\n    \"L-index-top-in\": \"P\"\n  },\n  \"note\": \"T=P R=M? QWE=IUX; Q,ASF pressed; next W,A,C,V\"\n}\n```",
+     "usage": {
+      "input_tokens": 1180,
+      "output_tokens": 5144,
+      "thinking_tokens": 5032,
+      "total_tokens": 6324
+     }
+    }
+   ],
+   "turn": 3,
+   "user": "YOUR NOTE FROM LAST TURN:\n<<<pos=qwerty QWER=IMUX. drop=R add=T>>>\n\nTURN 3 of 20.\nLast turn you pressed: L-pinky-top, L-ring-top, L-middle-top, L-index-top-in.\nTheir symbols (canonical order, unordered): I, P, U, X.\nRotation notice: these keys were rotated after your presses: L-middle-home, R-middle-top, R-pinky-top.\nReply with your action JSON.\nInclude your note for next turn: \"note\" (max 50 characters this turn)."
+  },
+  {
+   "baton_in": "T=P R=M? QWE=IUX; Q,ASF pressed; next W,A,C,V",
+   "baton_out": "Q=U lock. T=P R=M? SF={BDW}-A EWLrot; prsd AWCV",
+   "phase": "press",
+   "replies": [
+    {
+     "conversation_state": {
+      "legacy_opt_in": false,
+      "lossless": true,
+      "mode": "single_inference"
+     },
+     "provenance": {
+      "model_version": "gemini-3.8-flash",
+      "response_id": "ERO3avGLM4WWjMcP4vvF6Qc"
+     },
+     "reasoning": [],
+     "stop_reason": "STOP",
+     "text": "```json\n{\n  \"presses\": [\n    \"L-ring-top\",\n    \"L-pinky-home\",\n    \"L-middle-bottom\",\n    \"L-index-bottom\"\n  ],\n  \"locks\": {\n    \"L-pinky-top\": \"U\"\n  },\n  \"note\": \"Q=U lock. T=P R=M? SF={BDW}-A EWLrot; prsd AWCV\"\n}\n```",
+     "usage": {
+      "input_tokens": 1188,
+      "output_tokens": 3893,
+      "thinking_tokens": 3783,
+      "total_tokens": 5081
+     }
+    }
+   ],
+   "turn": 4,
+   "user": "YOUR NOTE FROM LAST TURN:\n<<<T=P R=M? QWE=IUX; Q,ASF pressed; next W,A,C,V>>>\n\nTURN 4 of 20.\nLast turn you pressed: L-pinky-top, L-pinky-home, L-ring-home, L-index-home.\nTheir symbols (canonical order, unordered): B, D, U, W.\nRotation notice: these keys were rotated after your presses: L-middle-top, L-ring-top, R-ring-home.\nReply with your action JSON.\nInclude your note for next turn: \"note\" (max 50 characters this turn)."
+  },
+  {
+   "baton_in": "Q=U lock. T=P R=M? SF={BDW}-A EWLrot; prsd AWCV",
+   "baton_out": "Q=U lck. T=P. AWCV={BEXY}. SF+A={BDW}. RZN rot",
+   "phase": "press",
+   "replies": [
+    {
+     "conversation_state": {
+      "legacy_opt_in": false,
+      "lossless": true,
+      "mode": "single_inference"
+     },
+     "provenance": {
+      "model_version": "gemini-3.8-flash",
+      "response_id": "IBO3aoziKeC1_PUP9qjtiQc"
+     },
+     "reasoning": [],
+     "stop_reason": "STOP",
+     "text": "{\"presses\": [\"L-pinky-home\", \"L-ring-top\", \"L-ring-home\", \"L-middle-home\"], \"note\": \"Q=U lck. T=P. AWCV={BEXY}. SF+A={BDW}. RZN rot\"}",
+     "usage": {
+      "input_tokens": 1190,
+      "output_tokens": 2551,
+      "thinking_tokens": 2486,
+      "total_tokens": 3741
+     }
+    }
+   ],
+   "turn": 5,
+   "user": "YOUR NOTE FROM LAST TURN:\n<<<Q=U lock. T=P R=M? SF={BDW}-A EWLrot; prsd AWCV>>>\n\nTURN 5 of 20.\nLast turn you pressed: L-ring-top, L-pinky-home, L-middle-bottom, L-index-bottom.\nTheir symbols (canonical order, unordered): B, E, X, Y.\nRotation notice: these keys were rotated after your presses: L-index-top, L-pinky-bottom, R-index-bottom-in.\nReply with your action JSON.\nInclude your note for next turn: \"note\" (max 50 characters this turn)."
+  },
+  {
+   "baton_in": "Q=U lck. T=P. AWCV={BEXY}. SF+A={BDW}. RZN rot",
+   "baton_out": "Q=U(lk) T=P AW:BX SD:DL CV:EY rot:EY,RZN",
+   "phase": "press",
+   "replies": [
+    {
+     "conversation_state": {
+      "legacy_opt_in": false,
+      "lossless": true,
+      "mode": "single_inference"
+     },
+     "provenance": {
+      "model_version": "gemini-3.8-flash",
+      "response_id": "KhO3apPhO-3UjMcP8c-M4QY"
+     },
+     "reasoning": [],
+     "stop_reason": "STOP",
+     "text": "```json\n{\n  \"presses\": [\n    \"L-pinky-home\",\n    \"L-ring-home\",\n    \"L-middle-bottom\",\n    \"L-index-home-in\"\n  ],\n  \"note\": \"Q=U(lk) T=P AW:BX SD:DL CV:EY rot:EY,RZN\"\n}\n```",
+     "usage": {
+      "input_tokens": 1184,
+      "output_tokens": 4312,
+      "thinking_tokens": 4224,
+      "total_tokens": 5496
+     }
+    }
+   ],
+   "turn": 6,
+   "user": "YOUR NOTE FROM LAST TURN:\n<<<Q=U lck. T=P. AWCV={BEXY}. SF+A={BDW}. RZN rot>>>\n\nTURN 6 of 20.\nLast turn you pressed: L-pinky-home, L-ring-top, L-ring-home, L-middle-home.\nTheir symbols (canonical order, unordered): B, D, L, X.\nRotation notice: these keys were rotated after your presses: L-middle-top, R-index-top-in.\nReply with your action JSON.\nInclude your note for next turn: \"note\" (max 50 characters this turn)."
+  },
+  {
+   "baton_in": "Q=U(lk) T=P AW:BX SD:DL CV:EY rot:EY,RZN",
+   "baton_out": "UX..P.....BD..J......EY... ERFH",
+   "phase": "press",
+   "replies": [
+    {
+     "conversation_state": {
+      "legacy_opt_in": false,
+      "lossless": true,
+      "mode": "single_inference"
+     },
+     "provenance": {
+      "model_version": "gemini-3.8-flash",
+      "response_id": "OhO3apbdPKqb9MoP6uSuiA4"
+     },
+     "reasoning": [],
+     "stop_reason": "STOP",
+     "text": "```json\n{\n  \"presses\": [\n    \"L-middle-top\",\n    \"L-index-top\",\n    \"L-index-home\",\n    \"R-index-home-in\"\n  ],\n  \"locks\": {\n    \"L-ring-top\": \"X\",\n    \"L-index-top-in\": \"P\",\n    \"L-pinky-home\": \"B\",\n    \"L-ring-home\": \"D\",\n    \"L-index-home-in\": \"J\",\n    \"L-middle-bottom\": \"E\",\n    \"L-index-bottom\": \"Y\"\n  },\n  \"note\": \"UX..P.....BD..J......EY... ERFH\"\n}\n```",
+     "usage": {
+      "input_tokens": 1181,
+      "output_tokens": 3894,
+      "thinking_tokens": 3721,
+      "total_tokens": 5075
+     }
+    }
+   ],
+   "turn": 7,
+   "user": "YOUR NOTE FROM LAST TURN:\n<<<Q=U(lk) T=P AW:BX SD:DL CV:EY rot:EY,RZN>>>\n\nTURN 7 of 20.\nLast turn you pressed: L-pinky-home, L-ring-home, L-middle-bottom, L-index-home-in.\nTheir symbols (canonical order, unordered): B, D, E, J.\nRotation notice: these keys were rotated after your presses: L-middle-home, R-ring-home.\nReply with your action JSON.\nInclude your note for next turn: \"note\" (max 50 characters this turn)."
+  },
+  {
+   "baton_in": "UX..P.....BD..J......EY... ERFH",
+   "baton_out": "YX..P.....BD..J......EU... ERFH:KNRW P:EFZX",
+   "phase": "press",
+   "replies": [
+    {
+     "conversation_state": {
+      "legacy_opt_in": false,
+      "lossless": true,
+      "mode": "single_inference"
+     },
+     "provenance": {
+      "model_version": "gemini-3.8-flash",
+      "response_id": "SRO3atOGJ9LBjMcPsdLA4Ac"
+     },
+     "reasoning": [],
+     "stop_reason": "STOP",
+     "text": "{\"presses\": [\"L-middle-top\", \"L-index-home\", \"L-pinky-bottom\", \"L-ring-bottom\"], \"note\": \"YX..P.....BD..J......EU... ERFH:KNRW P:EFZX\"}",
+     "usage": {
+      "input_tokens": 1187,
+      "output_tokens": 7865,
+      "thinking_tokens": 7807,
+      "total_tokens": 9052
+     }
+    }
+   ],
+   "turn": 8,
+   "user": "YOUR NOTE FROM LAST TURN:\n<<<UX..P.....BD..J......EY... ERFH>>>\n\nTURN 8 of 20.\nLast turn you pressed: L-middle-top, L-index-top, L-index-home, R-index-home-in.\nTheir symbols (canonical order, unordered): K, N, R, W.\nRotation notice: these keys were rotated after your presses: L-index-bottom, L-pinky-top.\nLock on L-index-top-in ignored: that key is already locked.\nReply with your action JSON.\nInclude your note for next turn: \"note\" (max 50 characters this turn)."
+  },
+  {
+   "baton_in": "YX..P.....BD..J......EU... ERFH:KNRW P:EFZX",
+   "baton_out": "YX..P.....BD..J......EU... EF:NW RH:KR ZX:CG",
+   "phase": "press",
+   "replies": [
+    {
+     "conversation_state": {
+      "legacy_opt_in": false,
+      "lossless": true,
+      "mode": "single_inference"
+     },
+     "provenance": {
+      "model_version": "gemini-3.8-flash",
+      "response_id": "YxO3aquGOdG9jrEPvdCN2As"
+     },
+     "reasoning": [],
+     "stop_reason": "STOP",
+     "text": "{\"presses\": [\"L-middle-top\", \"L-index-top\", \"L-pinky-bottom\", \"R-index-top\"], \"note\": \"YX..P.....BD..J......EU... EF:NW RH:KR ZX:CG\"}",
+     "usage": {
+      "input_tokens": 1176,
+      "output_tokens": 7743,
+      "thinking_tokens": 7686,
+      "total_tokens": 8919
+     }
+    }
+   ],
+   "turn": 9,
+   "user": "YOUR NOTE FROM LAST TURN:\n<<<YX..P.....BD..J......EU... ERFH:KNRW P:EFZX>>>\n\nTURN 9 of 20.\nLast turn you pressed: L-middle-top, L-index-home, L-pinky-bottom, L-ring-bottom.\nTheir symbols (canonical order, unordered): C, G, N, W.\nRotation notice: these keys were rotated after your presses: R-index-bottom, R-pinky-top.\nReply with your action JSON.\nInclude your note for next turn: \"note\" (max 50 characters this turn)."
+  },
+  {
+   "baton_in": "YX..P.....BD..J......EU... EF:NW RH:KR ZX:CG",
+   "baton_out": "YXNKP.H...BD.WJR...CGEU... nxt:DJ,KM",
+   "phase": "press",
+   "replies": [
+    {
+     "conversation_state": {
+      "legacy_opt_in": false,
+      "lossless": true,
+      "mode": "single_inference"
+     },
+     "provenance": {
+      "model_version": "gemini-3.8-flash",
+      "response_id": "fhO3avDrE9PM-sAP1unXwAY"
+     },
+     "reasoning": [],
+     "stop_reason": "STOP",
+     "text": "{\"presses\": [\"L-middle-home\", \"R-index-home\", \"L-index-bottom-in\", \"R-index-bottom-in\"], \"note\": \"YXNKP.H...BD.WJR...CGEU... nxt:DJ,KM\"}",
+     "usage": {
+      "input_tokens": 1160,
+      "output_tokens": 19294,
+      "thinking_tokens": 19232,
+      "total_tokens": 20454
+     }
+    }
+   ],
+   "turn": 10,
+   "user": "YOUR NOTE FROM LAST TURN:\n<<<YX..P.....BD..J......EU... EF:NW RH:KR ZX:CG>>>\n\nTURN 10 of 20.\nLast turn you pressed: L-middle-top, L-index-top, L-pinky-bottom, R-index-top.\nTheir symbols (canonical order, unordered): C, H, K, N.\nRotation notice: no keys were rotated.\nReply with your action JSON.\nInclude your note for next turn: \"note\" (max 50 characters this turn)."
+  },
+  {
+   "baton_in": "YXNKP.H...BD.WJR...CGEU... nxt:DJ,KM",
+   "baton_out": "YXNKP.H...BD.WJR...CGEU... DJBN=IMST",
+   "phase": "press",
+   "replies": [
+    {
+     "conversation_state": {
+      "legacy_opt_in": false,
+      "lossless": true,
+      "mode": "single_inference"
+     },
+     "provenance": {
+      "model_version": "gemini-3.8-flash",
+      "response_id": "tBO3arG3L6XZ-8YP_KePQA"
+     },
+     "reasoning": [],
+     "stop_reason": "STOP",
+     "text": "```json\n{\"presses\": [\"L-middle-home\", \"R-index-top-in\", \"R-middle-top\", \"R-ring-top\"], \"note\": \"YXNKP.H...BD.WJR...CGEU... DJBN=IMST\"}\n```",
+     "usage": {
+      "input_tokens": 1165,
+      "output_tokens": 8600,
+      "thinking_tokens": 8536,
+      "total_tokens": 9765
+     }
+    }
+   ],
+   "turn": 11,
+   "user": "YOUR NOTE FROM LAST TURN:\n<<<YXNKP.H...BD.WJR...CGEU... nxt:DJ,KM>>>\n\nTURN 11 of 20.\nLast turn you pressed: L-middle-home, R-index-home, L-index-bottom-in, R-index-bottom-in.\nTheir symbols (canonical order, unordered): I, M, S, T.\nRotation notice: no keys were rotated.\nReply with your action JSON.\nInclude your note for next turn: \"note\" (max 50 characters this turn)."
+  },
+  {
+   "baton_in": "YXNKP.H...BD.WJR...CGEU... DJBN=IMST",
+   "baton_out": "YXNKP.H...BDIWJR...CGEU... IO:AFZ BN:MST PK:LOQV",
+   "phase": "press",
+   "replies": [
+    {
+     "conversation_state": {
+      "legacy_opt_in": false,
+      "lossless": true,
+      "mode": "single_inference"
+     },
+     "provenance": {
+      "model_version": "gemini-3.8-flash",
+      "response_id": "0RO3asPjErfM-sAPifvH4AQ"
+     },
+     "reasoning": [],
+     "stop_reason": "STOP",
+     "text": "```json\n{\n  \"presses\": [\n    \"R-index-top-in\",\n    \"R-index-home\",\n    \"R-middle-home\",\n    \"R-pinky-top\"\n  ],\n  \"locks\": {\n    \"L-middle-home\": \"I\"\n  },\n  \"note\": \"YXNKP.H...BDIWJR...CGEU... IO:AFZ BN:MST PK:LOQV\"\n}\n```",
+     "usage": {
+      "input_tokens": 1162,
+      "output_tokens": 8784,
+      "thinking_tokens": 8673,
+      "total_tokens": 9946
+     }
+    }
+   ],
+   "turn": 12,
+   "user": "YOUR NOTE FROM LAST TURN:\n<<<YXNKP.H...BD.WJR...CGEU... DJBN=IMST>>>\n\nTURN 12 of 20.\nLast turn you pressed: L-middle-home, R-index-top-in, R-middle-top, R-ring-top.\nTheir symbols (canonical order, unordered): A, F, I, Z.\nRotation notice: no keys were rotated.\nReply with your action JSON.\nInclude your note for next turn: \"note\" (max 50 characters this turn)."
+  },
+  {
+   "baton_in": "YXNKP.H...BDIWJR...CGEU... IO:AFZ BN:MST PK:LOQV",
+   "baton_out": "YXNKP.H...BDIWJR...CGEU... YAT POV IFZ BMS LM:LQ",
+   "phase": "press",
+   "replies": [
+    {
+     "conversation_state": {
+      "legacy_opt_in": false,
+      "lossless": true,
+      "mode": "single_inference"
+     },
+     "provenance": {
+      "model_version": "gemini-3.8-flash",
+      "response_id": "7RO3atGBF6rnjMcP2pG8-Ag"
+     },
+     "reasoning": [],
+     "stop_reason": "STOP",
+     "text": "{\"presses\": [\"R-index-top-in\", \"R-pinky-top\", \"R-middle-top\", \"L-index-bottom-in\"], \"note\": \"YXNKP.H...BDIWJR...CGEU... YAT POV IFZ BMS LM:LQ\"}",
+     "usage": {
+      "input_tokens": 1169,
+      "output_tokens": 21853,
+      "thinking_tokens": 21787,
+      "total_tokens": 23022
+     }
+    }
+   ],
+   "turn": 13,
+   "user": "YOUR NOTE FROM LAST TURN:\n<<<YXNKP.H...BDIWJR...CGEU... IO:AFZ BN:MST PK:LOQV>>>\n\nTURN 13 of 20.\nLast turn you pressed: R-index-top-in, R-index-home, R-middle-home, R-pinky-top.\nTheir symbols (canonical order, unordered): A, O, T, V.\nRotation notice: no keys were rotated.\nReply with your action JSON.\nInclude your note for next turn: \"note\" (max 50 characters this turn)."
+  },
+  {
+   "baton_in": "YXNKP.H...BDIWJR...CGEU... YAT POV IFZ BMS LM:LQ",
+   "baton_out": "QWERTY:YXNKPAHF.VBDIWJR...CGEUSM. O:O J:T K:Z L?",
+   "phase": "press",
+   "replies": [
+    {
+     "conversation_state": {
+      "legacy_opt_in": false,
+      "lossless": true,
+      "mode": "single_inference"
+     },
+     "provenance": {
+      "model_version": "gemini-3.8-flash",
+      "response_id": "NxS3aoK3H6TSjMcP8cTkuAg"
+     },
+     "reasoning": [],
+     "stop_reason": "STOP",
+     "text": "```json\n{\"presses\": [\"R-ring-top\", \"R-index-home\", \"R-middle-home\", \"R-ring-home\"], \"note\": \"QWERTY:YXNKPAHF.VBDIWJR...CGEUSM. O:O J:T K:Z L?\"}\n```",
+     "usage": {
+      "input_tokens": 1169,
+      "output_tokens": 21806,
+      "thinking_tokens": 21734,
+      "total_tokens": 22975
+     }
+    }
+   ],
+   "turn": 14,
+   "user": "YOUR NOTE FROM LAST TURN:\n<<<YXNKP.H...BDIWJR...CGEU... YAT POV IFZ BMS LM:LQ>>>\n\nTURN 14 of 20.\nLast turn you pressed: R-index-top-in, R-pinky-top, R-middle-top, L-index-bottom-in.\nTheir symbols (canonical order, unordered): A, F, S, V.\nRotation notice: no keys were rotated.\nReply with your action JSON.\nInclude your note for next turn: \"note\" (max 50 characters this turn)."
+  },
+  {
+   "baton_in": "QWERTY:YXNKPAHF.VBDIWJR...CGEUSM. O:O J:T K:Z L?",
+   "baton_out": "",
+   "phase": "press",
+   "replies": [
+    {
+     "conversation_state": {
+      "legacy_opt_in": false,
+      "lossless": true,
+      "mode": "single_inference"
+     },
+     "provenance": {
+      "model_version": "gemini-3.8-flash",
+      "response_id": "hxS3au3TMY_T1MkPpaHPoAE"
+     },
+     "reasoning": [],
+     "stop_reason": "STOP",
+     "text": "{\"guess\": {\"L-pinky-top\": \"Y\", \"L-ring-top\": \"X\", \"L-middle-top\": \"N\", \"L-index-top\": \"K\", \"L-index-top-in\": \"P\", \"R-index-top-in\": \"A\", \"R-index-top\": \"H\", \"R-middle-top\": \"F\", \"R-ring-top\": \"O\", \"R-pinky-top\": \"V\", \"L-pinky-home\": \"B\", \"L-ring-home\": \"D\", \"L-middle-home\": \"I\", \"L-index-home\": \"W\", \"L-index-home-in\": \"J\", \"R-index-home-in\": \"R\", \"R-index-home\": \"T\", \"R-middle-home\": \"Z\", \"R-ring-home\": \"L\", \"L-pinky-bottom\": \"C\", \"L-ring-bottom\": \"G\", \"L-middle-bottom\": \"E\", \"L-index-bottom\": \"U\", \"L-index-bottom-in\": \"S\", \"R-index-bottom-in\": \"M\", \"R-index-bottom\": \"Q\"}}",
+     "usage": {
+      "input_tokens": 1170,
+      "output_tokens": 5920,
+      "thinking_tokens": 5641,
+      "total_tokens": 7090
+     }
+    }
+   ],
+   "turn": 15,
+   "user": "YOUR NOTE FROM LAST TURN:\n<<<QWERTY:YXNKPAHF.VBDIWJR...CGEUSM. O:O J:T K:Z L?>>>\n\nTURN 15 of 20.\nLast turn you pressed: R-ring-top, R-index-home, R-middle-home, R-ring-home.\nTheir symbols (canonical order, unordered): L, O, T, Z.\nRotation notice: no keys were rotated.\nReply with your action JSON.\nInclude your note for next turn: \"note\" (max 50 characters this turn)."
+  }
+ ]
+}

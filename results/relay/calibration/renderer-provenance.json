@@ -1,0 +1,23 @@
+{
+ "byte_identical_at_verification": 526,
+ "later_hosts": [
+  {
+   "checked_on": "2026-09-25",
+   "installed": "2026-08-28",
+   "macos_build": "25G83",
+   "macos_version": "26.6.2",
+   "pairs": 526,
+   "rerender_byte_identical": 44,
+   "rerender_pixel_identical": 44
+  }
+ ],
+ "note": "The stored PNGs are the pixel channel's record: they are what the models received, and results/relay/MANIFEST.json pins them by hash. Quick Look's rasterizer changed in macOS 26.6.2; re-rendering there reproduces 44 of 526 images.",
+ "pairs_verified": 526,
+ "render_px": 512,
+ "renderer": "qlmanage (macOS Quick Look)",
+ "snapshot_collected": "2026-07-14",
+ "verification_evidence": "commit 810bc29, paper/tables/relay_gates.tex: 'all 526 stored svg/png pairs byte-match qlmanage'",
+ "verified_macos_installed": "2026-07-09",
+ "verified_macos_version": "26.5.2",
+ "verified_on": "2026-07-28"
+}

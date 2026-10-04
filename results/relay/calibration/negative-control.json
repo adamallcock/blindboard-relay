@@ -1,0 +1,20 @@
+{
+ "base": "long",
+ "deterministic": true,
+ "metric": "skeleton-SequenceMatcher",
+ "note": "fixed-codec reference chains share one convention by construction; a late fall here means the between-chain metric is state-shape-sensitive, not convention-discriminating",
+ "table": {
+  "budget_100": {
+   "cross_chain_early": 0.702313,
+   "cross_chain_late": 0.605808,
+   "late_minus_early": -0.096505,
+   "n_chains": 20
+  },
+  "budget_200": {
+   "cross_chain_early": 0.702313,
+   "cross_chain_late": 0.605808,
+   "late_minus_early": -0.096505,
+   "n_chains": 20
+  }
+ }
+}

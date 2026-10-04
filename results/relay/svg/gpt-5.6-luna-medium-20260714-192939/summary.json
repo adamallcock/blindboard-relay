@@ -1,0 +1,26 @@
+{
+ "board_accuracy_mean": 0.3346,
+ "board_accuracy_sem": 0.0429,
+ "budget": "svg512",
+ "condition": "svg",
+ "effort": "medium",
+ "episodes": 10,
+ "guess_turn_mean": 19.9,
+ "lock_score_mean": 3.6,
+ "lock_wrong_total": 6,
+ "model": "gpt-5.6-luna",
+ "probe": {
+  "pairs": 12,
+  "precision_mean": 0.5833333333333334,
+  "recall_mean": 0.5750000000000001,
+  "svg_ok_rate": 0.5833333333333334
+ },
+ "solve_rate": 0.0,
+ "svg_stats_total": {
+  "missing": 0,
+  "ok": 199,
+  "rejected": 0,
+  "render_failed": 0
+ },
+ "violations_total": 0
+}

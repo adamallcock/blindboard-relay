@@ -1,0 +1,20 @@
+\section{Limitations, Ethics, and Reproducibility}\label{sec:limits}
+
+\paragraph{Scale and power.} Most reported cells have $n{=}10$ (\Cref{app:cells}). With ten non-tied seeds, the minimum two-sided exact sign-test value is $2/2^{10}\simeq .00195$, before correction; at least nine wins are needed for raw $\alpha{=}.05$. Ties further limit resolution. Power depends on the alternative and family size, so unconfirmed contrasts establish neither absence nor equivalence. \Cref{sec:setup} specifies the separate test families and their corrections.
+
+\paragraph{Metrics.} Note-format similarity is sensitive to belief-state shape and note length. Early and late turns also differ in state and rotation exposure, so cross-budget trends are descriptive. A fixed-codec negative control prevents interpreting between-chain differences as convention formation (\Cref{sec:convention,app:format}). The syntax classifier counts \texttt{=} or \texttt{:} and undercounts positional strings.
+
+\paragraph{Reasoning state.} Duplicate-lock notices can expose earlier lock status outside the note budget without revealing correctness. We have not measured their effect or repeated collection without them. The retained control tests one provider-native replay configuration (\Cref{sec:setup}); other replay or compaction settings could score differently. Opaque provider representations and token-growth checks establish transport, not semantic use of every earlier thought.
+
+\paragraph{Reference.} The reference is sound, not optimal. The 65- and 97-character peaks are maxima along one policy's 40 evaluated trajectories, not bounds over all states or policies. Character budgets favor boards with single-character symbols. Transfer beyond 26 keys was tested on one board (F3, $n{=}10$).
+
+\paragraph{External validity.} Transfer from a closed 26-fact game to open-world agent memory remains untested. Whether per-model screens predict performance on tasks using notes files or compaction is an open question.
+
+\paragraph{Code and data.} Relay's code, recorded episodes and analysis are available at \url{https://github.com/adamallcock/blindboard-relay}. The base environment, reference solver and harness are available with \blindboard{} \citep{blindboarddata2026}.
+% Add the confirmed Relay Zenodo archive citation after archival publication.
+
+\paragraph{Ethics and source safety.} The study involved no human subjects or scraped corpora. All game content is procedurally generated. Task inputs contained no personal data or human-subject records.
+
+\paragraph{AI tool assistance.} AI coding and writing tools assisted with the environment, harness and manuscript. The instrument audit (\Cref{sec:audit}) and all data-collection decisions were made under human direction. The author reviewed all content and takes responsibility for it.
+
+\paragraph{Reproducibility.} The environment trajectory and score can be replayed from the stored actions, configuration, seed and code. Model responses are records, not reproducible generations. Reported results regenerate from \texttt{scripts/relay\_analysis.py}, except the pilot audit figures and hand-built statistics in \Cref{sec:b30,app:pixel}. Census, cost and floor values use generated macros. The paper uses benchkit 0.3.10; the deterministic reference reproduces its calibration exactly. Collection and screen costs are list-price equivalents (\Cref{sec:setup,sec:discussion}).

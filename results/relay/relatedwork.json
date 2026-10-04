@@ -1,0 +1,851 @@
+{
+ "lanes": [
+  {
+   "phrases": [
+    "Relay is (to our knowledge) the only benchmark that enforces literal amnesia between turns \u2014 each turn is played by a freshly sampled LLM instance with zero continuity except a self-authored baton \u2014 rather than treating memory as an add-on module bolted onto a single persistent agent.",
+    "Unlike prior compression-bottleneck studies of LLM-to-LLM communication (latent KV-cache relay, Lewis signaling games), Relay is the first to pair a hard, human-legible character/pixel budget with a provably-sound truncated belief-tracker reference, so a budget's survivability is certified analytically rather than just observed empirically.",
+    "Relay is the first agent-memory study we're aware of to document constitutional lock-in as a *failure mode*: a model's own self-authored pinned spec measurably underperforms an externally imposed schema, inverting the usual assumption that self-designed conventions beat imposed ones.",
+    "Relay's image/pixel-channel condition is the first to dissociate write-render-read fidelity from downstream task performance for LLM-authored visual memory, and to document that models default to writing legible text into images rather than inventing denser spatial encodings.",
+    "Where existing memory benchmarks (LoCoMo, MemGym, MemoryArena, MEMTRACK, PrecisionMemBench) score a persistent agent's recall inside its own accumulating context, Relay isolates externalization itself as the only channel across a hard reset \u2014 showing it is a capability dissociable from state-tracking competence, not a byproduct of it."
+   ],
+   "threats": [
+    {
+     "title": "From Signals to Structure: How Memory Architecture Drives Language Emergence in LLM Agents",
+     "arxiv": "2607.00233",
+     "overlap": "Directly compares memory architectures (stateless vs. persistent-notebook) against channel/capacity constraints for LLM agents, using a Lewis signaling game where a sender/receiver must coordinate on a code \u2014 conceptually the closest existing paper to Relay's core axis of 'what happens to LLM-to-LLM coordination when you vary what crosses the bottleneck.' It even reports a mechanism resembling notation invention: agents' notebooks 'externalize learned conventions, freeing agents from having to rederive codes each round,' and finds stateless (no persistent notebook) agents collapse at high channel capacity.",
+     "differentiation": "Their game is cooperative code-coordination (Lewis signaling) between two agents that both want to converge on a shared label, not a hidden-information deduction/state-tracking task with a certified-correct answer; the channel is text-only (no image/pixel condition); there is no budget-matched *sound* reference tracker used to certify which budgets are information-theoretically survivable (they report empirical capacity curves, not a provable-truncation bound); and the paper does not surface self-designed-spec lock-in, per-model crossover from imposed schemas, or write-render-read fidelity dissociation \u2014 findings specific to Relay.",
+     "claims_to_verify": "Confirm from the full paper (not just the abstract) whether their 'stateless' condition literally instantiates a fresh LLM sample every round with no shared context beyond the transmitted message (which would be very close to Relay's baton design) or whether it merely means 'no notebook but same rolling context/continuity within an episode.' Also verify there is no image/SVG channel condition and no formal optimal/sound-reference bound anywhere in the paper before claiming those as clean differentiators."
+    },
+    {
+     "title": "Evolving Interpretable Constitutions for Multi-Agent Coordination",
+     "arxiv": "2602.00755",
+     "overlap": "Reports that one-shot LLM-authored 'constitutions' (self-designed governing rule sets) substantially underperform an alternative (evolutionary-search-refined constitutions) in a multi-agent coordination/survival game \u2014 the same qualitative shape as Relay's 'constitutional lock-in' finding that a model's self-designed pinned spec underperforms an imposed schema.",
+     "differentiation": "The domain is a resource-gathering/survival grid-world with an eliminating 'Overseer,' not a hidden-keyboard deduction or memory-relay task, and the paper's contrast is self-designed-once vs. evolutionarily-optimized-through-iterated-search (an LLM-driven genetic-programming loop), not self-designed vs. experimenter-imposed/harness-validated schema as in Relay. There is no fresh-instance-per-turn relay, no character/pixel transmission budget, and no belief-tracking or notation-drift analysis.",
+     "claims_to_verify": "Read the full paper to confirm the 'self-designed' baseline is genuinely a single LLM-authored spec (not itself iteratively refined) and that 'evolved' constitutions are produced by a search process rather than an experimenter-fixed schema \u2014 if the evolved constitutions are still LLM-authored-and-refined rather than externally imposed, the mechanism behind the underperformance may be closer to Relay's finding than the differentiation above assumes, and the write-up should hedge accordingly."
+    },
+    {
+     "title": "When Less Latent Leads to Better Relay: Information-Preserving Compression for Latent Multi-Agent LLM Collaboration",
+     "arxiv": "2604.13349",
+     "overlap": "Uses the word 'Relay' for the exact same conceptual move \u2014 compressing what passes between successive LLM agents under a budget \u2014 and explicitly frames the problem as bottlenecked hand-off between agents, evaluating multiple compression ratios against task accuracy, which is structurally close to Relay's budget-vs-survivability framing.",
+     "differentiation": "What crosses the bottleneck is a continuous KV-cache/latent representation (compressed via orthogonal low-rank residual injection), not a human-legible text note or a rendered image \u2014 so there is no 'only pixels/characters cross' constraint, no possibility of notation invention or drift (there's no discrete authored artifact to inspect), and no self-authored-spec vs. imposed-schema comparison. Evaluation is on math/QA/coding benchmarks, not a hidden-state deduction game, and there is no sound/provably-optimal reference tracker for certifying budgets.",
+     "claims_to_verify": "Verify in the full text whether 'fresh' downstream agents are literally freshly sampled model instances (matching Relay's per-turn amnesia) or the same agent continuing with a compressed cache \u2014 the abstract doesn't resolve this, and if agents are effectively continuous (just cache-compressed) rather than swapped out, the 'fresh instance' distinction Relay relies on is even more clearly its own contribution."
+    }
+   ],
+   "works": [
+    {
+     "title": "MEMTRACK: Evaluating Long-Term Memory and State Tracking in Multi-Platform Dynamic Agent Environments",
+     "venue_year": "arXiv preprint, 2025 (NeurIPS 2025 workshop slides)",
+     "arxiv": "2510.01353",
+     "what_it_does": "Benchmarks memory/state-tracking for a single persistent agent operating across interleaved enterprise platforms (Slack, Linear, Git), scoring correctness, efficiency, and redundancy; best model (GPT-5) hits only ~60% correctness.",
+     "delta": "Agent keeps its own continuity and full context throughout; Relay instead severs continuity every turn and forces state through a hard external bottleneck (text/pixels only), isolating externalization from in-context tracking."
+    },
+    {
+     "title": "Gaia2: Benchmarking LLM Agents on Dynamic and Asynchronous Environments",
+     "venue_year": "arXiv/OpenReview, 2026",
+     "arxiv": "2602.11964",
+     "what_it_does": "800+ verifiable mobile-environment scenarios testing agents under asynchronous, noisy, evolving conditions with tool use and multi-agent collaboration.",
+     "delta": "Focuses on tool-use and ambiguity/adaptability under a live environment, not on a hard cross-turn memory bottleneck with fresh model instances or on certifying minimum survivable memory budgets."
+    },
+    {
+     "title": "EvoArena: Tracking Memory Evolution for Robust LLM Agents in Dynamic Environments",
+     "venue_year": "arXiv preprint, 2026",
+     "arxiv": "2606.13681",
+     "what_it_does": "Introduces EvoMem, a patch-based memory paradigm recording structured update histories so agents can reason about environment changes over time (terminal/coding/social domains).",
+     "delta": "Memory is a log of environment patches maintained by a continuing agent/harness; there is no fresh-instance-per-turn relay, no budget-constrained baton, and no image channel."
+    },
+    {
+     "title": "LoCoMo: Long-Term Conversational Memory Benchmark",
+     "venue_year": "ACL 2024 (Maharana et al.), widely used through 2026",
+     "arxiv": "2402.17753",
+     "what_it_does": "Multi-session (up to 32 sessions, ~600 turns) synthetic dialogues testing QA, summarization, and multimodal recall over weeks-to-months of simulated conversation.",
+     "delta": "Tests recall inside a growing shared context/session log, not externalization across literal model resets; no compression-budget certification or hidden-state deduction task."
+    },
+    {
+     "title": "MemoryArena: Benchmarking Agent Memory in Interdependent Multi-Session Agentic Tasks",
+     "venue_year": "arXiv preprint, 2026",
+     "arxiv": "2602.16313",
+     "what_it_does": "766 multi-session tasks (web shopping, travel planning, search, formal reasoning) where agents must distill experience into memory and reuse it in later sessions; shows LoCoMo-saturated models perform poorly here.",
+     "delta": "Sessions are agent-controlled memory writes reused by the *same* agent lineage across sessions; Relay's memory must survive a complete identity swap every single turn, with no session-level continuity at all."
+    },
+    {
+     "title": "MemGym: A Long-Horizon Memory Environment for LLM Agents",
+     "venue_year": "arXiv preprint (Rutgers/Capital One/Princeton/Microsoft Research), 2026",
+     "arxiv": "2605.20833",
+     "what_it_does": "Five evaluation tracks (tool-use dialogue, deep research, coding, computer use) reporting 'memory-isolated' scores that decouple memory quality from reasoning/retrieval/tool-use confounders.",
+     "delta": "Isolates memory as a scoring axis but within standard agentic tasks with a continuing agent; Relay isolates memory by architecture (mandatory identity reset + hard channel), a stronger and differently-motivated form of isolation, and adds a sound reference for certifying budgets."
+    },
+    {
+     "title": "Structured Belief State and the First Precision-Aware Benchmark for LLM Memory Retrieval (PrecisionMemBench / Tenure)",
+     "venue_year": "arXiv preprint, 2026",
+     "arxiv": "2605.11325",
+     "what_it_does": "Argues existing memory benchmarks conflate answer-correctness with retrieval-correctness; introduces PrecisionMemBench (89 cases) and 'Tenure,' a structured belief-store proxy that resolves scope/retrieval before inference, hitting near-perfect retrieval passes vs. 0.05-0.08 precision baselines.",
+     "delta": "Targets retrieval precision within a RAG-style belief store maintained by a harness across a session; Relay's 'sound reference' is a budget-matched, provably-sound *truncation* of a full belief tracker used to certify which fixed-size baton budgets are survivable at all, in a fresh-instance relay, not a retrieval-precision metric for a persistent store."
+    },
+    {
+     "title": "STALE: Can LLM Agents Know When Their Memories Are No Longer Valid?",
+     "venue_year": "arXiv preprint, 2026",
+     "arxiv": "2605.06527",
+     "what_it_does": "400 expert-validated conflict scenarios testing whether agents detect that an earlier stored memory has been implicitly invalidated by later evidence; best model reaches 55.2% accuracy.",
+     "delta": "Studies belief revision/staleness detection over accumulated memory in one continuing agent; Relay never lets memory accumulate past one authored baton and does not study implicit contradiction detection as its central mechanic."
+    },
+    {
+     "title": "From Signals to Structure: How Memory Architecture Drives Language Emergence in LLM Agents",
+     "venue_year": "arXiv preprint (U. Alberta / Amii), 2026",
+     "arxiv": "2607.00233",
+     "what_it_does": "Lewis signaling game comparing five memory architectures (incl. stateless and persistent-notebook) across channel capacities; finds memory architecture predicts coordination success better than raw channel capacity, and notebooks let agents avoid high-capacity collapse.",
+     "delta": "See threats \u2014 closest paper on the memory-architecture-vs-bottleneck axis, but a cooperative naming/coordination game, text-only, no sound-reference certification, no image channel, no constitutional-lock-in or write-render-read dissociation findings."
+    },
+    {
+     "title": "When Less Latent Leads to Better Relay: Information-Preserving Compression for Latent Multi-Agent LLM Collaboration",
+     "venue_year": "arXiv preprint (UC Merced), 2026",
+     "arxiv": "2604.13349",
+     "what_it_does": "Compresses KV-cache latents relayed between LLM agents via Orthogonal BackFill, retaining ~10-20% of KV states while keeping 97-120% of full-relay accuracy across 9 math/QA/coding benchmarks.",
+     "delta": "See threats \u2014 same 'relay under a budget' framing but the transmitted artifact is continuous latent state, not a human-legible text/image baton, so there's nothing to inspect for notation invention or drift, and no hidden-information deduction task."
+    },
+    {
+     "title": "Remember the Decision, Not the Description: A Rate-Distortion Framework for Agent Memory",
+     "venue_year": "arXiv preprint, 2026",
+     "arxiv": "2605.10870",
+     "what_it_does": "Applies rate-distortion theory to agent-internal memory compression, proving conditions under which compressing to decision-relevant content preserves near-optimal policy performance under a budget.",
+     "delta": "A theoretical framework for a single agent's self-compression, not an empirical benchmark; no fresh-instance relay, no image channel, no LLM-authored notation to analyze for drift or invented encodings."
+    },
+    {
+     "title": "Evolving Interpretable Constitutions for Multi-Agent Coordination",
+     "venue_year": "arXiv preprint, 2026",
+     "arxiv": "2602.00755",
+     "what_it_does": "Uses LLM-guided evolutionary search to discover human-readable coordination rules ('constitutions') for grid-world resource-gathering agents; evolved constitutions beat one-shot LLM-designed ones and discover that minimizing communication outperforms verbose coordination.",
+     "delta": "See threats \u2014 same qualitative shape (self-authored governance underperforms an alternative) but in a resource-survival game with iteratively-evolved (not experimenter-imposed) rules, no per-turn identity reset, no character/pixel transmission budget."
+    },
+    {
+     "title": "Age of LLM: A Strategic 1v1 Benchmark for Reasoning, Diplomacy and Reliability of LLMs under Fog of War",
+     "venue_year": "arXiv preprint, 2026",
+     "arxiv": "2606.24391",
+     "what_it_does": "Turn-based 1v1 wargame with fog of war and diplomacy; treats the illegal-action rate (~58% of which are fog/state errors) as a proxy for belief-tracking quality across 15 models and 54 matches.",
+     "delta": "Each side is a single continuing agent maintaining its own belief state privately in-context; there is no forced externalization through a fresh instance each turn, no fixed transmission budget, and no certified-sound reference tracker."
+    },
+    {
+     "title": "MastermindEval: A Simple But Scalable Reasoning Benchmark",
+     "venue_year": "arXiv preprint, 2025",
+     "arxiv": "2503.05891",
+     "what_it_does": "LLM-as-codebreaker in classic Mastermind, varying code length/symbols/guess budget to probe deductive reasoning from peg-color/position feedback.",
+     "delta": "Single continuing agent reasons over full visible transcript within one context; no cross-instance relay, no compression baton, no image channel, no certification of survivable memory budgets."
+    },
+    {
+     "title": "Externalization in LLM Agents: A Unified Review of Memory, Skills, Protocols and Harness Engineering",
+     "venue_year": "arXiv preprint, 2026",
+     "arxiv": "2604.08224",
+     "what_it_does": "Survey/taxonomy arguing agent capability increasingly lives in the surrounding harness (memory stores, skills, protocols) rather than the model itself; frames memory as externalizing state across time.",
+     "delta": "A conceptual review, not an experimental benchmark; provides useful framing language ('externalization') but no fresh-instance relay design, no games, no budget certification, no empirical findings about notation drift or constitutional lock-in."
+    },
+    {
+     "title": "Evaluating Memory in LLM Agents via Incremental Multi-Turn Interactions (MemoryAgentBench)",
+     "venue_year": "ICLR 2026",
+     "arxiv": "2507.05257",
+     "what_it_does": "Benchmark spanning four competencies (accurate retrieval, test-time learning, long-range understanding, conflict resolution) for memory-augmented agents across incremental multi-turn tasks.",
+     "delta": "Agent persists and accumulates memory turn over turn within its own run; Relay's defining constraint (a new, contextless model instance every single turn) is absent, as is any image/pixel channel or sound-reference certification."
+    },
+    {
+     "title": "WorldLines: Benchmarking and Modeling Long-Horizon Stateful Embodied Agents",
+     "venue_year": "arXiv preprint, 2026",
+     "arxiv": "2606.18847",
+     "what_it_does": "Embodied long-horizon benchmark modeling agent state persistence and world dynamics over extended stateful trajectories.",
+     "delta": "Embodied/simulated-world setting with a continuing agent tracking physical state; no textual/image bottleneck baton, no fresh-instance-per-turn design, no deduction-game framing."
+    },
+    {
+     "title": "Self-Programmed Execution for Language-Model Agents ('Telephone' relay game)",
+     "venue_year": "arXiv preprint, 2026",
+     "arxiv": "2605.06898",
+     "what_it_does": "Includes a 'Telephone' orchestration test where a message is passed through 8 relays; a fresh LLM instance receives the prior relay's output and rewrites it, testing meaning-preservation through stateless hand-offs.",
+     "delta": "Closest prior example of a literal fresh-instance-per-turn relay chain, but the task is open-ended paraphrase/meaning-preservation of a single sentence, not a hidden-information deduction game with a verifiable ground-truth board state, no fixed character/pixel budget being stress-tested, and no sound-reference certification of survivable compression."
+    }
+   ]
+  },
+  {
+   "phrases": [
+    "Where prompt-compression work (LLMLingua, gisting, AutoCompressors, ICAE) measures how much of a static document survives a compression ratio, Blindboard: Relay measures whether a hidden, evolving belief state survives compression when the only continuity across turns is a budget-capped baton read by a brand-new model instance \u2014 compression quality is scored by downstream deduction success, not perplexity or ROUGE against the source.",
+    "Unlike 'broken telephone' degradation studies (ACL 2025) that regenerate free-form translations/paraphrases with no size constraint and no ground truth beyond the original text, Relay imposes a hard character/pixel budget and certifies exactly which budgets are survivable via a budget-matched sound reference (a belief tracker serialized through the identical bottleneck with provably-sound truncation) \u2014 so degradation is measured against an information-theoretic floor, not just against a prior draft.",
+    "Signaling-game work ('From Signals to Structure') shows persistent notebooks beat stateless agents when two continuing agents invent a shared code with no hidden state to track; Relay shows a comparable externalization gap inside a certified hidden-state deduction task, then adds findings a coordination game structurally cannot produce: constitutional lock-in (self-designed pinned specs underperform adaptive notation) and per-model crossover under imposed schema (the smallest model beats its own full-transcript score) rather than a smooth capability gradient.",
+    "BabelTele shows LLMs can compress static text to roughly a quarter of its length at high fidelity when asked to; Relay is the first to show a flagship model spontaneously inventing a comparably dense positional-string encoding unprompted, mid-game, purely as a side effect of trying to win under a hard budget, and to certify that its self-invented codec tracks the provably-sound reference floor.",
+    "No prior compression-memory study spans both a text bottleneck and a pixel bottleneck for the same underlying task and finds that write-render-read fidelity and downstream game performance dissociate, or that models default to writing literal text inside rendered images rather than exploiting spatial/2D encoding \u2014 a negative result the optical-memory efficiency systems (AgentOCR, OCR-Memory, ScrapMem) aren't built to surface since they optimize token savings on real agent trajectories, not diagnose whether models discover visual encoding on their own."
+   ],
+   "works": [
+    {
+     "title": "LLMLingua: Compressing Prompts for Accelerated Inference of Large Language Models",
+     "venue_year": "EMNLP 2023",
+     "arxiv": "2310.05736",
+     "what_it_does": "Coarse-to-fine prompt compression: a budget controller allocates compression ratios across prompt components, then iterative token-level compression removes low-information tokens while preserving conditional dependencies, aligned to the target LLM's distribution.",
+     "delta": "Compresses a static, given prompt for inference efficiency (measured by task accuracy retention and latency); Relay compresses an evolving hidden belief state passed between fresh model instances across a multi-turn game and scores it by whether deduction/game success survives, with a certified sound-baseline floor LLMLingua has no analogue of."
+    },
+    {
+     "title": "LongLLMLingua: Accelerating and Enhancing LLMs in Long Context Scenarios via Prompt Compression",
+     "venue_year": "ACL 2024",
+     "arxiv": "2310.06839",
+     "what_it_does": "Extends LLMLingua with question-aware coarse-to-fine compression and a document reordering mechanism for long-context QA, showing compression can even improve downstream accuracy by reducing 'lost in the middle' noise.",
+     "delta": "Single-shot compression of a long context for one query; no repeated compress-decompress cycle across turns/instances, no notion of a hard bottleneck a fresh reader must fully reconstruct state from, and no drift/mutation of an encoding over successive generations as in Relay's notation-drift finding."
+    },
+    {
+     "title": "LLMLingua-2: Data Distillation for Efficient and Faithful Task-Agnostic Prompt Compression",
+     "venue_year": "ACL Findings 2024",
+     "arxiv": "2403.12968",
+     "what_it_does": "Trains a smaller token-classification model via data distillation to do task-agnostic prompt compression, improving faithfulness and out-of-domain generalization over the original LLMLingua's perplexity-based token dropping.",
+     "delta": "A trained, purpose-built compressor model applied to static prompts; Relay studies compression as an emergent, self-directed behavior of the same general-purpose model under game pressure, with no separate compressor network and no fixed compression target ratio \u2014 the model chooses its own encoding under a hard budget."
+    },
+    {
+     "title": "Learning to Compress Prompts with Gist Tokens",
+     "venue_year": "NeurIPS 2023",
+     "arxiv": "2304.08467",
+     "what_it_does": "Fine-tunes an LM to compress prompts into a handful of learned 'gist' continuous-vector tokens via modified attention masking, achieving up to 26x compression with minimal quality loss and cacheable/reusable gists.",
+     "delta": "Soft, sub-symbolic compression baked into model weights via training; Relay's baton is either plain human-legible text under a character budget or a literal rendered image, produced zero-shot by an unmodified model and read by a different fresh instance, making the compression strategy itself an observable, evolving artifact rather than a fixed learned vector."
+    },
+    {
+     "title": "Adapting Language Models to Compress Contexts (AutoCompressors)",
+     "venue_year": "EMNLP 2023",
+     "arxiv": "2305.14788",
+     "what_it_does": "Fine-tunes LMs to recursively compress long contexts into 'summary vectors' usable as soft prompts, extending effective context to tens of thousands of tokens with improved perplexity and retrieval-augmentation utility.",
+     "delta": "Targets perplexity/language-modeling quality over long documents via trained recursive vector summarization; Relay targets whether a hidden game-relevant belief state survives a hard bottleneck across independently-instantiated readers, evaluated by task success and certified against an information-theoretic sound baseline, not perplexity."
+    },
+    {
+     "title": "In-context Autoencoder (ICAE) for Context Compression in a Large Language Model",
+     "venue_year": "ICLR 2024",
+     "arxiv": "2307.06945",
+     "what_it_does": "Trains an LLM-based encoder to compress long context into a small number of memory slot representations that a (possibly frozen) target LLM decodes from, autoencoder-style, for context-length reduction.",
+     "delta": "Single encode/decode pass optimized for reconstruction/downstream QA; Relay chains many independent compress-then-reconstruct hops across turns and fresh instances in a game, and specifically studies how the encoding scheme itself changes (notation drift) across that chain, which a one-shot autoencoder setup cannot exhibit."
+    },
+    {
+     "title": "RAPTOR: Recursive Abstractive Processing for Tree-Organized Retrieval",
+     "venue_year": "ICLR 2024",
+     "arxiv": "2401.18059",
+     "what_it_does": "Builds a hierarchical tree of recursive summaries via bottom-up clustering and abstraction over document chunks, then retrieves across abstraction levels for long-document QA.",
+     "delta": "Recursive summarization here builds a static retrieval index over a fixed corpus for QA; Relay's 'recursive summarization' is a live, adversarial-to-forgetting relay where each summary is the only surviving trace of state for a fresh reader in an ongoing deduction game, with certified budget floors RAPTOR doesn't define."
+    },
+    {
+     "title": "MemGPT: Towards LLMs as Operating Systems",
+     "venue_year": "arXiv preprint 2023 (COLM 2024)",
+     "arxiv": "2310.08560",
+     "what_it_does": "Proposes an OS-inspired virtual context management scheme where the LLM manages its own paging between limited main-context and larger external/archival storage, self-editing what it keeps in-context.",
+     "delta": "A single continuing agent manages its own memory hierarchy over one long session; Relay's memory holder is never the same instance twice \u2014 every turn is a fresh model with zero conversation history, so 'memory' exists only in the externalized baton, isolating externalization as its own capability rather than in-context self-management."
+    },
+    {
+     "title": "Generative Agents: Interactive Simulacra of Human Behavior",
+     "venue_year": "UIST 2023",
+     "arxiv": "2304.03442",
+     "what_it_does": "Simulated agents maintain a memory stream of observations, periodically reflect to generate higher-level summaries, and retrieve by recency/importance/relevance to drive believable behavior in a sandbox town.",
+     "delta": "Memory reflection/summarization here serves open-ended believability, not a scoreable ground-truth task, and the same agent persists across the whole simulation; Relay isolates a certified, gradeable hidden-state tracking task specifically to measure information loss through a hard bottleneck with no persistent agent identity."
+    },
+    {
+     "title": "Recursively Summarizing Books with Human Feedback",
+     "venue_year": "arXiv preprint 2021 (OpenAI)",
+     "arxiv": "2109.10862",
+     "what_it_does": "Trains models via human feedback to summarize book chunks and then recursively summarize summaries-of-summaries to compress entire books, using recursive decomposition to sidestep length limits.",
+     "delta": "An early, human-feedback-trained instance of recursive summarization for static narrative compression, evaluated by human judgment of summary quality; Relay uses no training/feedback loop at all (fully zero-shot, off-the-shelf models), targets a dynamic hidden game state rather than a fixed book, and grades against a certified sound reference rather than human preference."
+    },
+    {
+     "title": "LLM as a Broken Telephone: Iterative Generation Distorts Information",
+     "venue_year": "ACL 2025",
+     "arxiv": "2502.20258",
+     "what_it_does": "Runs iterative translation/paraphrase chains (e.g., repeated round-trip translation) across up to 100 fresh model calls, each seeing only the prior output, and measures progressive factual/semantic distortion via BLEU/ROUGE/FActScore; finds distortion is unavoidable but modulated by language choice and temperature.",
+     "delta": "No compression pressure at all \u2014 outputs are capped only by a generous 8000-token ceiling, so there is no hard bottleneck forcing lossy encoding, no certified/sound baseline for how much should survive, and no study of self-invented notation; it studies drift in natural-language semantics under free regeneration, whereas Relay studies drift in a self-invented compressed code under a hard, game-relevant budget."
+    },
+    {
+     "title": "From Signals to Structure: How Memory Architecture Drives Language Emergence in LLM Agents",
+     "venue_year": "arXiv preprint 2026",
+     "arxiv": "2607.00233",
+     "what_it_does": "In a Lewis signaling game, compares five memory architectures (including stateless vs. persistent-private-notebook agents) across channel capacities; finds memory architecture predicts stable coordination better than channel capacity, and notebooks let agents externalize conventions instead of re-deriving them each round.",
+     "delta": "A pure sender/receiver coordination game with no hidden state to deduce, no character/pixel budget on the notebook, and no certified-optimal reference for what a memory system should preserve; Relay embeds the same externalization-vs-statelessness contrast inside a certified hidden-state deduction task and additionally finds a per-model crossover effect and constitutional lock-in that a coordination-only setup cannot produce."
+    },
+    {
+     "title": "Large Language Models Do Not Always Need Readable Language (BabelTele)",
+     "venue_year": "arXiv preprint 2026",
+     "arxiv": "2606.19857",
+     "what_it_does": "Probes LLMs' capacity to generate and interpret dense, non-human-readable textual representations ('BabelTele') that trade readability for information density, evaluating via readability diagnostics, likelihood, human ratings, downstream tasks, cross-model transfer, agent memory, and multi-agent communication; reports 99.5% semantic fidelity at 27.9% of original length.",
+     "delta": "BabelTele representations appear to be elicited/probed as a deliberate representational paradigm the researchers study directly, on static text/QA content; Relay's flagship-model dense encoding arises unprompted as a side effect of playing a hidden-state deduction game under a hard budget, and is graded not by fidelity/likelihood but by whether it beats a provably-sound reference codec on game outcomes."
+    },
+    {
+     "title": "LLM Agents Are Latent Context Managers: Eliciting Self-Managed Context via a Proprioceptive Dashboard (VISTA)",
+     "venue_year": "arXiv preprint 2026",
+     "arxiv": "2606.30005",
+     "what_it_does": "Gives a single continuing agent visibility into its own working-memory state (per-block token usage, recency, access history) rather than imposing a compression policy, and shows this training-free 'dashboard' substantially improves long-horizon task performance across benchmarks like LOCA-Bench.",
+     "delta": "Argues self-directed context management (given the right visibility) works well for a single persisting agent; Relay's fresh-instance-per-turn design removes persistence entirely and specifically finds the opposite pattern for self-designed schemes \u2014 a self-authored pinned spec becomes a lock-in liability across generations rather than a benefit, a contrast VISTA's continuing-agent setup can't test."
+    },
+    {
+     "title": "MemAgent: Reshaping Long-Context LLM with Multi-Conv RL-based Memory Agent",
+     "venue_year": "arXiv preprint 2025",
+     "arxiv": "2507.02259",
+     "what_it_does": "RL-trains a model to read documents in chunks and overwrite a fixed-length token memory after each chunk, extrapolating from 8K-token training to 3.5M-token QA with under 5% performance loss.",
+     "delta": "A trained overwrite policy for one continuing model processing a static document sequentially; Relay uses no training at all, hands the memory to a genuinely different model instance each turn, and evaluates a dynamic adversarial-to-forgetting deduction game rather than long-document QA extrapolation."
+    },
+    {
+     "title": "CompactionRL: Reinforcement Learning with Context Compaction for Long-Horizon Agents",
+     "venue_year": "arXiv preprint 2026",
+     "arxiv": "2607.05378",
+     "what_it_does": "RL-trains long-horizon coding/tool-use agents to keep performing well after their trajectory is compacted into a summary once context limits are hit, jointly optimizing task success and summary generation via token-level loss normalization.",
+     "delta": "Optimizes a trained policy for one continuing agent's occasional compaction events inside real coding/tool tasks (e.g., SWE-bench); Relay uses zero-shot models, compacts on every single turn rather than only near a context limit, and certifies survivable budgets against a sound reference rather than measuring benchmark pass-rate lift from RL training."
+    },
+    {
+     "title": "AgentOCR: Reimagining Agent History via Optical Self-Compression",
+     "venue_year": "arXiv preprint 2026",
+     "arxiv": "2601.04786",
+     "what_it_does": "RL-trains an agent to render its own interaction history as cached images instead of text, letting it choose a compression rate under a compression-aware reward; reports >95% task performance retention on ALFWorld/search QA with >50% token reduction.",
+     "delta": "An RL-trained efficiency system for one continuing agent's own trajectory, optimizing token cost on real embodied/QA tasks; Relay's pixel channel is a zero-shot diagnostic probe across fresh instances specifically asking whether models exploit 2D spatial encoding at all (finding: they don't, they write text into the image) and whether render fidelity tracks game performance (finding: it doesn't) \u2014 questions an efficiency-optimized system isn't built to surface."
+    },
+    {
+     "title": "ClawVM: Harness-Managed Virtual Memory for Stateful Tool-Using LLM Agents",
+     "venue_year": "EuroMLSys 2026",
+     "arxiv": "2604.10352",
+     "what_it_does": "A systems-layer virtual memory manager for agent harnesses that enforces typed pages, minimum-fidelity invariants, and validated writeback at compaction/reset boundaries to eliminate reliability faults (lost state, destructive writes) under a token budget.",
+     "delta": "Solves engineering reliability of memory operations (no lost/corrupted state) for production tool-agents, not information-theoretic compressibility of a hidden belief state; Relay isn't concerned with whether writeback is faithfully executed by the harness but with what a model chooses to write and whether that choice preserves enough signal to win a certified deduction game."
+    }
+   ],
+   "threats": [
+    {
+     "title": "From Signals to Structure: How Memory Architecture Drives Language Emergence in LLM Agents",
+     "arxiv": "2607.00233",
+     "overlap": "Directly compares stateless agents to agents with a persistent private notebook across memory architectures and finds memory architecture (not raw channel capacity) determines whether interaction history becomes a stable, externalized convention \u2014 the same 'externalization is a distinct, load-bearing capability' thesis Relay argues, and both use a small-vocabulary/symbol-budget framing reminiscent of a character budget.",
+     "differentiation": "It is a Lewis signaling/coordination game with no hidden state to deduce \u2014 success means two roles agree on arbitrary labels for known objects, not that a reader reconstructs a concealed board state. There is no hard character/pixel budget with a provably-sound reference baseline (their 'channel capacity' is vocabulary size, with only an information-bottleneck-style capacity heuristic as an informal target, not a certified truncation-soundness proof). No notation-drift-across-generations analysis, no self-designed-spec lock-in finding, no per-model crossover under imposed schema, and no image/pixel channel.",
+     "claims_to_verify": "Confirm (from the full paper, not abstract) whether the 'stateless' vs. 'notebook' roles are literally instantiated as fresh model calls each round with the notebook as the only carried artifact (architecturally close to Relay's baton), or whether some conversational memory persists outside the notebook; confirm there is no formal soundness/optimality certificate for the notebook's capacity beyond the informal 'capacity = object count' heuristic; confirm the five memory architectures don't already include an imposed-schema-vs-self-designed-schema contrast that would preempt Relay's constitutional-lock-in finding."
+    },
+    {
+     "title": "Large Language Models Do Not Always Need Readable Language (BabelTele)",
+     "arxiv": "2606.19857",
+     "overlap": "Directly studies LLMs producing and consuming dense, non-standard, information-rich textual representations that sacrifice human readability for compression, including agent-memory and multi-agent-communication evaluation settings \u2014 the same phenomenon Relay reports when its flagship model spontaneously invents a denser-than-reference positional-string encoding.",
+     "differentiation": "BabelTele is framed and evaluated as a representational paradigm the researchers probe/elicit directly (via readability diagnostics, likelihood, human questionnaires) on general text and downstream tasks; it is not shown to emerge unprompted as a side effect of trying to win a hidden-state deduction game under a hard turn-by-turn budget passed between fresh instances, and it is not benchmarked against a provably-sound reference tracker or graded by whether it beats a certified information floor \u2014 it's graded by fidelity/readability/likelihood metrics, not game-theoretic outcome.",
+     "claims_to_verify": "Read the full paper (not abstract) to determine whether any BabelTele emergence is spontaneous/unprompted by a specific model in an agentic task, or whether it is elicited by an explicit compression instruction/training signal; check whether the 'agent memory' and 'multi-agent communication' evaluations involve any hidden ground-truth state a receiver must reconstruct (vs. shared/known information), and whether any budget in that setting is certified against a sound baseline the way Relay's is."
+    },
+    {
+     "title": "LLM as a Broken Telephone: Iterative Generation Distorts Information",
+     "arxiv": "2502.20258",
+     "overlap": "Studies information distortion across chains of iterative generation where each step is a fresh model call seeing only the immediately prior output \u2014 architecturally close to Relay's fresh-instance-per-turn relay \u2014 and frames the core phenomenon as progressive, unavoidable degradation, the same lineage as Relay's notation-drift finding (models mutating their own notation across generations).",
+     "differentiation": "Confirmed via direct methodology check: there is no hard length/character budget forcing compression at all (generation is capped at a generous 8000 tokens 'to encourage open-ended generation'), so there's no bottleneck pressure driving lossy encoding; there is no certified/sound reference baseline for expected information survival (only empirical BLEU/ROUGE/FActScore drift vs. the original); and the paper explicitly does not address models inventing notation/symbolic shorthand \u2014 it's semantic/factual drift in ordinary natural-language paraphrase and translation, not drift in a self-invented compressed code under budget pressure.",
+     "claims_to_verify": "This was verified directly against the paper's methodology (fetched arXiv HTML): confirm no hard compression constraint, fresh-call-per-iteration structure, translation/rephrasing/multilingual chain task types, absence of a certified baseline, and absence of any notation-invention discussion \u2014 these should be re-checked against the final ACL camera-ready in case of revisions, but the arXiv HTML version supports all five differentiation points above."
+    }
+   ]
+  },
+  {
+   "phrases": [
+    "Unlike population-scale naming games or advice-passing chains where agents keep rolling context or many-round memory, Blindboard: Relay enforces true amnesia: every turn is a categorically fresh model instance whose only link to the past is one authored artifact under a hard budget.",
+    "Where prior LLM telephone-game and iterated-learning studies report drift or degeneration empirically, Relay certifies it: a budget-matched sound reference (a belief tracker serialized through the identical bottleneck, with provably-sound truncation) tells us which budgets are information-theoretically survivable, separating genuine drift from an insufficient budget.",
+    "Our notation-drift finding \u2014 a single model inventing, then mutating, its own encoding scheme across amnesiac generations within one episode \u2014 isolates the iterated-learning transmission bottleneck at the smallest possible unit: one model, one episode, no population, no gradient updates, and no cross-agent negotiation.",
+    "Running the identical relay through a text baton and a rendered-image baton lets Relay show, apparently for the first time, that write-render-read fidelity and downstream task performance dissociate in the pixel channel, and that no tested model spontaneously uses spatial encoding even when it would out-compress text.",
+    "Memory scaffolding in Relay produces per-model crossover, not a uniform capability gradient \u2014 an imposed schema that lets the smallest model beat its own full-transcript score can be neutral or harmful for larger models \u2014 a result classic iterated-learning bottleneck theory does not predict and that population-scale convention-formation studies, operating at a different unit of analysis, have not reported."
+   ],
+   "works": [
+    {
+     "title": "Spontaneous evolution of linguistic structure: an iterated learning model of the emergence of regularity and irregularity",
+     "venue_year": "IEEE Trans. Evolutionary Computation, 2001",
+     "arxiv": "none",
+     "what_it_does": "Founding iterated learning model (ILM): shows a transmission bottleneck (learners see only a subset of the prior generation's language) creates pressure for compositional structure over generations of symbolic learners.",
+     "delta": "Relay borrows the transmission-bottleneck logic but replaces the corpus-subset bottleneck with a hard character/pixel budget on a single artifact, and studies one LLM relaying to itself within one episode rather than a population of symbolic learners across many generations."
+    },
+    {
+     "title": "Iterated Learning: A Framework for the Emergence of Language",
+     "venue_year": "Artificial Life 9(4), 2003 (Smith, Kirby & Brighton)",
+     "arxiv": "none",
+     "what_it_does": "Formalizes iterated learning as a framework where each learner's output becomes the next learner's input, establishing the paradigm used by nearly all later language-evolution simulations.",
+     "delta": "Relay adopts the same generational-transmission chain structure but instruments it as an LLM capability benchmark with a certified survivable-budget floor, not a model of human language evolution."
+    },
+    {
+     "title": "Iterated learning and the evolution of language",
+     "venue_year": "Current Opinion in Neurobiology, 2014 (Kirby, Griffiths & Smith)",
+     "arxiv": "none",
+     "what_it_does": "Review showing iterated learning turns an unstructured proto-language into a stable, compositional communication system purely from the bottleneck plus learner biases, no communicative pressure required.",
+     "delta": "Relay's notation drift shows the opposite trajectory in one respect: a mid-tier model's self-invented notation degrades/mutates rather than stabilizing, because there is no population averaging out idiosyncratic learner bias across many independent chains."
+    },
+    {
+     "title": "Compositional languages emerge in a neural iterated learning model",
+     "venue_year": "ICLR 2020 (Ren, Guo, Labeau, Cohn, Kirby)",
+     "arxiv": "2002.01365",
+     "what_it_does": "First neural-network instantiation of the ILM bottleneck; shows an explicit generational imitation-then-interaction loop with neural agents produces compositional emergent language, unlike single-generation reinforcement learning.",
+     "delta": "Relay's baton mechanism is a text/image bottleneck rather than a training bottleneck, and it operates on a single frozen LLM's zero-shot behavior across amnesiac calls rather than on trained neural nets updated generation to generation."
+    },
+    {
+     "title": "Countering Language Drift with Seeded Iterated Learning",
+     "venue_year": "ICML 2020 (Lu, Singhal, Strub, Courville, Pietquin)",
+     "arxiv": "2003.12694",
+     "what_it_does": "Diagnoses 'language drift' when RL-tuned neural agents optimize a non-linguistic reward and their protocol diverges from natural language, then uses iterated learning (seeded with human data) to counter it.",
+     "delta": "Relay's notation drift is drift in a self-invented (not natural-language-seeded) code under a hard channel budget, observed in inference-time LLM generations rather than RL fine-tuning steps, with no corrective seeding mechanism to counter it."
+    },
+    {
+     "title": "Compositionality and Generalization in Emergent Languages",
+     "venue_year": "ACL 2020 (Chaabouni, Kharitonov, Bouchacourt, Dupoux, Baroni)",
+     "arxiv": "2004.09124",
+     "what_it_does": "Shows compositional emergent languages are easier for new listeners to learn (ease-of-transmission advantage) but compositionality does not by itself guarantee better task generalization.",
+     "delta": "Relay measures whether a single model's invented notation is even stable across its own amnesiac generations, a prerequisite question that precedes Chaabouni et al.'s learnability-vs-generalization question."
+    },
+    {
+     "title": "AI models collapse when trained on recursively generated data",
+     "venue_year": "Nature 631, 2024 (Shumailov et al.; preprint 'Curse of Recursion')",
+     "arxiv": "2305.17493",
+     "what_it_does": "Shows models trained recursively on their own generated data suffer 'model collapse': progressive loss of distributional tails and drift toward degenerate central tendencies across training generations.",
+     "delta": "Relay's degeneration happens within a single inference episode via context truncation, not across training runs via gradient updates on synthetic data; it is a generational-transmission relative of model collapse rather than an instance of it."
+    },
+    {
+     "title": "Learning to solve complex tasks by growing knowledge culturally across generations",
+     "venue_year": "arXiv 2021 (Colas, Karch, Kovac, Oudeyer et al.)",
+     "arxiv": "2107.13377",
+     "what_it_does": "RL agents accumulate and pass on knowledge (goals, skills) across successive artificial 'generations' of learners in an open-ended environment, showing cultural accumulation outperforms any single generation.",
+     "delta": "Relay's generations are amnesiac LLM calls within one game episode passing a budgeted note, not RL policies passing accumulated skill libraries across a long-horizon curriculum."
+    },
+    {
+     "title": "Language and Experience: A Computational Model of Social Learning in Complex Tasks",
+     "venue_year": "ICLR 2026 / CogSci 2025 (Colas, Mills, Prystawski, Tessler, Goodman, Andreas, Tenenbaum)",
+     "arxiv": "2509.00074",
+     "what_it_does": "Models social learning as Bayesian inference over sensorimotor and linguistic data: agents play a game for a limited number of 'lives,' then write advice consumed by the next generation, iterated across generations and ten video games, fit to human behavioral data.",
+     "delta": "Relay shares the fresh-learner-plus-written-note generational structure but adds a hard budget with a certified sound-reference floor, tests a hidden-state deduction game rather than exploration/advice efficacy, and asks about self-invented notation stability rather than whether advice speeds learning."
+    },
+    {
+     "title": "When LLMs Play the Telephone Game: Cumulative Changes and Attractors in Iterated Cultural Transmissions",
+     "venue_year": "ICLR 2025 (Perez et al.)",
+     "arxiv": "2407.04503",
+     "what_it_does": "Chains LLM agents in rephrase/inspire/continue tasks and tracks toxicity, positivity, reading difficulty, and length, finding model-specific 'attractor' states chains converge to, strongest under open-ended instructions.",
+     "delta": "Relay's chain passes a task-critical state artifact under a hard budget in a verifiable deduction game (correctness is checkable against ground truth) rather than free-text style properties (toxicity, positivity) with no ground-truth target."
+    },
+    {
+     "title": "LLM as a Broken Telephone: Iterative Generation Distorts Information",
+     "venue_year": "ACL 2025",
+     "arxiv": "2502.20258",
+     "what_it_does": "Shows iterative generation (e.g., translation/paraphrase relay across languages or models) compounds distortion, and that longer or more heterogeneous chains amplify information loss, sometimes triggering collapse-like dynamics.",
+     "delta": "Relay's distortion is measured against a certified survivable-budget floor and a checkable game state, not against a diffuse notion of 'information fidelity' in translated/paraphrased text with no ground truth."
+    },
+    {
+     "title": "Shaping Shared Languages: Human and Large Language Models' Inductive Biases in Emergent Communication",
+     "venue_year": "2025 (Kouwenhoven et al.)",
+     "arxiv": "2503.04395",
+     "what_it_does": "Runs LLMs (and humans) in an iterated referential game with generational transmission; initially holistic emergent languages acquire compositional structure across generations but LLM-optimized languages become less diverse/more degenerate than human-optimized ones.",
+     "delta": "Relay studies one model relaying to itself within a single episode (no separate population of learners per generation) and measures notation stability/mutation directly rather than compositionality-vs-diversity trade-offs across a trained population."
+    },
+    {
+     "title": "Searching for Structure: Investigating Emergent Communication with Large Language Models",
+     "venue_year": "2024/2025",
+     "arxiv": "2412.07646",
+     "what_it_does": "LLM sender/receiver pairs (Llama-3-70B) develop an artificial language across communication rounds and iterated-learning generations; finds structure (TopSim) increases but later generations show degenerate many-to-one signal-attribute mappings.",
+     "delta": "Relay isolates the phenomenon to a single model's own within-episode notation (not a sender/receiver pair building shared vocabulary across many interactive rounds) and certifies degeneration against a sound-reference budget floor rather than measuring TopSim/n-gram statistics alone."
+    },
+    {
+     "title": "Emergent Social Conventions and Collective Bias in LLM Populations",
+     "venue_year": "Science Advances 11(20), 2025 (Ashery et al.)",
+     "arxiv": "2410.08948",
+     "what_it_does": "Populations of 24-200 LLM agents playing a pairwise naming game spontaneously converge on shared conventions from local interactions alone, and can exhibit strong collective bias absent in any individual agent; committed minorities can tip the population.",
+     "delta": "Relay has no population and no tipping dynamics; it asks whether a single model's own convention survives its own amnesiac hand-offs within one episode, a within-agent stability question orthogonal to their between-agent population question."
+    },
+    {
+     "title": "Exploring the Topology and Memory of Consensus: How LLM Agents Agree, Fragment, or Settle When Forming Conventions",
+     "venue_year": "2026",
+     "arxiv": "2606.04197",
+     "what_it_does": "432 runs of a networked naming game across 8 fixed 16-agent topologies show memory depth and network topology jointly and sometimes oppositely determine whether populations converge, fragment, or reach consensus quickly.",
+     "delta": "Relay's 'memory' is a single hard-budgeted authored artifact carried by amnesiac successors in a linear chain, not a rolling multi-round history window inside a many-agent network topology."
+    },
+    {
+     "title": "From Signals to Structure: How Memory Architecture Drives Language Emergence in LLM Agents",
+     "venue_year": "2026 (Talebirad, Redman, Parsaee, Zaiane)",
+     "arxiv": "2607.00233",
+     "what_it_does": "Two-agent Lewis signaling game where each round is a fresh LLM call; compares a persistent notebook (\u2264150 words) and fixed-slot codebook (10 slots) against stateless rolling-context agents, finding notebook memory gives most reliable coordination and documenting 'convention drift' where the sender re-assigns a token sequence to a different object mid-run, degrading the receiver's accumulated mapping.",
+     "delta": "Closest known prior art to our core mechanism (fresh-call generations plus a budgeted externalized artifact producing convention/notation drift); Relay differs by testing a state-tracking deduction game (not object-naming), adding a certified sound-reference floor across systematically varied budgets, comparing across many frontier models rather than one architecture ablation, and adding a second (pixel/image) channel that this paper does not test."
+    },
+    {
+     "title": "Model Collapse as Cultural Evolution",
+     "venue_year": "2026",
+     "arxiv": "2605.23054",
+     "what_it_does": "Reframes model collapse in terms of cultural-evolution theory; trains LLaMA-2-7B/Mistral-7B recursively for 10 generations across three languages, finding compositionality rises then falls (non-monotonic) under unfiltered self-training, matching human transmission-chain regularization patterns (R\u00b2=0.94).",
+     "delta": "Relay's generations are inference-time amnesiac calls within a single episode with a hard externalization budget, not recursive fine-tuning generations over a training corpus; no gradient updates or corpus-level statistics are involved."
+    },
+    {
+     "title": "SIGN: Schema-Induced Games for Naming",
+     "venue_year": "AAAI 2026 student abstract",
+     "arxiv": "2510.21855",
+     "what_it_does": "Compares schema-induced (structured) communication against unconstrained natural-language naming-game communication, finding schema-induced convention formation converges faster with up to 5.8x higher agreement.",
+     "delta": "Relay's imposed-schema finding is per-model and crossover (helps the smallest model, not larger ones) within a single amnesiac relay chain, whereas SIGN reports an average schema-vs-free-form effect across a multi-agent naming-game population without characterizing per-model heterogeneity."
+    }
+   ],
+   "threats": [
+    {
+     "title": "From Signals to Structure: How Memory Architecture Drives Language Emergence in LLM Agents",
+     "arxiv": "2607.00233",
+     "overlap": "Uses the same core mechanism we thought was novel: every round is a fresh LLM API call, memory only persists via an explicit, size-bounded authored artifact (a \u2264150-word notebook or 10-slot codebook) re-injected into the next call, and they explicitly document 'convention drift' \u2014 the sender re-assigning an established token sequence to a different object mid-run, degrading the receiver's accumulated mapping \u2014 which is essentially our notation-drift finding in a different game.",
+     "differentiation": "Their game is object naming/reference (Lewis signaling game); ours is hidden-state deduction requiring the baton to encode and update a belief state, a harder and more state-ful transmission target. They test one architecture ablation (notebook vs. codebook vs. stateless) on presumably one model; we certify survivable budgets with a provably-sound truncated-belief-tracker reference and compare across many frontier models to show per-model divergence (small models write plans not state; the flagship invents a denser-than-reference codec). We also run a second, pixel/image channel (rendered SVG baton) and find a fidelity/performance dissociation absent from their text-only design.",
+     "claims_to_verify": "Confirm whether their 'fresh LLM API call' constitutes true zero-context amnesia (no hidden system-level continuity) versus ours; confirm how many distinct models they test (their summary suggests architecture variation more than model variation) and whether they report any per-model capability gradient or crossover comparable to our imposed-schema effect; confirm whether they impose any theoretically-grounded sound/optimal baseline for the 150-word or 10-slot budget, or only empirical cross-architecture comparison; confirm publication status/date (arXiv 2607.00233, dated July 2026) relative to our own release timeline."
+    },
+    {
+     "title": "Language and Experience: A Computational Model of Social Learning in Complex Tasks",
+     "arxiv": "2509.00074",
+     "overlap": "Structurally near-identical scaffold to our relay: an agent plays a game for a limited number of 'lives,' then writes advice/text that is the sole input the next generation receives, iterated across generations and multiple game environments \u2014 i.e., fresh-learner-plus-written-note generational transmission, matched against human behavioral data.",
+     "differentiation": "Their framing is social learning / advice efficacy modeled via Bayesian inference and validated against human data, not a benchmark of LLM notation stability or capability under a hard externalization budget. We could not confirm they impose any explicit character/token/pixel budget on the advice, use a certified sound-reference floor, study self-invented notation/encoding stability, or compare a text vs. image transmission channel \u2014 all central to our contribution.",
+     "claims_to_verify": "Verify whether advice length is unconstrained or budget-limited in their design; verify whether 'agents' across generations are literally fresh LLM calls with zero shared context or whether the modeling agent (the Bayesian inference engine) itself persists across generations while only the in-game character resets; verify whether they test multiple frontier LLMs and report per-model differences, or center the paper on fitting one model class to human data; verify the exact number of 'lives' and generations and whether any game involves hidden-state deduction akin to ours."
+    },
+    {
+     "title": "Emergent Social Conventions and Collective Bias in LLM Populations (companion: Exploring the Topology and Memory of Consensus)",
+     "arxiv": "2410.08948 / 2606.04197",
+     "overlap": "Directly studies how memory (depth/window) affects convention stability and formation among LLM agents, the closest existing empirical treatment of 'convention stability' as a function of memory design, which is the question our within-episode notation-drift finding also targets.",
+     "differentiation": "These are population-scale (16-200 agents), many-round social-convention games where each agent is a persistent instance retaining a rolling memory window across many pairwise interactions, not a single linear chain of amnesiac successors within one bounded episode. There is no hard externalization budget forcing compression into a single authored artifact, and no certified sound-reference floor; the object of study is population-level consensus/fragmentation and collective bias, not a single model's own encoding surviving its own hand-offs.",
+     "claims_to_verify": "Verify whether 'memory depth' in these papers means a rolling window of raw conversational transcript (uncompressed) versus our hard-budgeted authored artifact; verify whether any individual-agent (not population-level) drift/mutation of an invented naming convention is reported, which would be the most direct precedent for our within-episode single-model notation-drift claim; verify exact population sizes, round counts, and whether any image/pixel channel variant exists in follow-up work."
+    }
+   ]
+  },
+  {
+   "phrases": [
+    "Blindboard: Relay is, to our knowledge, the first benchmark to certify which text/pixel baton budgets are survivable by pairing every budget against a provably-sound serialized belief-tracker floor, rather than only measuring empirical degradation.",
+    "Unlike self-note and handoff literature built around one persistent agent notating for its own future turns (Reflexion, Self-Notes, MemGPT, sleep-time compute, ExpeL), Blindboard: Relay severs identity completely every turn \u2014 a fresh, independently-sampled instance receives nothing but the baton, with no shared weights, session, or memory beyond it.",
+    "Where Self-Spec finds that letting a model design its own structuring artifact modestly helps single-shot code generation, Blindboard: Relay shows the opposite over a long relay: a self-designed, pinned notation degrades into constitutional lock-in, while an imposed external schema can flip the ranking and let the smallest model beat its own unconstrained full-transcript score.",
+    "Blindboard: Relay extends telephone-game and agent-drift style degradation studies with a controlled, budget-matched design and a sound-reference certification, letting it isolate how much observed drift is capability-limited versus budget-limited rather than reporting degradation alone.",
+    "Through its pixel-channel condition, Blindboard: Relay is (to our knowledge) the first study to show that LLMs given a free canvas for cross-instance memory default to writing text inside the image rather than inventing a spatial/graphical encoding, and to separately measure write-render-read fidelity from downstream game performance."
+   ],
+   "works": [
+    {
+     "title": "Reflexion: Language Agents with Verbal Reinforcement Learning",
+     "venue_year": "NeurIPS 2023",
+     "arxiv": "2303.11366",
+     "what_it_does": "A single persistent agent converts environmental/task feedback into first-person natural-language reflections, stored in an explicit episodic memory buffer, to improve its own performance on repeated attempts at the same task.",
+     "delta": "The reflecting and the acting are done by the same continuing agent across trials of one task; there is no hard external budget on the note, no fresh independently-sampled instance per turn, and no certified sound-reference floor to calibrate what is survivable."
+    },
+    {
+     "title": "Learning to Reason and Memorize with Self-Notes",
+     "venue_year": "NeurIPS 2023",
+     "arxiv": "2305.00833",
+     "what_it_does": "Lets a model interleave free-form 'self-notes' into its own input context at any point during a single continuous generation, functioning as an on-the-fly scratchpad plus working memory that outperforms chain-of-thought/scratchpad baselines.",
+     "delta": "Notes live inside one uninterrupted generation by one instance; there is no cross-instance handoff, no hard character/pixel budget forcing compression, and no relay of many independently-sampled models."
+    },
+    {
+     "title": "Generative Agents: Interactive Simulacra of Human Behavior",
+     "venue_year": "UIST 2023",
+     "arxiv": "2304.03442",
+     "what_it_does": "Gives simulated agents an append-only natural-language memory stream plus periodic reflection and retrieval, letting the same persistent agent identity plan and act believably over simulated days.",
+     "delta": "Memory is an unbounded, retrieval-augmented log maintained by one continuing agent, not a hard-budgeted baton passed between literally fresh instances with no other shared state."
+    },
+    {
+     "title": "ExpeL: LLM Agents Are Experiential Learners",
+     "venue_year": "AAAI 2024",
+     "arxiv": "2308.10144",
+     "what_it_does": "Extracts generalizable natural-language insights from a pool of past successful/failed trajectories (built partly via Reflexion) into an experience library reused across many different downstream tasks, without gradient updates.",
+     "delta": "Insights are cross-task, cumulative, and unbounded in size; the benchmark has no single continuous deduction game, no per-turn character/pixel budget, and no fresh-instance-per-turn structure."
+    },
+    {
+     "title": "Voyager: An Open-Ended Embodied Agent with Large Language Models",
+     "venue_year": "TMLR 2024",
+     "arxiv": "2305.16291",
+     "what_it_does": "Builds an ever-growing library of executable-code skills in Minecraft, retrieved by embedding similarity and reused across a lifelong, open-ended curriculum.",
+     "delta": "The carried artifact is reusable code, not a compressed natural-language/image state note; there is no hard bottleneck budget and no relay of independent fresh instances turn-by-turn."
+    },
+    {
+     "title": "MemGPT: Towards LLMs as Operating Systems",
+     "venue_year": "COLM 2024",
+     "arxiv": "2310.08560",
+     "what_it_does": "Introduces OS-style virtual context management, paging information between a bounded main context and unbounded archival/recall storage via the agent's own function calls, for one continuing agent across long or multi-session interactions.",
+     "delta": "The same agent manages its own paging over an effectively unbounded external store; there is no certified hard budget forcing everything through a single note/image, and no relay across independently-sampled fresh instances."
+    },
+    {
+     "title": "Sleep-time Compute: Beyond Inference Scaling at Test-time",
+     "venue_year": "2025 (Letta/UC Berkeley preprint)",
+     "arxiv": "2504.13171",
+     "what_it_does": "Has the model 'think' offline about a context during idle time, precomputing useful intermediate quantities before a query arrives, cutting test-time compute needed for the same accuracy.",
+     "delta": "The precomputed state is prepared before the query by (implicitly) the same model/context, not authored under a hard bottleneck and then handed to a genuinely fresh, independently-sampled instance turn by turn."
+    },
+    {
+     "title": "Chain of Agents: Large Language Models Collaborating on Long-Context Tasks",
+     "venue_year": "NeurIPS 2024",
+     "arxiv": "2406.02818",
+     "what_it_does": "Worker agents sequentially read segments of a long document and pass natural-language summaries forward to the next worker, with a final manager agent synthesizing the chain's outputs for QA/summarization/code tasks.",
+     "delta": "This is a genuine relay/baton structure, but for long-document comprehension rather than a hidden-information deduction game; there is no hard character/pixel budget certified against a sound-reference floor, and no analysis of notation invention or drift."
+    },
+    {
+     "title": "MEM1: Learning to Synergize Memory and Reasoning for Efficient Long-Horizon Agents",
+     "venue_year": "2025 preprint (ICLR 2026 poster)",
+     "arxiv": "2506.15841",
+     "what_it_does": "Trains, via end-to-end RL, a policy that updates a single compact internal state each turn, jointly consolidating memory and reasoning while discarding irrelevant information, achieving constant memory across long multi-turn tasks.",
+     "delta": "The state-writer is a trained, weight-persistent policy reused every turn, not a zero-shot fresh instance; there is no certified sound-reference floor and no character/pixel hard-budget framing."
+    },
+    {
+     "title": "LLM as a Broken Telephone: Iterative Generation Distorts Information",
+     "venue_year": "ACL 2025",
+     "arxiv": "2502.20258",
+     "what_it_does": "Runs long chains of iterative regeneration (e.g., repeated translation) and quantifies how factual and semantic content distorts over up to 100 iterations, testing mitigations like low temperature and explicit preservation instructions.",
+     "delta": "Chains are unconstrained-length natural-language regenerations without a hard character/pixel budget or notation-invention analysis, and use no sound-reference floor to certify which regimes are survivable; unclear whether hops are genuinely independent fresh instances versus the same model re-prompted."
+    },
+    {
+     "title": "Agent Drift: Quantifying Behavioral Degradation in Multi-Agent LLM Systems Over Extended Interactions",
+     "venue_year": "2026 preprint",
+     "arxiv": "2601.04170",
+     "what_it_does": "Proposes an Agent Stability Index across 12 dimensions to quantify semantic, coordination, and behavioral drift in multi-agent systems over extended interactions, based on 800+ simulated workflows.",
+     "delta": "A general, correlational measure of degradation across varied multi-agent workflows, not a controlled single-relay design with a hard baton budget, notation-invention analysis, or a certified sound-reference floor."
+    },
+    {
+     "title": "Self-Spec: Model-Authored Specifications for Reliable LLM Code Generation",
+     "venue_year": "2026 (under review, OpenReview)",
+     "arxiv": "none",
+     "what_it_does": "Has a model design its own compact specification schema, instantiate it from a problem description, resolve ambiguities, then generate code only from the confirmed spec, for single-turn HumanEval-style coding tasks.",
+     "delta": "The self-authored artifact is used once, immediately, by one generation pass, and reportedly helps (not hurts) stronger coding models \u2014 opposite in both structure (single-shot vs. long relay) and polarity (help vs. lock-in) to a self-designed notation that is pinned and reused/mutated across many subsequent fresh-instance turns."
+    },
+    {
+     "title": "Learning Agent-Compatible Context Management for Long-Horizon Tasks (AdaCoM)",
+     "venue_year": "2026 preprint",
+     "arxiv": "2605.30785",
+     "what_it_does": "Trains a separate external LLM via RL to prune/compress a frozen agent's accumulating context on web-search/deep-research tasks, finding a Fidelity-Reliability Trade-off: stronger agents benefit from high-fidelity context retention, weaker agents need more aggressive compression to stay reliable.",
+     "delta": "The compressing party is an externally-trained RL controller acting on one continuously-growing session for a frozen agent, not a self-authored note from a fresh zero-shot instance handed to another fresh instance; no hard character/pixel budget, no certified sound-reference floor, and the crossover is about compression aggressiveness rather than self-designed vs. imposed schema."
+    },
+    {
+     "title": "LLM Agents Are Latent Context Managers: Eliciting Self-Managed Context via a Proprioceptive Dashboard (VISTA)",
+     "venue_year": "2026 preprint",
+     "arxiv": "2606.30005",
+     "what_it_does": "Gives agents a training-free runtime dashboard of token usage, recency, and access history over typed memory blocks so the same continuing agent can decide what to keep, archive, or drop within one long session.",
+     "delta": "Operates within one continuous, growing agent session with recoverable archived blocks, not a hard severance between independently-sampled fresh instances where only a budgeted note/image crosses."
+    },
+    {
+     "title": "Plans Don't Persist: Why Context Management Is Load Bearing for LLM Agents",
+     "venue_year": "2026 preprint (Snowflake AI Research)",
+     "arxiv": "2606.22953",
+     "what_it_does": "Uses a 'replay pairing' diagnostic (hidden-state cosine distance with/without a plan in context) to show that standard agents' internal representation of an early plan decays sharply once it leaves the context window, i.e., plans are not carried forward as persistent state.",
+     "delta": "Evidence is gathered within a single continuing agent's hidden states on one trajectory, not across a boundary between independently-sampled fresh model instances, and offers no character/pixel budget or sound-reference certification."
+    },
+    {
+     "title": "Evaluating Performance Drift from Model Switching in Multi-Turn LLM Systems",
+     "venue_year": "2026 preprint",
+     "arxiv": "2603.03111",
+     "what_it_does": "Introduces a switch-matrix benchmark on CoQA/Multi-IF/IFEval that measures how much a different model/instance resuming a conversation from another's context degrades performance, relative to a no-switch baseline.",
+     "delta": "Closest prior work in spirit (a matched no-switch baseline is structurally similar to a certified floor) but targets general instruction-following/QA degradation from model swaps, not a hidden-information deduction game, hard text/pixel budgets, notation invention, or a provably-sound truncation-based reference."
+    },
+    {
+     "title": "Learning to Forget: Sleep-Inspired Memory Consolidation for Resolving Proactive Interference in Large Language Models",
+     "venue_year": "2026 preprint",
+     "arxiv": "2603.14517",
+     "what_it_does": "Applies offline, sleep-inspired consolidation and algorithmic forgetting to long-term conversational/personalization memory to reduce interference between older and newer stored facts.",
+     "delta": "Targets long-term personalization memory across many sessions of one persistent user-facing agent, not a hard-budgeted baton relayed between independently-sampled fresh instances in a single bounded game."
+    },
+    {
+     "title": "Text or Pixels? It Takes Half: On the Token Efficiency of Visual Text Inputs in Multimodal LLMs",
+     "venue_year": "2025 preprint",
+     "arxiv": "2510.18279",
+     "what_it_does": "Studies rendering existing textual content as an image (optical/visual-text compression) to cut input token counts for a reader model, comparing token efficiency of text vs. pixel representations of the same content.",
+     "delta": "Compression direction is externally imposed (given text rendered to pixels for a reader), not a model's own free choice of encoding when authoring a baton; it does not test whether models spontaneously invent spatial/non-textual encodings when given a blank canvas to draw on."
+    }
+   ],
+   "threats": [
+    {
+     "title": "Learning Agent-Compatible Context Management for Long-Horizon Tasks (AdaCoM)",
+     "arxiv": "2605.30785",
+     "overlap": "Reports a capability-dependent crossover effect in how much a memory/context intervention helps: an externally-trained RL controller's optimal compression aggressiveness depends on the underlying agent's own capability, with weaker agents needing more aggressive compression and stronger agents needing high-fidelity retention \u2014 structurally similar to Blindboard's finding that memory scaffolding produces PER-MODEL crossover effects (an imposed schema lets the smallest model beat its own full-transcript score).",
+     "differentiation": "AdaCoM's 'memory manager' is a separately RL-trained external LLM pruning one continuously-growing session for a frozen agent \u2014 there's no severance into independently-sampled fresh instances, no hard character/pixel budget, no certified sound-reference floor, and the crossover axis is compression aggressiveness (how much to prune) rather than self-designed-vs-imposed schema (who designs the structure).",
+     "claims_to_verify": "Confirm (a) whether AdaCoM's crossover is genuinely about agent capability/strength rather than self- vs. externally-designed schema; (b) whether AdaCoM tests a 'self-authored schema' condition at all, which would be needed to claim any overlap with constitutional lock-in; (c) that AdaCoM uses no sound/certified reference baseline comparable to Blindboard's provably-sound truncation floor."
+    },
+    {
+     "title": "Self-Spec: Model-Authored Specifications for Reliable LLM Code Generation",
+     "arxiv": "none",
+     "overlap": "Directly studies what happens when a model authors its own structuring artifact (a spec schema) that is then used for a downstream task, the same general question as Blindboard's 'self-designed pinned specs underperform' (constitutional lock-in) finding \u2014 but reports the opposite polarity, that self-authored specs modestly HELP stronger coding models.",
+     "differentiation": "Self-Spec's artifact is authored once and consumed once, in a single generation pass for one coding task \u2014 there is no repeated reuse across many subsequent turns, no chain of independently-sampled fresh instances, and no drift/mutation of the notation over generations, all of which are central to Blindboard's lock-in finding.",
+     "claims_to_verify": "Confirm (a) Self-Spec's spec is not reused/pinned across multiple downstream tasks or generations (i.e., it is genuinely single-shot); (b) the reported effect sizes and polarity (help, not harm) are accurate and not cherry-picked per model; (c) whether any ablation in the paper tests iterated reuse of one pinned spec, which would be the closest possible overlap to lock-in."
+    },
+    {
+     "title": "LLM as a Broken Telephone: Iterative Generation Distorts Information",
+     "arxiv": "2502.20258",
+     "overlap": "Quantifies how information degrades across a literal chain of iterative LLM regenerations (each output feeding the next input), including accelerating distortion curves and mitigation strategies \u2014 structurally the same relay shape as Blindboard's baton-passing chain, and a natural prior-art anchor for any 'notation/information drift across generations' claim.",
+     "differentiation": "The chains studied are unconstrained-length natural-language regenerations (e.g., repeated translation/paraphrase) with no explicit hard character or pixel budget, no certified sound-reference floor to calibrate survivability, and no analysis of models inventing or mutating their own notation systems; it is also unclear whether each hop is a genuinely independent freshly-sampled instance versus the same model/session re-prompted repeatedly.",
+     "claims_to_verify": "Confirm (a) whether hops in their chains involve fresh, independently-sampled model calls with no shared state beyond the passed text (vs. same-session reprompting); (b) that no budget constraint is imposed on the passed text, making it a different regime from a hard-bottlenecked baton; (c) that they do not already report anything resembling notation invention/mutation, which would blunt the novelty of Blindboard's 'notation drift' finding."
+    }
+   ]
+  },
+  {
+   "phrases": [
+    "Every fresh-instance-transmission-chain paper we found (the 'telephone game' literature) passes unbounded natural language and scores open-ended drift; none impose a hard character/pixel budget or check the transmitted artifact against a provably-sound compressed baseline the way Relay's certified deduction game does.",
+    "Every image-as-inter-agent-channel method we found (Vision Wormhole, HyLaT, latent-communication surveys) moves continuous, white-box activations between models; Relay's baton is always a genuine rendered image or plain text consumed through ordinary black-box multimodal input, so it is the only one that can even observe models defaulting to writing text inside images instead of inventing spatial notation.",
+    "Every text-as-pixels compression paper we found (Glyph, DeepSeek-OCR) has one model re-read content it rendered within its own continuous session; Relay is the only setup where the reader is a wholly separate, memoryless model instance, which is what lets it show write-render-read fidelity dissociating from downstream game performance.",
+    "No benchmark we found varies the memory scaffold itself (self-designed baton vs. imposed schema vs. full transcript) as the independent variable and reports per-model crossover effects \u2014 existing game-playing and memory-agent benchmarks treat memory scaffolding as fixed harness code, not as the manipulation under test.",
+    "The 'constitutional lock-in' and 'notation drift' related work we found studies either cooperation rule-sets in social-dilemma games or population-scale language emergence over many adapting agents; Relay is the only one of these mechanisms observed in a single lineage of frozen, non-adapting, fresh-per-turn instances inheriting one prior artifact under a certified, ground-truth-checkable task."
+   ],
+   "works": [
+    {
+     "title": "SVGenius: Benchmarking LLMs in SVG Understanding, Editing and Generation",
+     "venue_year": "arXiv preprint, 2025",
+     "arxiv": "2506.03139",
+     "what_it_does": "Single-shot benchmark (2,377 queries, 22 models) scoring LLMs on understanding, editing, and generating SVG code across 8 task categories and 18 metrics.",
+     "delta": "Relay never scores SVG output quality directly \u2014 it studies whether a fresh model instance can read back a self-authored, budget-constrained SVG-rendered baton well enough to keep winning a hidden-information game; there is no notion of 'good SVG' independent of game outcome."
+    },
+    {
+     "title": "Glyph: Scaling Context Windows via Visual-Text Compression",
+     "venue_year": "arXiv preprint, 2025",
+     "arxiv": "2510.17800",
+     "what_it_does": "Renders long text into images so a VLM processes it as fewer visual tokens, achieving 3-4x context compression with accuracy comparable to native long-context text LLMs.",
+     "delta": "Glyph compresses a single model's own existing context within one continuous session for efficiency; Relay forces independent, memoryless instances to author and re-derive meaning from a pixel-budgeted baton with zero shared context, scoring against game-correctness and a sound floor rather than token efficiency."
+    },
+    {
+     "title": "DeepSeek-OCR: Contexts Optical Compression",
+     "venue_year": "arXiv preprint, 2025",
+     "arxiv": "2510.18234",
+     "what_it_does": "Shows text can be optically compressed into vision tokens (up to ~20x) and decoded via OCR, with ~97% precision at <10x compression degrading to ~60% at 20x.",
+     "delta": "DeepSeek-OCR measures OCR decoding fidelity of statically rendered documents by one model/pipeline; Relay's key finding is that such read-back fidelity dissociates from downstream game performance once the reader is a separate model instance with no other shared context."
+    },
+    {
+     "title": "VISTA-Bench: Do Vision-Language Models Really Understand Visualized Text as Well as Pure Text?",
+     "venue_year": "arXiv preprint, 2026",
+     "arxiv": "2602.04802",
+     "what_it_does": "Contrasts VLM accuracy on identical questions posed as pure text vs. rendered ('visualized') text across MMLU, MMBench, SEED-Bench, and MMMU.",
+     "delta": "VISTA-Bench renders fixed, experimenter-authored prose under controlled conditions; Relay's images are notation a model invents for itself under compression pressure inside a live multi-turn game, not prose rendered by the researchers."
+    },
+    {
+     "title": "Reading, Not Thinking: Understanding and Bridging the Modality Gap When Text Becomes Pixels in Multimodal LLMs",
+     "venue_year": "arXiv preprint, 2026",
+     "arxiv": "2603.09095",
+     "what_it_does": "Finds MLLMs produce 5-19x shorter, less-reasoned outputs on rendered-text documents than identical plain text, tracing the gap to suppressed reasoning effort rather than perception failure, across 7 models and 7 benchmarks.",
+     "delta": "This diagnoses reasoning suppression when reading externally-authored document images; Relay's write-render-read dissociation is about a model's own generated image failing to preserve intended state, surfaced through downstream game correctness rather than output-length proxies."
+    },
+    {
+     "title": "Render-of-Thought: Rendering Textual Chain-of-Thought as Images for Visual Latent Reasoning",
+     "venue_year": "arXiv preprint, 2026",
+     "arxiv": "2601.14750",
+     "what_it_does": "Renders a model's own chain-of-thought steps as images and feeds them back through the vision encoder within the same session to make latent reasoning traceable and efficient.",
+     "delta": "Render-of-Thought is single-model, single-session self-looping of reasoning traces; Relay's pixel channel is the only bridge between otherwise fully disconnected model instances across a multi-turn game \u2014 nothing but the rendered baton survives between 'generations.'"
+    },
+    {
+     "title": "Optical Reasoning: Rethinking Images as an Expressive Reasoning Medium Beyond Text",
+     "venue_year": "arXiv preprint, 2026",
+     "arxiv": "2606.09585",
+     "what_it_does": "Has a single model perform typographic/graphical 'optical' chain-of-thought in images instead of text, cutting reasoning tokens ~16-29% at matched or better accuracy.",
+     "delta": "Optical Reasoning optimizes one model's own visual scratchpad within a session for token efficiency; Relay imposes a hard budget as a cross-instance survivability test and certifies it against a provably-sound non-LLM baseline, which has no analogue here."
+    },
+    {
+     "title": "When LLMs Play the Telephone Game: Cumulative Changes and Attractors in Iterated Cultural Transmissions",
+     "venue_year": "ICLR 2025",
+     "arxiv": "2407.04503",
+     "what_it_does": "Passes full text through a chain of LLM instances (translation, paraphrase, summarization) and tracks how properties like toxicity, positivity, and length drift toward 'attractor' states over many iterations.",
+     "delta": "Closest mechanic match (a chain where each link only sees the prior link's output), but passes unbounded text with no fixed budget, no ground-truth-checkable task, and no sound reference baseline \u2014 Relay adds an explicit character/pixel budget, a certified-solvable deduction game, and a provably-sound compressed baseline that certifies which budgets are survivable."
+    },
+    {
+     "title": "LLM as a Broken Telephone: Iterative Generation Distorts Information",
+     "venue_year": "ACL 2025 (long paper)",
+     "arxiv": "2502.20258",
+     "what_it_does": "Runs iterative back-translation/generation chains and measures factuality and relevance decay over up to 50 iterations, using translation as the transmission task.",
+     "delta": "Same family as the ICLR 2025 telephone-game paper \u2014 studies open-ended distortion of narrative/translation content with no size budget, no image channel, and no verifiable game outcome to score against a sound floor."
+    },
+    {
+     "title": "The Vision Wormhole: Latent-Space Communication in Heterogeneous Multi-Agent Systems",
+     "venue_year": "arXiv preprint (work in progress), 2026",
+     "arxiv": "2602.15382",
+     "what_it_does": "Maps heterogeneous agents' continuous reasoning traces into a shared latent space via a Universal Visual Codec and injects them directly into a receiver's vision-encoder pathway, treating the visual interface as a text-free communication port.",
+     "delta": "Vision Wormhole transmits continuous activations requiring instrumented, white-box access to both models' internals and never actually renders an image; Relay's baton is a genuine rendered image consumed as ordinary pixel input by a frozen, black-box instance, which is what lets it observe models defaulting to writing text inside images rather than inventing spatial encoding."
+    },
+    {
+     "title": "HyLaT: Efficient Multi-Agent Communication via Hybrid Latent-Text Protocol",
+     "venue_year": "arXiv preprint, 2026",
+     "arxiv": "2605.25421",
+     "what_it_does": "Trains agents via a two-stage framework to mix an efficient-but-opaque latent channel with concise natural-language snippets for interpretable multi-round agent communication.",
+     "delta": "HyLaT requires training agents specifically to produce and consume hybrid latent-text messages; Relay uses off-the-shelf frozen models with no communication-specific training, observing what notation they spontaneously improvise under a hard budget."
+    },
+    {
+     "title": "Emergent Languages in Populations of Language Model Agents: From Token Efficiency to Oversight Evasion",
+     "venue_year": "arXiv preprint, 2026",
+     "arxiv": "2605.31170",
+     "what_it_does": "Mines a large forum-style dataset of agent interactions for cases where populations of agents invent new notations or languages for token efficiency or oversight evasion, then verifies the inventions are learnable in-context by other models.",
+     "delta": "This is observational, population-scale mining of emergent notation across many adapting agents over many interactions; Relay is a controlled single lineage where one frozen model per turn must inherit and use a notation to solve a certified deduction task, letting notation quality be scored against a sound reference rather than merely detected."
+    },
+    {
+     "title": "DMV-Bench: Diagnosing Long-Horizon Multimodal Agents' Visual Memory with Incidental Cue Injection",
+     "venue_year": "arXiv preprint, 2026",
+     "arxiv": "2606.27499",
+     "what_it_does": "Tests whether a shopping agent recalls a pixel-only cue seen earlier in a chain of autonomous sessions, using a text-leakage contract to keep the signal in pixels alone, and proposes a dual visual+verbal memory architecture (DualMem).",
+     "delta": "DMV-Bench targets one continuous agent's incidental visual recall within an e-commerce task; Relay targets fresh, memoryless instances per turn in a certified deduction game where the image is the entire memory (not an incidental cue atop persistent state), calibrated against a sound baseline."
+    },
+    {
+     "title": "Internal vs. External: Comparing Deliberation and Evolution for Multi-Agent Constitutional Design",
+     "venue_year": "arXiv preprint, 2026",
+     "arxiv": "2605.09128",
+     "what_it_does": "Compares agent-self-deliberated constitutions against externally-evolved rule sets across coordination, public-goods, and trading games; finds evolution beats deliberation in collective-action settings because deliberating agents never propose punishment mechanisms.",
+     "delta": "This 'self-designed underperforms' finding concerns cooperation rule-sets in social-dilemma games; Relay's constitutional-lock-in finding concerns a model pinning its own memory/notation spec for a solo state-tracking task and then being unable to adapt it \u2014 rigidity of a self-authored format, not absence of enforcement mechanisms."
+    },
+    {
+     "title": "lmgame-Bench: How Good are LLMs at Playing Games?",
+     "venue_year": "arXiv preprint, 2025 (ICLR 2026 per project repo)",
+     "arxiv": "2505.15146",
+     "what_it_does": "Evaluates LLMs/VLMs on platformer, puzzle, and narrative video games via a unified Gym-style API paired with engineered perception-and-memory scaffolds to stabilize prompt variance across 13 models.",
+     "delta": "lmgame-Bench's memory scaffolds are fixed harness code built to control for prompt sensitivity; Relay's central manipulation is the memory scaffold itself (self-designed baton vs. imposed schema vs. full transcript) and its per-model crossover effects, which lmgame-Bench does not vary or study."
+    },
+    {
+     "title": "POPGYM: Benchmarking Partially Observable Reinforcement Learning",
+     "venue_year": "ICLR 2023",
+     "arxiv": "2303.01859",
+     "what_it_does": "RL benchmark suite of POMDPs, including a Battleship-style hidden-ship environment, for testing memory-augmented recurrent RL agents.",
+     "delta": "POPGYM agents are trained RL policies with learned recurrent state evaluated over reward; Relay evaluates frozen LLMs with no gradient updates, externalizing memory only through natural language or images across separate instances \u2014 a question about substituting text/pixels for weights-based memory that POPGYM cannot pose."
+    },
+    {
+     "title": "How Clued up are LLMs? Evaluating Multi-Step Deductive Reasoning in a Text-Based Game Environment",
+     "venue_year": "arXiv preprint, 2026",
+     "arxiv": "2603.17169",
+     "what_it_does": "Formalizes the Clue board game as multi-step deductive reasoning under partial observability and tests whether a single LLM maintains a logically consistent belief state across turns within its own context.",
+     "delta": "This tests one continuous agent's deductive consistency inside its own persisting context window; Relay removes that continuity entirely (a fresh model, no context) and studies what belief state survives transmission through an externalized, budgeted baton instead."
+    },
+    {
+     "title": "Beyond Tokens: A Unified Framework for Latent Communication in LLM-based Multi-Agent Systems",
+     "venue_year": "arXiv preprint, 2026",
+     "arxiv": "2606.05711",
+     "what_it_does": "Survey and 3-axis taxonomy of 18 methods (2024-2026) for agents exchanging continuous embeddings, hidden states, or KV-caches instead of text.",
+     "delta": "This surveys latent, sub-symbolic, white-box inter-agent channels; Relay's baton channel is always a black-box, human/model-legible artifact (text or rendered pixels) by construction, since measuring authored external communication \u2014 not activation transfer \u2014 is the entire point of the benchmark."
+    }
+   ],
+   "threats": [
+    {
+     "title": "When LLMs Play the Telephone Game: Cumulative Changes and Attractors in Iterated Cultural Transmissions",
+     "arxiv": "2407.04503",
+     "overlap": "Both study a chain of LLM instances where each link only sees what the previous link produced, and measure how information changes across the chain \u2014 the core 'relay of memoryless agents' mechanic (companion threat: LLM as a Broken Telephone, ACL 2025, arXiv:2502.20258, same mechanic via back-translation chains).",
+     "differentiation": "Telephone-game work passes full, unbounded natural-language text and measures open-ended drift (toxicity, length, factuality) on narrative/translation tasks with no single correct answer. Relay imposes a hard, quantified budget (character count or rendered-pixel bytes) on the passed artifact, plays a certified hidden-information deduction game with a ground-truth-checkable outcome, and scores every budget against a provably-sound, budget-matched belief-tracker baseline to establish which budgets are survivable at all \u2014 a ceiling the telephone-game literature has no equivalent of.",
+     "claims_to_verify": "Confirm neither the ICLR 2025 telephone-game paper nor the ACL 2025 'Broken Telephone' paper impose any explicit size/character/token budget on the inter-agent message (i.e., they pass full outputs unconstrained); confirm neither includes a formally-sound reference compressor/tracker used to certify a budget as information-theoretically sufficient; confirm neither task has a verifiable ground-truth correctness metric (they use toxicity/length/factuality proxies, not solved/unsolved game outcomes)."
+    },
+    {
+     "title": "The Vision Wormhole: Latent-Space Communication in Heterogeneous Multi-Agent Systems",
+     "arxiv": "2602.15382",
+     "overlap": "Both repurpose a VLM's visual channel as the bandwidth-constrained bottleneck for transferring memory/state between separate agent instances, explicitly framing it as inter-agent communication through vision.",
+     "differentiation": "Vision Wormhole injects continuous latent activations directly into the receiver's vision encoder \u2014 a white-box, weights-level 'wormhole' requiring instrumented access to both models, with no rendered image ever existing as an intermediate artifact. Relay's baton is a genuine rendered image (or plain text) consumed as ordinary pixel input by a frozen, black-box model instance, so it measures whether a model can author legible external notation for itself, and it is the only one of the two that can observe models defaulting to writing text inside the image rather than inventing spatial/graphical encoding \u2014 a phenomenon a latent-injection method cannot surface since there is no rendering step to fail at.",
+     "claims_to_verify": "Confirm Vision Wormhole's method requires white-box/instrumented access to hidden states or the vision encoder of both sender and receiver models (i.e., cannot be run purely through a commercial chat/vision API); confirm no rendered/rasterized image ever exists as an intermediate artifact in their pipeline (the 'communication' is activation-level, not pixel-level); confirm they report no findings about spontaneous notation choice (text-in-image vs. spatial/diagrammatic encoding), since their channel bypasses rendering entirely."
+    },
+    {
+     "title": "Glyph: Scaling Context Windows via Visual-Text Compression",
+     "arxiv": "2510.17800",
+     "overlap": "Both treat 'render text to pixels' as a bandwidth-saving channel and study a fidelity/compression tradeoff as the budget (compression ratio / image size) shrinks, including OCR-style read-back of the rendered content (companion threat: DeepSeek-OCR, arXiv:2510.18234, same optical-compression idea with explicit OCR-precision-vs-ratio curves).",
+     "differentiation": "Glyph/DeepSeek-OCR compress a single model's own existing long context for efficiency within one continuous inference session, measured by downstream QA accuracy or OCR decoding precision on statically rendered documents. Relay uses the rendered image as the ONLY memory bridge between independently-instantiated models across turns of a live deduction game, and its key finding is that read-back fidelity (can the next instance OCR its own prior notation) dissociates from game performance (getting the notation right doesn't predict winning) \u2014 a distinction that requires the multi-instance relay setup and does not arise when a single continuous session compresses its own context.",
+     "claims_to_verify": "Confirm Glyph and DeepSeek-OCR evaluate a single model/pipeline reading back text it rendered within the same session or task, not text authored by a prior, separate model instance with no shared parameters or context; confirm their headline accuracy metrics are direct QA/OCR correctness rather than a downstream multi-turn game outcome that could diverge from OCR fidelity; confirm neither paper reports cases where near-perfect OCR read-back coexists with downstream task failure (the fidelity/performance dissociation Relay reports)."
+    }
+   ]
+  }
+ ],
+ "verdicts": [
+  {
+   "verdict": "CONFIRMED",
+   "evidence": "Verified against arXiv:2605.30785 abstract (via WebFetch) and the raw HTML full text (fetched with curl, tags stripped, then grepped directly \u2014 not relying on any summarizer's paraphrase for the load-bearing negatives).\n\n(a) Crossover is about agent capability/strength, not schema authorship. Verbatim (\u00a74.4): \"Using vanilla ReAct performance as a proxy for agent capability, stronger agents such as GLM and Qwen can exploit longer raw contexts, so AdaCoM intervenes later and more lightly; weaker agents such as DeepSeek and Kimi benefit from shorter, distilled contexts, so AdaCoM compresses more frequently. This reflects a balance between fidelity and reliability: preserving raw trajectories retains fine-grained evidence, but beyond an agent's effective context length, additional raw content can harm reasoning.\" Also: \"agents with higher vanilla ReAct performance benefit from higher-fidelity context preservation, whereas lower-performing agents require more aggressive compression to stay wit[hin reliable range].\" This comparison holds the mechanism constant (an externally-trained AdaCoM manager in all cases) and varies only which agent (i.e., its capability level) is being managed \u2014 it is not a comparison of self-authored vs. externally-imposed schema.\n\n(b) No \"self-authored schema\" condition exists. Direct grep of the raw stripped text for \"self-authored\", \"self-design(ed)\", \"sound\", and \"certifi*\" all returned zero hits. \"Schema\" appears exactly once, referring to the manager's JSON \"output schema\" for its action format \u2014 an implementation detail, not a self-designed-vs-imposed memory-structure axis. The paper does contain adjacent but distinct \"self-management\" baselines, MemAct and SumAgent (table row \"CM Model: agent itself\"), where the agent executes its own pruning/summarization via a fixed, predefined operation (\"the agent can invoke a prune tool to summarize selected historical messages, remove them, and append the generated summary\"; \"the agent conditions on the original question, previous summary, and latest tool interaction to update the summary\"). These are ablations on WHO EXECUTES a fixed compression operation, not on who DESIGNS the context's structure/schema, and the paper's own diagnosis of their instability is unrelated to schema design: \"This supports the hypothesis that asking the agent to manage its own context may require agent-side training, since the resulting summaries may not be reliably usable by the original agent.\" Critically, this self- vs. external-execution ablation is never invoked to explain the Fidelity-Reliability crossover (part a) \u2014 that finding is generated entirely within the AdaCoM (externally-managed) condition, varying agent capability, not management-authorship.\n\n(c) No sound/certified reference floor. Confirmed via the same zero-hit grep for \"sound\" / \"certifi*\" across the full raw text. AdaCoM's baselines are ReAct (no management), SumAgent, MemAct (self-management), SumCoM (fixed external summarization), and AdaCoM w/o training \u2014 none is framed as a provably-sound or certified truncation floor. The only budget-like constraints found are soft, RL-shaped, token-based: \"we set the manager's own input context-window length to 32,768 tokens and its maximum output length to 4,096 tokens\" plus \"If the managed context exceeds the given context length limit, we apply a token penalty to the manager step that produced the over-length context\" \u2014 an RL training penalty, not a hard enforced or certified budget, and the paper is text-only (no pixel budget concept at all).\n\nDifferentiation confirmed: the \"manager\" is explicitly \"an external LLM\" trained via \"end-to-end reinforcement learning\" while \"keeping the agent frozen,\" operating as \"before each agent step, the manager updates the running context, and the agent then acts on the resulting managed context\" \u2014 i.e., one continuously-growing session under a frozen agent, with no language anywhere in the text about severance into independently-sampled fresh instances/episodes (grep for \"fresh\", \"independently sampled\", \"sever*\" in relevant context found nothing matching that concept; the one \"fresh\" hit concerned held-out task-generation topic diversity, unrelated to episode severance). The crossover axis is explicitly compression aggressiveness/frequency (\"AdaCoM intervenes later and more lightly\" vs. \"AdaCoM compresses more frequently\") tied to agent capability, not who designs the schema.\n\nAccess: WebFetch of https://arxiv.org/abs/2605.30785 confirmed title/authors/abstract match (\"Learning Agent-Compatible Context Management for Long-Horizon Tasks,\" Lu Yi et al., introducing \"Adaptive Context Management (AdaCoM)... trains an external LLM to manage frozen agent context... Fidelity-Reliability Trade-off\"). Full text fetched from https://arxiv.org/html/2605.30785v1 via curl, HTML tags stripped locally, and all quotes above verified by direct grep against that raw stripped text (not the WebFetch summarizer's paraphrase) to guard against convenient-but-inexact quotes.",
+   "corrected_phrasing": ""
+  },
+  {
+   "verdict": "CONFIRMED",
+   "evidence": "Both papers verified via WebFetch of arxiv.org/abs and arxiv.org/html full text (2410.08948 \"Emergent Social Conventions and Collective Bias in LLM Populations\", Ashery/Aiello/Baronchelli; 2606.04197 \"Exploring the Topology and Memory of Consensus: How LLM Agents Agree, Fragment, or Settle When Forming Conventions\", Mehdizadeh/Hilbert, submitted 2 Jun 2026, target JASSS).\n\n1) MEMORY FORMAT \u2014 neither \"raw transcript\" nor \"authored artifact\"; it's a system-maintained structured log:\n- Paper 1 (2410.08948): \"the prompt provides the LLM agent with a 'memory' storing details about the past H interactions they participated in, including their co-player's convention choice, their own convention choice, whether the interaction was successful or not, and their own accumulated score\" \u2014 with \"we set the name pool size to W=10 and the individual memory length to H=5 for populations of N=24 agents.\"\n- Paper 2 (2606.04197), Sec 2.1/2.2: \"Each memory entry stores the agent's previous choice, its partner's choice, and whether the interaction succeeded,\" implemented as \"a fixed-size first-in, first-out deque,\" rendered in-prompt as e.g. \"Interaction 1: You chose: M, Partner chose: Y, Success: No.\" Memory depth tested at M \u2208 {2, 5, 10}.\nSo memory depth = a bounded FIFO of structured outcome tuples (choice/partner-choice/success[/score]), not uncompressed dialogue and not an agent-authored/compressed artifact. This is a third category the either/or framing in the task didn't anticipate, but it does NOT contradict our differentiation text (which only says \"rolling memory window,\" not \"raw transcript\") \u2014 it actually reinforces the contrast, since their memory is auto-populated bookkeeping rather than anything the agent itself composes under a budget.\n\n2) INDIVIDUAL-AGENT DRIFT/MUTATION \u2014 absent in both papers, confirmed by direct search:\n- Names/conventions are drawn from \"a name pool of finite size W... presented to them as a list of W unique letters sampled from the English alphabet\" (paper 1) or a fixed letter set (paper 2: C, D, F, J, M, P, Q, R, X, Y) \u2014 agents select from this fixed pool, they do not invent novel conventions.\n- No passage in either full text discusses a single agent's own convention/word meaning drifting, mutating, or evolving over successive interactions. Both papers' unit of analysis is population-level: consensus emergence, fragmentation, collective bias, critical-mass/committed-minority effects (paper 1), and network-position effects like \"brokerage penalty\" for high-betweenness bridge agents (paper 2) \u2014 never within-agent semantic drift of an invented notation.\n- This directly confirms there is no precedent in this paper family for a single-model within-episode notation-drift claim.\n\n3) POPULATION SIZES / ROUNDS \u2014 matches the claimed \"16-200 agents\" range:\n- Paper 1: primary experiments N=24; robustness and critical-mass checks extend to N=48 and N=200 (\"populations as large as N=200 agents reach consensus... for a name pool as large as W=26\"); consensus reported by \"population round 15 in all cases, except for Llama-2-70b-Chat\"; committed-minority experiments run up to 30 population rounds to find the critical-mass threshold.\n- Paper 2: exactly 16 agents per topology, \"eight fixed 16-agent topologies,\" 432 total simulation runs, memory depth M \u2208 {2,5,10}, \"Simulations were run for a maximum of 1,600 rounds, corresponding to 100 population cycles,\" with observed settling times \"approximately 190\u2013926 rounds\" depending on condition.\n- Minor residual gap: the precise operational definition of one \"population round\" in paper 1 (single pairwise draw vs. an N-normalized cycle) was not locatable in the extracted text \u2014 a documentation gap in the source paper itself, not a defect in our claim; flagging for caution if exact round-to-round comparisons are made downstream.\n\n4) IMAGE/PIXEL CHANNEL VARIANT \u2014 none found. Both papers use only abstract letter symbols for the naming game; explicit search of paper 2's full text confirmed \"no visual or pixel-based variant discussed,\" and no such variant surfaced anywhere in paper 1 either.\n\nNet: every specific factual claim in the verification request checks out against full text, and the stated differentiation (population-scale persistent agents with rolling memory across many pairwise rounds; no hard externalization budget forcing single-artifact compression; no certified sound-reference floor; object of study is population consensus/bias, not one model's own hand-off encoding) is not contradicted anywhere in either paper.",
+   "corrected_phrasing": ""
+  },
+  {
+   "verdict": "CONFIRMED",
+   "evidence": "Read the full 23-page PDF (arXiv:2606.19857, \"Large Language Models Do Not Always Need Readable Language,\" fetched via arxiv.org/pdf/2606.19857 and extracted with pdftotext; abstract-page fetch initially hit a stale CDN cache showing an unrelated paper, re-fetched with cache-bust and confirmed correct title/ID match). Findings on both sub-claims:\n\n(1) Elicitation, not spontaneous/unprompted emergence in an agentic task:\n- Abstract itself: \"We refer to this class of model-centric textual representations as BabelTele, approached here not as a fixed protocol but as an empirical probe into LLMs' capacity to generate and interpret such representations. Through readability diagnostics, model likelihood measures, human questionnaires, and downstream task evaluations...\" \u2014 i.e., the paradigm is directly probed/elicited, exactly as our differentiation states.\n- Methodology section: \"By applying these constraints through zero-shot prompting, we encourage LLMs to externalize semantic information into a compact surface form more effectively.\"\n- Appendix C.1 gives the literal elicitation prompt: \"your task: compress verbose human text into minimal Token sequence. Audience \u2260 human, but another equally intelligent LLM. Core Directive: Omnilingual... Symbolic Collapse... Universality... Lossless... Compress the content bellow:\" \u2014 a direct compression instruction, not something arising as a side effect of trying to win a game.\n- Section 4.3 explicitly: \"We contrast simply prompt-elicited BabelTele representations with standard abstractive summaries and a carefully engineered extractive baseline (LLMLingua-2).\"\n- The paper even runs 13 explicit prompt variants (Table 6, \"BabelTele-like prompt variants\") to show the phenomenon is a \"family\" reachable via many instructions \u2014 reinforcing that it is instruction-driven, not spontaneous task pressure. The one bullet that uses the word \"spontaneously\" (\"by removing human readability as a default constraint, LLMs spontaneously produce opaque... representations under a black-box interface\") describes the model's autonomous choice of *surface form* once the readability constraint is explicitly lifted by prompt \u2014 not unprompted emergence during a hidden-state game.\n\n(2) Agent memory / multi-agent communication have no hidden ground-truth state a receiver must reconstruct, and no certified-sound-baseline budget:\n- LoCoMo (agent memory) is described as: \"used as an initial testbed for long-term conversational memory compression. Instead of compressing isolated passages, this setting compresses dialogue histories or memory contexts before answering memory dependent questions. The goal is to test whether BabelTele can reduce agent memory storage while preserving enough reliable information for downstream recall.\" Appendix E.4.1 confirms the mechanics: compress each session \u2192 retrieve top-4 similar sessions by embedding similarity \u2192 answer, graded by GPT-4o-mini against reference answers (Table 4: Token count, Acc., % vs. uncompressed). This is a retrieval-QA fidelity benchmark over shared/known conversational content, not a hidden-state deduction game.\n- Multi-agent communication uses DeepResearch Bench: \"We built a multi-agent system consisting of two agents and tested it on the DeepResearch Bench (Du et al., 2025a)... intermediate messages between agents are compressed before being passed to the next agent.\" Table 3 grades it by \"Token Reduction\" and \"Score\" (% of uncompressed baseline) in homogeneous/heterogeneous settings \u2014 a task-quality score relative to an uncompressed baseline, not an outcome graded against a provably sound/certified reference tracker or information floor.\n- The metrics section (B.5) states plainly: \"System Utility. For agent memory and multi-agent communication, we focus on operational metrics in realistic interactive settings: context token reduction, task accuracy or success rate, and, where available, response or reasoning-token overhead.\" No mention anywhere of a certified/provably-sound baseline or an information-theoretic floor for these settings.\n- A full-text search for \"hidden,\" \"ground truth state,\" \"deduction,\" \"guess\" found zero task-design occurrences \u2014 the only \"hidden\" hits concern \"hidden states\" of model internals in the unrelated-work discussion of activation-based compression, not a hidden game state a receiver must reconstruct.\n\nBoth our claims about the paper and our differentiation from a hidden-state deduction game with a certified/sound baseline survive full-text scrutiny; nothing in the 23-page paper (main text or appendices) contradicts them.",
+   "corrected_phrasing": ""
+  },
+  {
+   "verdict": "CONFIRMED",
+   "evidence": "Verified against the full text of arXiv:2607.00233 (\"From Signals to Structure: How Memory Architecture Drives Language Emergence in LLM Agents,\" Talebirad, Redman, Parsaee, Zaiane), fetched from both the abstract page (arxiv.org/abs/2607.00233) and the full HTML (arxiv.org/html/2607.00233v1, confirmed via stable md5 c7dde4b95c46612a1f5bc8ec0ba94422 across repeated reads, in an isolated scratchpad path to rule out a file-collision I initially hit from a concurrent process). All quotes below are verbatim from the raw fetched text, not from a summarizer.\n\n1) \"STATELESS\" CONDITION \u2014 CONFIRMED to be rolling-context-with-no-notebook, NOT a fresh-sample/no-shared-context design (i.e., not close to a Relay-style baton).\nTable 1 names the condition \"memory_only\" (Persistent=\u00d7, Private=\u2014, Update=\u2014, Format=\"window only\"), and the setup text is explicit:\n\"We compare five conditions. In all of them, each agent receives a rolling window of its last 20 (message, target, success) interactions as context each round. We hold this window fixed at 20 while comparing memory architectures and sweeping capacity, instead of exposing the model's full context, so that performance differences reflect the persistent store each architecture adds rather than the amount of raw history shown.\"\nSo \"stateless\"/memory_only agents still carry a 20-round rolling history into every round \u2014 only the extra persistent notebook/codebook is absent. I searched the full text for any alternative fresh-sample ablation (\"fresh,\" \"zero context,\" \"amnesia,\" \"independent draw,\" \"no shared\") and found zero hits \u2014 no condition anywhere removes the rolling window entirely. This directly matches the second (weaker) reading in the claim, not the Relay-like \"fresh LLM sample every round\" reading.\n\n2) NO IMAGE/SVG/PIXEL CHANNEL CONDITION \u2014 CONFIRMED.\nFull-text search for \"image,\" \"svg,\" \"pixel,\" \"visual channel,\" \"rendered\" returns exactly one hit: \"Emergence of linguistic communication from referential games with symbolic and pixel input\" \u2014 this is the title of a cited related-work paper (Lazaridou et al., 2018), not a condition this paper runs. The paper's own channel is purely symbolic tokens: \"Capacity = |V|^L. We sweep |V| \u2208 {2,3,4,5} and L \u2208 {2,3}...\" No visual/pixel channel exists in this paper's own design.\n\n3) NO FORMAL OPTIMAL/SOUND-REFERENCE BOUND \u2014 CONFIRMED; the paper reports empirical capacity curves and explicitly notes they diverge from the only theoretical prediction it invokes (an IB heuristic), rather than constructing a provable-truncation/survivability bound.\nAbstract: \"An information bottleneck-inspired argument predicts an optimal capacity equal to the number of objects. Instead, the bottleneck (capacity = 8) proves to be a fragility point, and surplus capacity is generally better.\"\nDiscussion: \"That point is not a compositional optimum here... Idealized bottleneck analyses treat agents as if they could reach the optimal rate\u2013relevance frontier. LLM agents are not optimal encoders: they negotiate conventions through interaction, and how close they get to any such frontier depends on whether they can consolidate what they learn. Memory architecture is the variable the framework leaves out.\"\nShannon's capacity theorem is cited only as a generic classical fact (\"sets a hard floor... any channel carrying fewer than log2|O|=3 bits cannot distinguish all eight objects\"), not as a custom budget-matched reference tracker built to certify which of their specific capacities/budgets are information-theoretically survivable. No hits anywhere for \"provable,\" \"certified,\" \"sound reference,\" \"reference tracker,\" \"theoretical bound,\" \"proof/proven.\"\n\n4) TASK FRAMING \u2014 CONFIRMED cooperative code-coordination (Lewis signaling), not hidden-information deduction/state-tracking with a certified-correct answer.\n\"In a Lewis signaling game, a sender and receiver must coordinate on a code using only their interaction history.\" / \"The Lewis signaling game (Lewis, 1969) is a minimal model of communication emergence: a sender observes a designated target among a set of candidates and transmits a constrained signal, and a receiver sees the same candidates and the signal, then identifies the target.\" Zero hits for \"hidden information,\" \"deduction,\" \"state tracking/state-track\" anywhere in the text \u2014 this is a cooperative-convergence game scored by per-round guess accuracy, structurally distinct from a hidden-state deduction task with one certified ground truth.\n\n5) RELAY-SPECIFIC FINDINGS ABSENT \u2014 CONFIRMED not surfaced in this paper.\nZero hits for \"self-designed,\" \"crossover,\" \"write-render-read,\" \"fidelity dissociation,\" \"imposed schema.\" Additionally strengthens the differentiation: the paper uses a SINGLE model throughout \u2014 \"All experiments use a single model (gpt-5.4-mini)\" (explicitly listed as a limitation) \u2014 so a \"per-model crossover\" finding is structurally impossible here; there is no second model to cross over against. The paper's actual findings (persistent-notebook capacity benefit avoiding \"high-capacity collapse,\" memory_only peaking then degrading, cap=8 as a \"fragility point\" rather than compositional optimum, and late-game \"convention drift\" in scratchpad notebooks) are a different set of results from self-designed-spec lock-in, imposed-schema crossover, or write/render/read fidelity dissociation.\n\nMinor incidental note (not required, not a problem): the paper self-cites \"Talebirad et al. (2026), Toward a theory of hierarchical memory for language agents, ICLR 2026 Workshop\" re: \"formal accounts of memory compression under a token budget\" \u2014 a different paper by an overlapping author, not this paper's own contribution, and not the Relay paper being differentiated (title doesn't match \"Relay\").\n\nOverall: both the factual claims about the paper's stateless condition/absence of image channel/absence of a formal bound, and the differentiation from Relay (task type, channel modality, nature of the capacity argument, and the specific Relay findings not present here) survive full-text scrutiny intact. No edits needed.",
+   "corrected_phrasing": ""
+  },
+  {
+   "verdict": "CONFIRMED",
+   "evidence": "Verified against arXiv HTML v2 (2502.20258v2, dated 2025-09-15, per Submission History), which the abs page's Comments field states is \"Accepted to ACL 2025, Main Conference\" \u2014 i.e. this is the current/updated version, satisfying the original claim's caveat about checking against the camera-ready.\n\n1) No hard compression constraint (generous 8000-token cap): CONFIRMED verbatim, twice. Main text (\u00a73.2, Decoding Parameters and Translation Prompt): \"We capped the maximum number of newly generated tokens at 8000 to encourage open-ended generation. This high limit allows translations, which can vary in length across different languages, to conclude naturally rather than being prematurely truncated.\" Appendix C repeats: \"We capped the maximum number of newly generated tokens at 8000 to encourage open-ended generation and ensure translations could conclude naturally.\" Source documents are only 100-200 words, so 8000 tokens is not a compression-forcing bottleneck.\n\n2) Fresh-call-per-iteration structure: CONFIRMED by methodology, not by one explicit \"no memory\" sentence. \u00a73.1 formalizes each iteration as a composed translation operator T^(t) applied functionally to document d^(t-1) (e.g. \"T^(t) = T_{l_J^(t)\u2190l_{J-1}^(t)}^{m_J^(t)} \u2218 \u22ef \u2218 T_{l_1^(t)\u2190l_source}^{m_1^(t)}\"), and Appendix E's actual prompts are single-turn templates containing only the current document text as {document} (e.g. \"Translate the following text from {source_language} to {target_language}: {document}\"). No mention of \"conversation,\" \"chat history,\" or retained memory across iterations appears anywhere in the ~59.5k-char full text (the one \"memory\" hit is an unrelated citation to Park et al. 2023 on generative agents).\n\n3) Task types (translation / rephrasing / multilingual chains): CONFIRMED. TOC confirms \"4.1 Experiment 1: Bilingual Self-loop,\" \"4.2 Experiment 2: Bilingual Two-player,\" \"4.3 Experiment 3: Multilingual Multiplayer\" (translation chains with varying languages/models), and \"5.1 Other Tasks: Rephrasing\" with its own prompt: \"Given a passage, rephrase it while preserving all the original meaning... Rephrase the following text: {document}.\"\n\n4) No certified/sound baseline: CONFIRMED by absence \u2014 zero occurrences of \"certified\" or \"sound\" anywhere in the full text. Evaluation relies solely on empirical metrics: FActScore (\"decomposes long-form text into atomic units and verifies each against a trusted reference using a dedicated judge model... we assume that the original text is factually correct and use FActScore to assess the rate of factuality degradation,\" judged by Claude 3.5 Sonnet), plus BLEU, ROUGE, METEOR, BERTScore, and BLEURT \u2014 all drift/similarity metrics vs. the original, none a provably-sound reference baseline.\n\n5) No notation-invention discussion: CONFIRMED by absence \u2014 zero occurrences of \"notation,\" \"shorthand,\" \"encod[e/ing],\" or \"compress\" anywhere in the full text. All degradation discussed is ordinary natural-language semantic/factual drift from translation and paraphrase (temperature, prompt constraint, language/script similarity, chain complexity), never models inventing symbolic shorthand under budget pressure.\n\nAll five differentiation points and the underlying methodological claims (no hard compression constraint, fresh-call structure, translation/rephrasing/multilingual task types, no certified baseline, no notation-invention discussion) hold up on direct full-text inspection of the current ACL-accepted arXiv version.",
+   "corrected_phrasing": ""
+  },
+  {
+   "verdict": "CONFIRMED",
+   "evidence": "Verified against full HTML text of arXiv:2509.00074 v2 (Colas, Mills, Prystawski, Tessler, Goodman, Andreas, Tenenbaum, \"Language and Experience: A Computational Model of Social Learning in Complex Tasks\") \u2014 abstract page and https://arxiv.org/html/2509.00074v2, cross-checked twice for identity consistency (title, author list, arXiv id all confirmed as 2509.00074/Colas et al. on repeat fetch; an initial fetch attempt transiently returned an unrelated paper's cached content, which was caught and discarded before use \u2014 none of the quotes below come from that bad fetch).\n\n1) ADVICE LENGTH \u2014 unconstrained, no stated budget. No character/token/word cap appears anywhere in the main text, Methods, or Appendix G (human-subjects instructions) or Appendix J (LLM prompts). Human participants are told only: \"After completing each game ... participants in all conditions were asked to describe the game to a future player\" \u2014 free text, \"Message interface shown to participants for writing advice to future players\" (Appendix G / Fig. 9), no length field. The model's advice-generation is likewise unconstrained sampling: \"The agent generates linguistic advice for future players by sampling from the same speaker model... L_generated ~ P_LM(L|prompt(T_MAP))\" (\u00a73.3). Methods explicitly notes \"each player receives a single novel message per game\" (\u00a73.4) \u2014 that's a constraint on number of messages (one-shot), not on message length. The only place the word \"budget\" appears is for game attempts, not text: \"our model solving all 10 games within a 10-life budget\" (\u00a75.1). So: advice length is unconstrained; the only budget in the paper is a lives/attempts budget, not a character/token budget on the externalized notation.\n\n2) FRESH AGENTS PER GENERATION vs. PERSISTENT MODELING ENGINE \u2014 confirmed fresh instantiation, not a persisting belief state. Iterated-learning setup: \"we designed an iterated learning experiment... each agent interacts with the game environment for only two lives before generating advice to the next agent. This cycle continues across 10 generations for each of the 10 games\" (\u00a75.4). Methods: \"a sequence of 10 agents, each given two lives, played the game and passed a message to the next agent\" (\u00a74). Each generation is described exactly like the single-generation \"Player 2\" condition \u2014 a new agent instantiated with its own prior P(T) over world models, receiving the predecessor's linguistic message only as evidence L (interpreted via the LM speaker model), not as a warm-started posterior or any persisted internal state. Nothing in the model description (\u00a73.1\u20133.3) indicates belief state, memory, or search history survives across generations \u2014 only the emitted text artifact does. This matches \"fresh calls sharing only the externalized artifact,\" not \"the inference engine persists while only the in-game character resets.\" (The same pretrained LLM weights are reused every generation, but that is generic model reuse, not persisted episodic/context state \u2014 the paper never claims otherwise.)\n\n3) SINGLE MODEL CLASS, NOT MULTI-FRONTIER COMPARISON \u2014 confirmed. Full-text search for \"GPT,\" \"OpenAI,\" \"Anthropic,\" \"Gemini,\" \"Mistral,\" \"Qwen,\" \"DeepSeek\" returns zero hits. The only LLM named anywhere is LLaMA-3.1-70B, used identically both as the probabilistic speaker model (\"we use a language model (LLaMA-3.1-70B) as a probabilistic speaker model,\" \u00a73.1) and as the \"pure LM\" baseline (\"3) pure LM: an LM agent (LLaMA-3.1-70B) that leverages state-of-the-art techniques to scaffold long-term decision making,\" \u00a73.4). The paper explicitly places cross-model-family comparison in future work: \"Future work could also investigate how different LLM families behave within our framework in their dual roles as advice generators (speakers) and approximations of human speakers (speaker models). Because our method uses LLMs both to produce pedagogical messages and to evaluate the likelihood of human-written advice, comparing families with different inductive biases could reveal how model-specific language priors shape both message interpretation and learning outcomes\" (Discussion). This directly confirms the paper fits/uses one model class and centers validation against human behavioral data (122 Prolific participants, Appendix G), not a per-model capability comparison.\n\n4) LIVES / GENERATIONS / HIDDEN-STATE DEDUCTION \u2014 exact numbers and task nature confirmed. Main experiments: \"players (participants or models) are given N=10 lives to learn to play a new video game, either from experience only (Player 1) or from experience and advice written by a previous player (Player 2)\" (Fig. 1 caption). Iterated-learning experiment: 10 generations, 2 lives per generation, across all 10 VGDL games, with N=20 independent chains per game (Fig. 6 caption: \"Median performance of N=20 agents (black) across generations (2 lives each)\"). Task nature: the \"hidden\" thing to be inferred is the game's causal rule-structure (object types, collision/interaction rules, win/loss conditions in a VGDL description) via Bayesian program induction from pixels+experience+language \u2014 e.g., \"our setting requires agents to infer the entire causal structure of each new environment \u2014 object types, interaction rules, and win/loss conditions \u2014 directly from experience\" (Related Work, Bayesian ToM section). This is rule/mechanic inference (an inverse-planning/program-induction problem), not tracking a hidden game *state* over time under a communication-channel budget (no notion of hidden board/keyboard/card state, no self-invented notation, no certified sound-reference floor, no text-vs-image channel comparison \u2014 searches for \"notation,\" \"encoding scheme,\" \"pixel,\" \"image...advice,\" \"self-invented\" all returned no relevant hits).\n\nCONCLUSION: All four items in the verification request hold up, and the stated differentiation (social-learning/Bayesian-inference-validated-against-humans vs. a benchmark of notation stability under a hard externalization budget with a sound-reference floor and text-vs-image channel comparison) survives full-text scrutiny \u2014 the paper genuinely does not contain any of the four central-to-your-contribution elements you list as unconfirmed.",
+   "corrected_phrasing": "Verified via full text of arXiv:2509.00074 (Colas et al., \"Language and Experience: A Computational Model of Social Learning in Complex Tasks\"): (1) Advice/message length is unconstrained free text in both the human study and the model \u2014 no character/token/word cap is stated anywhere in the paper or appendices; the paper's only \"budget\" concept is a 10-life budget on gameplay attempts, not on communication length. (2) Across the 10-generation iterated-learning experiment (2 lives per generation, 10 generations x 10 games, N=20 chains per game per Fig. 6), each generation is a freshly instantiated agent with its own prior over world models; only the emitted linguistic advice text carries information forward \u2014 the Bayesian inference engine's belief/posterior state does not persist across generations, so this is \"fresh calls sharing only an externalized text artifact,\" not \"the modeling engine persists while only the in-game character resets.\" (3) The paper uses exactly one LLM, LLaMA-3.1-70B, for both the speaker model and the \"pure LM\" baseline; no other frontier model (GPT, Claude, Gemini, etc.) appears anywhere, and the Discussion explicitly lists comparing different LLM families as future work \u2014 the paper centers on fitting/validating one model class against human behavioral data (N=120 Prolific participants), not on cross-model capability comparisons. (4) Main-experiment lives = 10 (N=10 lives per game, Fig. 1); iterated-learning = 10 generations x 2 lives each across 10 VGDL games. The hidden quantity being inferred is each game's latent causal rule-structure (object types, interaction/collision rules, win/loss conditions) via Bayesian program induction \u2014 a rule/mechanic-inference task, not hidden-game-state tracking under a communication budget; the paper contains no explicit character/token/pixel advice budget, no certified sound-reference floor, no study of self-invented notation/encoding stability, and no text-vs-image transmission-channel comparison."
+  },
+  {
+   "verdict": "NEEDS_EDIT",
+   "evidence": "Verified via arXiv HTML full text (https://arxiv.org/html/2602.00755v1, downloaded and grepped directly, not just WebFetch summarizer output) plus the abstract page. All quotes below are verbatim from the raw text extraction.\n\nABSTRACT (confirms core framing): \"Even constitutions designed by Claude 4.5 Opus with explicit knowledge of the objective achieve only moderate performance (S=0.332)... Using LLM-driven genetic programming with multi-island evolution, we evolve constitutions maximizing social welfare without explicit guidance toward cooperation. The evolved constitution C* achieves S = 0.556 \u00b1 0.008 (123% higher than human-designed baselines).\"\n\nCLAIM 1 \u2014 self-designed baseline is a single, non-iterated LLM generation \u2014 CONFIRMED:\n- \"LLM-Generated. A constitution created by prompting Claude 4.5 Opus to design optimal rules for the environment, representing one-shot LLM design without evolutionary optimization (Table 4).\"\n- Appendix B.3 gives the exact single prompt sent to Claude 4.5 Opus (full game rules + \"Design a constitution consisting of 4-6 rules\" + output format spec), with no mention of any follow-up turn, critique pass, or revision step, and states: \"Note that this prompt provides full knowledge of the game mechanics and optimization objective, yet the resulting constitution (Table 4) still underperforms the evolved constitution C* by 67%, demonstrating that one-shot LLM design cannot m[atch evolutionary optimization].\"\n\nCLAIM 2 \u2014 evolved constitutions come from a genuine search process, not an experimenter-fixed schema \u2014 CONFIRMED:\n- Section 3.3.2: \"we employ a multi-island evolutionary architecture based on OpenEvolve. Three independent populations evolve in parallel... Every 5 iterations, the top 20% of each population migrates to neighboring islands.\"\n- Appendix D.1 config: max_iterations 30, num_islands 3, population_size 10, elite_ratio 0.3, exploitation_ratio 0.6, exploration_ratio 0.1, evaluation num_runs 2 \u2014 a real evolutionary-computation setup (elitism, migration, population, fitness), not a static template.\n- Fitness is an objective, computed quantity from real simulated agent behavior (Appendix D.2, compute_stability_score function over actual productivity/survival/conflict from simulation), not the LLM's own self-assessment.\n\nDIFFERENTIATION (domain/contrast description) \u2014 CONFIRMED:\n- \"6\u00d76 grid-world simulation with 6 LLM agents split into two teams... Agents gather three resource types (wood, stone, gems) to complete team projects.\" \"Every 10 turns... the Overseer eliminates the agent with the lowest cumulative contribution.\" This is a resource-gathering/survival grid-world with an eliminating Overseer, matching the stated domain exactly.\n- Grepped the full text for \"pixel\", \"character budget\", \"notation\", \"belief\", \"relay\", \"fresh instance\", \"transmission\" \u2014 zero substantive hits. Confirms there is no fresh-instance-per-turn relay, no character/pixel transmission budget, and no belief-tracking/notation-drift analysis in this paper.\n\nTHE HEDGE CONDITION \u2014 TRIGGERED, and this is the part that needs the write-up to change:\nThe paper's own mutation mechanism (Appendix H.3, \"Evolution Mutation Prompt\") shows the evolved constitutions ARE still LLM-authored-and-refined at every generation, not \"externally imposed\": \"You are an expert at designing behavioral rules. ## CURRENT CONSTITUTION {current_constitution_code} ## PERFORMANCE FEEDBACK - Stability Score: {score} - Productivity: {productivity}% - Conflict Rate: {conflict}% ## TASK Improve this constitution... ## OUTPUT Provide improved constitution as valid Python code.\" Both the optimizer and the simulation agents run on GPT-OSS-120B (Section 4.1.1); Claude 4.5 Opus is used only for the separate one-shot baseline. So \"evolved\" here means \"LLM keeps rewriting the same natural-language rule set every generation,\" not \"a non-LLM/experimenter-fixed grammar takes over.\" Per the task's own stated conditional, this means the write-up should not imply the evolved condition bypasses LLM authorship \u2014 it should say explicitly that the distinguishing factor from the self-designed baseline is NOT authorship (self vs. externally-imposed) but iteration depth + real environmental grounding: 30 generations of LLM-proposed rewrites, each selected/retained via an objective fitness function computed from actual simulated behavior across a 3-island/population-10 search, versus a single ungrounded generation. That is a genuinely different mechanism from a bare \"self-designed vs. experimenter-imposed schema\" contrast (as attributed to Relay), but the current differentiation phrasing risks reading as if 'evolved' means 'not LLM-authored,' which the full text does not support.",
+   "corrected_phrasing": "Add this caveat sentence to the differentiation: \"Note that both conditions in this paper are LLM-authored natural-language text \u2014 the self-designed baseline is one Claude-4.5-Opus generation from a single prompt (Appendix B.3), while the 'evolved' constitution is produced by a separate LLM (GPT-OSS-120B) acting as a mutation operator that rewrites the current rule set every generation given explicit performance feedback (Stability Score, productivity%, conflict% \u2014 Appendix H.3), across 3 islands \u00d7 10 population \u00d7 30 iterations with elitism and migration (Appendix D.1). So the contrast this paper draws is not 'LLM-authored vs. externally-imposed schema' (as in Relay) but 'single ungrounded LLM generation vs. LLM generation iteratively selected against a real, simulation-computed fitness function.' Framed that way, the underperformance mechanism is closer to 'one-shot generation lacks iteration and empirical grounding' than to any self-vs-external-authorship distinction, and the write-up should say so explicitly rather than let 'evolved' imply the search process stopped being LLM-authored.\""
+  },
+  {
+   "verdict": "CONFIRMED",
+   "evidence": "Verified against the arXiv abstract page (https://arxiv.org/abs/2604.13349) and the full HTML text (fetched at the versioned URLs https://arxiv.org/html/2604.13349v1 and v2 \u2014 note the unversioned /html/2604.13349 URL intermittently served a CDN-cached, unrelated paper (\"Language and Experience...\") due to an arXiv-side caching glitch; the /abs/ metadata and both versioned HTML fetches consistently confirmed the correct paper title/authors \"When Less Latent Leads to Better Relay... Li, Yiping; An, Zhiyu; Du, Wan\", with sanity greps showing 0 hits for the wrong paper's terms and 86+ hits for OBF/orthogonal terms in the same pass).\n\n1) \"FRESH\" AGENTS RESOLVED \u2014 NOT amnesia, continuous cache-conditioned continuation:\n- \"The receiver \u03c0_{i+1} continues decoding by using \u2133_i as PastKV.\" (Sec 3.2)\n- \"Four agents are arranged in a pipeline: Planner, Critic, Refiner, and Judger. Each non-Judger agent performs latent reasoning under its role-specific prompt and relays its full KV cache to the next agent as past_key_values; the downstream agent conditions on both its text input (role prompt and question) and the transferred KV cache.\" (Appendix A.1)\n- \"At each hand-off, the inherited KV cache \u2133_{i-1} is concatenated with the freshly encoded prompt KV \ud835\udcab_i...\" (Appendix A.7) \u2014 \"freshly encoded\" refers only to the new role-prompt's own tokens; the prior agent's KV cache is inherited/concatenated, not discarded/reset.\nThis directly resolves the ambiguity the abstract leaves open: agents are the same backbone (Qwen3-4B) continuing computation via inherited KV-cache as past_key_values, not freshly sampled/reset instances. This confirms the user's framing \u2014 the \"fresh instance, per-turn amnesia\" property is not what this paper does, making it more clearly a distinguishing feature of the user's own \"Relay\" benchmark.\n\n2) DIFFERENTIATION \u2014 all elements confirmed present/absent as claimed:\n- Bottleneck carrier is KV-cache/latent state only: abstract \u2014 \"Recent work such as LatentMAS enables agents to exchange latent messages through full key-value (KV) caches... We adapt KV-cache eviction methods to this setting and introduce Orthogonal BackFill (OBF)...\"; Related Work explicitly frames this as moving \"beyond text-only communication\" (no text-note or image/pixel modality anywhere \u2014 grep for pixel/image/vision in the full text returned zero genuine hits).\n- Compression method matches exactly: \"OBF injects a low-rank orthogonal residual from discarded KV states into the retained KV states\" (abstract); mechanism detailed in Sec 4.4: \"OBF extracts from the discarded value states a low-rank component orthogonal to the retained ones and injects it into the retained values.\"\n- No discrete authored artifact / no notation-invention or self-authored-spec-vs-schema comparison: confirmed absent \u2014 no such discussion anywhere in the text; the transferred object is raw KV tensors, never a human-authored note or schema.\n- Benchmarks are math/QA/coding, not a hidden-state deduction game: confirmed \u2014 \"we evaluate on a suite of benchmarks organized into four groups: (i) Math: GSM8K and AIME 2024/2025; (ii) Expert QA: GPQA and MedQA; (iii) Commonsense QA: ARC (Easy/Challenge); (iv) Coding: MBPP-Plus and HumanEval-Plus\" (Sec 5.1) \u2014 nine benchmarks total, matching the abstract's \"nine benchmarks spanning mathematical reasoning, expert and commonsense QA, and coding.\" No game/deduction-style benchmark.\n- No sound/provably-optimal reference tracker for certifying budgets: confirmed absent \u2014 searched for \"provably optimal,\" \"sound,\" \"reference tracker\" (no hits). The only optimality-adjacent content is Appendix F's per-query attention-output error bound (\u2016e_OBF\u2016 \u2264 \u2016e_evict\u2016, Proposition F.3/Corollary F.4), which bounds reconstruction error of compressed vs. full KV attention output \u2014 a mathematical fidelity bound on the compression operator itself, not a ground-truth \"reference tracker\" used to certify budgets in a hidden-state tracking game (a different kind of artifact entirely, absent here).",
+   "corrected_phrasing": ""
+  },
+  {
+   "verdict": "NEEDS_EDIT",
+   "evidence": "Paper: Zihao Xu, Xiao Cheng, Jingling Xue, Yuekang Li, \"Self-Spec: Model-Authored Specifications for Reliable LLM Code Generation,\" Agents4Science 2025 (OpenReview id 6pr7BUGkLp; NOT on arXiv \u2014 the given \"arXiv:none\" is literal, no arXiv version exists). Notably the byline lists \"GPT-5\" as first author with affiliation \"OpenAI,\" and the venue's own checklist confirms AI wrote the bulk of the text/analysis; of the five reviews, four are AI reviewer-bots (AIRev1/2/3, AIRevCorrectness, AIRevRelatedWork) and only one (CAJ) is human, rating it \"Borderline reject\" (3/6) partly for missing ablations.\n\n(b) Effect sizes/polarity \u2014 CONFIRMED, with caveats. Abstract verbatim: \"On HumanEval (pass@1, single sample), Self-Spec improves over direct NL\u2192code for stronger models: GPT-4o 87% \u2192 92% (+5) and Claude 3.7 92% \u2192 94% (+2); Claude 3.5 dips 90% \u2192 89% (\u22121).\" Table 1 verbatim: \"GPT-4o 87% 92% +5 / Claude 3.7 92% 94% +2 / Claude 3.5 90% 89% \u22121.\" These match exactly, and all three models (2 gains, 1 regression) are disclosed \u2014 not cherry-picked. BUT two caveats the paper's own AI reviewer raised and I independently verified in the text: (1) \"Statistical reporting: Table 1 ... provides only point estimates; no confidence intervals, no significance tests ... The checklist's assertion that T=0 'covers' statistical significance is incorrect\" \u2014 confirmed: the paper's own checklist answers \"[Yes]\" to statistical significance with justification \"We report single-sample pass@1 results under strictly deterministic decoding (T=0) that covers the concern,\" which does not actually address significance for point deltas of +5/+2/\u22121 out of 164 tasks. (2) \"Post-hoc modification claim: The statement that Claude 3.5 returns to baseline ... is not quantified in Table 1 and involves altering generated code after the fact, outside the defined evaluation protocol\" \u2014 confirmed: the \"returns to baseline\" claim is qualitative/narrative only (\u00a76), never given its own row/number. (3) Fairness confound: \"In all experiments, user responses are simulated by a second LLM ... The native baseline cannot ask clarifying questions\" (\u00a73, confirmed) \u2014 the Self-Spec arm gets extra simulated-user information the Native baseline never receives, so gains are not purely attributable to \"self-authored notation\" per se.\n\n(a) Single-shot / no reuse across tasks \u2014 NEEDS EDIT, genuinely ambiguous in the paper itself. Two levels of artifact exist: the WorkingSpec (per-task instantiated content) and the GlobalSPEC/schema (the notation/DSL itself). The WorkingSpec is clearly single-shot: \"We sample a single solution per task (pass@1 setting). No additional reranking or self-consistency voting is applied,\" and \"SpecExecutor: Conditioned solely on the confirmed WorkingSpec, the executor produces the final code\" (one generation, then done). But the schema/notation level is NOT clearly single-shot: \u00a73 says \"This schema is created once per session and represents the format the model 'prefers'\" and \"the global schema is treated as fixed scaffolding and is no longer modified\" \u2014 \"session\" is never defined as \"one task\" vs. \"the whole 164-task benchmark run per model.\" The paper's own AIRevCorrectness reviewer flagged exactly this: \"Ambiguity about SpecDesigner scope: 'One-time' schema creation (Section 3) is not explicit about whether the GlobalSPEC is fixed across all 164 tasks per model/session; session boundaries and reuse policy are not clearly specified and could affect reproducibility.\" Figure 1 depicts a single \"Global Spec / CUE-Spec v1.0 / Canonical Form\" box feeding into \"Working Spec for this task,\" consistent with (but not proof of) one schema instance being reused across many task instantiations. So the differentiation's claim of \"no repeated reuse across many subsequent turns\" holds unambiguously for the code-generation artifact (WorkingSpec\u2192code) but is NOT established for the notation/schema artifact \u2014 that could plausibly be pinned across all 164 downstream tasks per model, and the paper doesn't rule this out.\n\n(c) Ablation testing iterated reuse of a pinned spec \u2014 CONFIRMED absent. No such ablation exists anywhere in the text (Sections 4-8, Tables 1-3, Appendix A.1-A.3 are prompt templates plus two illustrative single-task examples, not systematic ablations). This is corroborated by the paper's own reviewer: \"No ablations: The paper does not isolate contributions of individual roles (SpecDesigner/Interviewer/Confirmer) or test alternatives (e.g., spec without Q&A, Q&A without self-authored schema).\" The evaluation is single-sample pass@1 only; there is no pass@k, no repeated-sampling-from-one-spec, no cross-task spec-reuse experiment reported.",
+   "corrected_phrasing": "Self-Spec's per-task code artifact (the \"WorkingSpec\") is genuinely single-shot: it is instantiated once from a problem's docstring/signature and consumed in exactly one deterministic (T=0), single-sample code generation, with no reranking or repeated sampling (pass@1 only) \u2014 confirmed verbatim in the paper. However, do not claim the paper establishes that Self-Spec's artifact overall is \"authored once and consumed once\" with \"no repeated reuse across many subsequent turns\" without qualification: the paper is explicitly ambiguous about whether the model-authored *schema/notation* itself (the \"GlobalSPEC,\" e.g. \"CUE-Spec v1.0\" in Fig. 1) is freshly authored per HumanEval task or created once and reused/pinned across all 164 tasks per model \u2014 Section 3 says only that it is \"created once per session\" without defining session boundaries, and the paper's own AI correctness reviewer flagged this exact ambiguity as unresolved and reproducibility-relevant. State the differentiation as: the task-level spec-to-code pass is single-shot and confirmed; whether the schema-level notation is reused across the benchmark's many tasks is not established either way by the paper.\n\nThe reported effect sizes (GPT-4o 87%\u219292% +5, Claude 3.7 92%\u219294% +2, Claude 3.5 90%\u219289% \u22121) are accurate \u2014 they match verbatim between abstract and Table 1 \u2014 and are not cherry-picked, since all three tested models' outcomes (including the one regression) are disclosed. Add the caveat that these deltas carry no confidence intervals or significance tests (a gap the paper's own checklist incorrectly claims T=0 resolves), that the \"Claude 3.5 returns to baseline\" recovery claim is an unquantified post-hoc code edit never entered in Table 1, and that the Self-Spec arm's simulated-user Q&A gives it information the Native baseline structurally cannot access, which is a fairness confound on the causal attribution of the gains (not on the raw numbers themselves).\n\nNo ablation in the paper tests iterated reuse of one pinned spec across multiple generations \u2014 confirmed. The paper contains no ablations of any kind (a gap its own reviewer names explicitly), only the single pass@1/T=0 comparison. This supports the claim that Self-Spec's design and evaluation never probe the repeated-reuse/lock-in regime \u2014 but frame it as \"the paper does not test this scenario,\" not as \"the paper's design rules this scenario out,\" since the schema-reuse-across-164-tasks ambiguity in (a) means the closest analogue to repeated reuse may already be latent, untested, in the base experimental design itself."
+  }
+ ]
+}

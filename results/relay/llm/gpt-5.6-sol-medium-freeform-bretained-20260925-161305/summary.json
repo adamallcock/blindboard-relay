@@ -1,0 +1,25 @@
+{
+ "board_accuracy_mean": 1.0,
+ "board_accuracy_sem": 0.0,
+ "budget": "retained",
+ "condition": "freeform",
+ "effort": "medium",
+ "episodes": 9,
+ "failed_seeds": [
+  7
+ ],
+ "failures": {
+  "7": "ResponsesHTTPError: OpenAI Responses POST HTTP 400, code=invalid_prompt, request_id=req_3c255bdb6158418eb01321d2a0ec22b8 (mid-episode; no episode stored). Retried successfully in gpt-5.6-sol-medium-freeform-bretained-20260925-161755."
+ },
+ "guess_turn_mean": 18.44,
+ "harness": "retained-reasoning",
+ "lock_score_mean": 15.78,
+ "lock_wrong_total": 0,
+ "model": "gpt-5.6-sol",
+ "no_note_turns_total": 0,
+ "prompt_version": "relay-v2",
+ "solve_rate": 1.0,
+ "summary_reconstructed": "relay_run crashed on seed 7 before writing this summary; rebuilt from the 9 stored episodes with blindboard.runner.summarize",
+ "truncated_turns_total": 0,
+ "violations_total": 0
+}

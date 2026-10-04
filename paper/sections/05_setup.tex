@@ -1,0 +1,37 @@
+\subsection{Experimental setup}\label{sec:setup}
+
+The original models are GPT-5.4 Nano and GPT-5.6 Luna, Terra and Sol, referred to below as Nano, Luna, Terra and Sol. They use medium reasoning effort. Four added models are GPT-6 Luna, GPT-6 Sol, Gemini 3.8 Flash and Claude Opus 5.5 (Opus 5.5). Gemini 3.5 Flash supplies a separate replication. Each model has one fixed effort setting; model and effort must be interpreted together \citep{blindboard2026}.
+
+The corpus contains \relaystoredepisodes{} stored episodes: \relayprintedepisodes{} main text-channel episodes, 25 pixel-channel episodes, \relayrefusedepisodes{} excluded pilot episodes and 40 prompt-audit episodes. It also contains \relayprobepairs{} transcription-probe pairs. Most cells use seeds 0--9; \Cref{app:cells} gives every cell's count and prompt version. An illegal action receives one corrective retry; another illegal action forfeits the turn. Forfeiture affected \relayforfeitepisodes{} of the reported episodes.
+
+Recorded cost is approximately \$\relaycostlist{} at collection-date list prices, including cached-input rates where usage is itemized. This includes 40 constitution-design calls, whose usage is recovered from episode totals minus itemized game calls. About \$2 in additional probe calls is unitemized; the refused Sol attempt has no stored itemized cost. These are recorded list-price equivalents, not a complete invoice reconciliation. OpenAI ran on flex; Opus 5.5 and Gemini 3.8 Flash ran on standard tiers.
+
+\paragraph{Transcript controls.}
+Both controls replay the rules, every observation and every earlier reply without truncation. The \emph{visible-transcript control} discards earlier reasoning. The \emph{retained-reasoning control} replays all earlier output items through the provider's native mechanism: encrypted reasoning items for OpenAI, signed thinking for Anthropic, and thought signatures for Gemini. OpenAI sessions include reasoning from all turns with server-side storage disabled. Neither control uses compaction. Before each call, the harness checks that the session's visible history matches the transcript. Provider checks recorded token growth consistent with transporting earlier reasoning, without establishing its semantic use. Gemini 3.5 Flash has only a visible control; the fresh $B{=}50$ and 60-turn-cap conditions have no separate transcript controls.
+
+The original four models' retained controls were collected on September 25, 2026, two months after their visible controls and most note cells. Those contrasts also include any change in the served model. Both controls for the fresh-seed Luna replications, and all added-model conditions, were collected on September 25. Same-day collection does not pin a served-model revision. One of ten retained Sol episodes was refused mid-game (HTTP 400, \texttt{invalid\_prompt}) and completed on re-running from the same seed; the refused attempt left no stored episode. Re-running refusals can favor shorter trajectories if rejection depends on request length.
+
+\paragraph{Statistical comparisons.}
+Contrasts use per-seed differences on the declared intersections, with a comparator from the same prompt version and base game. Exact two-sided sign tests are primary; they compare the directions of non-tied differences. Paired $t$ confidence intervals (CIs) describe mean effects; bias-corrected and accelerated (BCa) bootstrap intervals check sensitivity. Signed-rank sensitivity tests rank integer correct-key differences to preserve ties. Holm correction applies within the primary \relayprimfamily-test family on seeds 0--9 and separately within each declared confirmatory family. At ten seeds, neither interval method guarantees coverage. An unconfirmed contrast is not evidence of no effect.
+
+F2--F4 were declared before their July collection; F5--F7 before any retained-reasoning collection. Fresh-seed F8, F13 and F16 followed interim results but preceded their own collection: the initial Luna control tests were unconfirmed, and the initial $B{=}50$ tests had not separated the frontier models. F8 and F13 use seeds 10--19; F16 uses 10--29. Added-model families F9--F12, F14, F15 and F17 were declared before any of their episodes were collected. \Cref{tab:families,tab:added,tab:frontier} define the families and seed populations. Instrument-audit, horizon and convention tests have separate families; post-hoc comparisons are exploratory. The archived declarations are internal, not an externally authenticated public preregistration. No single family-wise guarantee covers every claim.
+
+\subsubsection{Instrument audit and prompt versioning}\label{sec:audit}
+The pilot instrument left two mechanics unstated: notes do not accumulate, and the next observation echoes the preceding action. Prompt v2 states both. Nano's pilot mean at $B{=}100$ was $.154$ on five seeds, versus $.315$ on ten v2 seeds. On the five shared seeds, the v2 mean was $.292$, a paired gain of $.138$ (95\% $t$ CI $[.019,.258]$; exact sign $p{=}.125$). This comparison does not isolate a causal penalty from the old prompt. Luna's point estimates changed by 2--4 percentage points without a confirmed difference.
+
+Every main-grid text cell uses relay-v2. The original $B{=}800$/$25$ cells and pilot controls were re-collected under v2; legacy episodes are excluded from the reported cells. The four explicitly labeled \texttt{nocoach} audit cells remove the two coaching sentences from the v2 rules and are analyzed separately.
+
+\begin{table}[htbp]
+\centering
+\small
+\caption{Mean board accuracy (fraction of keys correct) with and without the two coaching sentences, using free-form notes at $B{=}100$ and ten shared seeds per model. The \texttt{nocoach} variant removes both sentences from the printed v2 rules; $\Delta$ is \texttt{nocoach} minus coached. No exact sign test confirms a score change. This is not an equivalence test; smaller effects and other interfaces remain unresolved.}
+\label{tab:audit}
+\begin{threeparttable}
+\input{tables/relay_audit}
+\begin{tablenotes}[flushleft]\footnotesize
+\item[] Both means and $\Delta$ use the ten seeds shared with the \texttt{nocoach} cells.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+\Cref{tab:audit} compares the coached and \texttt{nocoach} rules at free-form $B{=}100$. No score difference was detected, but the sample does not establish equivalence or rule out smaller effects. Other budgets and scaffolds remain untested. The drift results describe behavior under the coached rules.

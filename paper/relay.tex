@@ -1,0 +1,67 @@
+% Relay — main file. Compile: tectonic relay.tex (or make -C . pdf)
+% Template: house conventions (obviousbench + answer-key papers) via benchkit.
+% Body lives in sections/*.tex; tables under tables/ are GENERATED
+% (relay_analysis.py, relay_gates.py) — do not hand-edit either.
+\documentclass[11pt]{article}
+\usepackage[margin=1.05in]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{newtxtext,newtxmath}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{microtype}
+\usepackage{tabularx}
+\usepackage[numbers,sort&compress]{natbib}
+\usepackage[hidelinks]{hyperref}
+\usepackage{xcolor}
+\usepackage[section]{placeins}
+\usepackage{flafter}
+\usepackage{fewerfloatpages}
+\usepackage{fontspec}
+\newfontfamily\iconfont{FreeSerif.otf}
+\newcommand{\lunaicon}{{\iconfont ☾}}
+\newcommand{\terraicon}{{\iconfont ⊕}}
+\newcommand{\solicon}{{\iconfont ☼}}
+
+% House style from the kit: captions (tables captioned above), \Cref
+% cross-references, compact references, float placement, table notes.
+\usepackage[housestyle]{benchkit}% vendored by benchkit sync (see .benchkit.json); load after hyperref and natbib
+\newcommand{\blindboard}{\benchmarkname{Blindboard}}
+\newcommand{\relay}{\benchmarkname{Blindboard Relay}}
+\newcommand{\snapshotname}{relay-2026-09}
+\benchkitsnapshot{tables/relay_macros}% generated census/cost/floor macros — numbers never hand-typed
+
+\title{Blindboard Relay: Measuring Model-Written Memory\\
+Across Amnesiac Turns}
+\author{Adam Allcock\\
+Independent researcher\\
+\texttt{adamallcock@gmail.com}}
+\date{Preprint, October 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+\relay{} tests whether language models can write notes that a fresh instance can use on the next turn. In \blindboard{}, a hidden-keyboard deduction game, each turn receives the fixed rules, one predecessor note and the current observation. The client discards the earlier transcript and reasoning. The score is the fraction of keys identified correctly. A sound reference policy supplies an attainable score at each note budget. We sample combinations of nine models from three providers, seven budgets and four text interfaces, with visible-transcript and retained-reasoning controls. At 100 characters, GPT-5.4 Nano's notes score $\relayfamsevenabs$ below its retained-reasoning control ($p\relayfamsevenp$); these conditions were collected on different dates. A supplied schema improves Nano's notes by $\relayprimnanoschematwohundreddelta$ at 200 characters and $\relayprimnanoschemafiftydelta$ at 50, surviving correction over the declared \relayprimfamily-test family. Schema notes also outperform Nano's visible transcript, but the later retained-reasoning control scores $\relayfamfivestdabs$ higher than the schema. Same-day tests on fresh seeds confirm higher scores with retained reasoning for GPT-5.6 Luna and GPT-6 Luna. GPT-6 Sol, Gemini 3.8 Flash and Claude Opus 5.5 score at least $\relayfrontiermin$ in every tested condition at 100 characters. Tighter budgets lower their scores but do not establish a ranking. Adjacent note formats become more similar within longer chains, but the metric does not establish chain-specific conventions. These pilot results, at one reasoning effort, support model-specific memory tests. Frontier rankings and transfer to open-world agent memory remain unestablished.
+\end{abstract}
+
+\clearpage
+\input{sections/01_introduction}
+\input{sections/02_related_work}
+\input{sections/03_environment}
+\input{sections/04_certification}
+\input{sections/05_setup}
+\input{sections/06_results}
+\input{sections/07_discussion}
+\input{sections/08_limitations_ethics_reproducibility}
+\input{sections/09_conclusion}
+
+\clearpage
+\appendix
+\crefalias{subsection}{appendix}
+\input{sections/appendix}
+
+\clearpage
+\bibliographystyle{abbrvnat}
+\bibliography{references}
+
+\end{document}

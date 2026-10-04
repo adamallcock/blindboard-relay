@@ -1,0 +1,28 @@
+\section{Benchmark and measurement}
+
+\subsection{Base game}
+An episode follows \blindboard{} \citep{blindboard2026}. The $N$ keys have a hidden one-to-one mapping to symbols. The model presses chords of $K$ distinct keys, addressed by touch-typing coordinates, and receives their symbols as unordered sets. Between turns, announced rotations move symbols among subsets of keys. Each rotation is a derangement: every selected key changes symbol. The model may end the game with a full-board guess on any turn and must guess after at most $T$ press turns. Board accuracy is the fraction of keys correct in the layout at the time of the guess. Optional locks have a separate score and do not freeze the layout.
+
+The relay base has 26 keys, $K{=}4$, a 20-turn cap and rotations ending by turn 9. The full-memory reference solves the evaluated instances, and every interface uses the same world rules. A 39-key base supports the transfer experiment; a 60-turn-cap base supports the drift experiment and frontier test F17. Caps do not require models to complete that many turns.
+
+\subsection{The relay loop}\label{sec:loop}
+Each turn receives the system rules, the predecessor's note, the current observation and a wrapper reporting whether the note exceeded its budget. The constitution condition also repeats its pre-game notation specification. The context starts with two fresh messages and server-side storage disabled; no earlier transcript or reasoning is replayed.
+
+The observation gives the turn and phase, previous ordered presses and unordered results, rotation notices, and environment feedback. Re-locking a key produces an ``already locked'' notice. This does not reveal whether the lock was correct, but it can reveal an earlier action outside the note budget. The note is therefore the only budgeted authored memory, not the only possible source of information about the past. Only a same-turn correction retry can extend the turn's context (\relayretrycalls{} calls across main-v2 text-note episodes). A retry replays the rejected reply's text, but not its reasoning.
+
+The v2 rules state that notes do not accumulate and that the successor's observation echoes the current turn's presses and results. They also retain two coaching sentences: invent a dense, consistent notation; and record layout knowledge, uncertainty and plans. These instructions concern behavior the benchmark measures, so we treat them as part of the instrument. We tested a controlled \texttt{nocoach} variant with both sentences removed on each of the four original models (\Cref{sec:audit}). \Cref{app:prompts} reproduces the relay-mode rules and imposed-schema notation verbatim. The remaining condition blocks (form, image and constitution pin) will be included in the publication artifact, \texttt{relay/prompts.py}.
+
+\subsection{Channels and conditions}\label{sec:channels}
+\textbf{Text budgets.} The budgets are $B \in \{800, 200, 100, 75, 50, 30, 25\}$ Unicode code points, the units counted as characters here. The harness carries only the first $B$ code points. This can split a word, token or grapheme cluster (a user-perceived character) and does not fix the number of bytes or bits. The cut is announced as ``torn off.'' The budget excludes shared rules, action echoes, feedback, overflow markers and condition-specific instructions. Ordered press echoes and overflow markers can carry additional information; we did not measure their use as communication channels.
+
+The budget range was not fixed in advance. The pilot grid was $\{800, 200, 100, 50, 25\}$. We added $B{=}75$ after the pilot located the mid-tier retention crossing (\Cref{sec:reference}). We added $B{=}30$ after GPT-5.6 Sol produced a positional encoding at $B{=}50$. A budget above 26--27 leaves room for one character per key without explicitly suggesting that encoding. Both budget choices were exploratory. Later families at an already chosen budget were declared before their own collection; they test that condition, not the budget-selection process (\Cref{sec:setup}).
+
+\textbf{Schema.} The rules specify and require our codec: key indices, \texttt{!} for singleton facts, and \texttt{|} for set facts.
+
+\textbf{Constitution.} One pre-game call designs a $\leq$400-character notation specification. The harness then pins it verbatim in every turn's system prompt, outside the note budget.
+
+\textbf{Form.} The action JSON (JavaScript Object Notation) includes structured \texttt{known}/\texttt{groups} fields. The harness checks addresses, symbols and entry shapes, dropping and counting invalid entries. It does not verify factual truth or all one-to-one mapping constraints. It renders the accepted entries in a fixed mnemonic format and passes that rendering as the note. The protocol thus enforces the notation.
+
+\textbf{SVG} (Scalable Vector Graphics). The model returns SVG source ($\leq$2{,}500 bytes), filtered for script, image and resource-reference patterns. For this snapshot, macOS Quick Look (\texttt{qlmanage}, macOS 26.5.2) rasterized each SVG at 512px. The successor receives only the rendered PNG (Portable Network Graphics) image. The stored images are the channel record.
+
+The \textbf{transcription probe} tests recovery from a simpler state than the game. One instance encodes a supplied random 10-fact state as SVG; a fresh instance reads the rendered image back. Recovery precision and recall measure the combined write$\to$render$\to$read process. They do not identify the source of game failures.
